@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+@theme {
+  --color-acid-lime: #CDFF00;
+  --color-text-deep: #444343;
+  --color-text-muted: #7A7A7A;
+  --color-border-light: #C7C7C7;
+  --font-sans: var(--font-sans);
+  --font-serif: var(--font-serif);
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  --animate-marquee: marquee 30s linear infinite;
+}
+
+/* Editorial Grid Borders */
+.grid-border-t { border-top: 1px solid var(--color-border-light); }
+.grid-border-b { border-bottom: 1px solid var(--color-border-light); }
+.grid-border-l { border-left: 1px solid var(--color-border-light); }
+.grid-border-r { border-right: 1px solid var(--color-border-light); }
+
+/* Editorial Typography */
+.hero-headline {
+  font-size: clamp(3.5rem, 10vw, 9rem);
+  line-height: 0.88;
+  letter-spacing: -0.04em;
+  font-weight: 900;
+}
+
+.section-headline {
+  font-size: clamp(2.5rem, 7vw, 5.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.03em;
+  font-weight: 700;
+}
+
+.label-text {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--color-text-muted);
+}
+
+.mono-index {
+  font-variant-numeric: tabular-nums;
+}
