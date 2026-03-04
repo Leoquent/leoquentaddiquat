@@ -48,17 +48,15 @@ export default function Sectors() {
   const activeSector = sectors.find(s => s.id === activeTab)!;
 
   return (
-    <section className="grid grid-cols-1 lg:grid-cols-12 max-w-[1440px] mx-auto grid-border-b bg-white overflow-hidden">
-      {/* Sidebar — desktop only */}
-      <aside className="hidden lg:flex lg:col-span-3 grid-border-r px-8 py-16 flex-col justify-start items-start">
+    <section className="max-w-[1440px] mx-auto grid-border-b bg-white overflow-hidden">
+      {/* ── Section Label ── */}
+      <div className="px-6 md:px-12 lg:px-16 pt-16 pb-4">
         <p className="label-text">Für wen</p>
-      </aside>
+      </div>
 
       {/* Main Content */}
-      <div className="col-span-1 lg:col-span-9 px-6 md:px-12 lg:px-16 py-16 lg:py-24">
+      <div className="px-6 md:px-12 lg:px-16 pb-16 lg:pb-24">
         <div className="flex flex-col items-start lg:items-center mb-16 lg:mb-24 gap-8 w-full">
-          {/* Mobile label only */}
-          <p className="label-text lg:hidden">Für wen</p>
 
           <div className="w-full overflow-x-auto pb-4 hide-scrollbar flex justify-start lg:justify-center">
             {/* Tab Switcher */}
@@ -136,7 +134,7 @@ export default function Sectors() {
                   <motion.path
                     d="M 200 120 L 320 190 L 320 330 L 200 400 L 80 330 L 80 190 Z"
                     fill="none"
-                    stroke="#CDFF00"
+                    stroke="#9eff20"
                     strokeWidth="12"
                     strokeLinecap="round"
                     strokeLinejoin="round"

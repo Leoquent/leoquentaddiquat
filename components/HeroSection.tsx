@@ -20,47 +20,15 @@ const phrases = [
 export default function HeroSection() {
 
     return (
-        <section className="min-h-screen grid grid-cols-1 lg:grid-cols-12 max-w-[1440px] mx-auto grid-border-b">
-            {/* Sidebar — desktop only */}
-            <aside className="hidden lg:flex lg:col-span-3 grid-border-r px-8 py-16 pt-28 flex-col justify-start gap-16 items-start">
-                <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2, ease }}
-                >
-                    <div className="flex items-center gap-2">
-                        <div className="w-1 h-3 bg-acid-lime" />
-                        <p className="label-text">Mission</p>
-                    </div>
-                    <p className="mt-4 text-xs text-text-muted leading-relaxed max-w-[200px]">
-                        Wir transformieren Geschäftsprozesse in autonome digitale Architekturen. Durch die Verbindung von strategischer Kreativität und kompromissloser IT-Sicherheit schaffen wir messbaren Nutzen, der Unternehmen agiler, profitabler und menschlicher macht.
-                    </p>
-                </motion.div>
-
-                <motion.div
-                    className="max-w-[200px]"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.8, delay: 0.6, ease }}
-                >
-                    <div className="flex items-center gap-2">
-                        <div className="w-1 h-3 bg-acid-lime" />
-                        <p className="label-text">Vision</p>
-                    </div>
-                    <p className="mt-4 text-xs text-text-muted leading-relaxed">
-                        Wir etablieren den neuen Standard für das intelligente Betriebssystem des europäischen Mittelstands – die grenzenlose Kraft der KI für jeden Unternehmer so einfach, zuverlässig und sicher wie ein Lichtschalter.
-                    </p>
-                </motion.div>
-            </aside>
-
+        <section className="min-h-screen max-w-[1440px] mx-auto grid-border-b flex flex-col px-6 md:px-12 lg:px-16 pt-32 pb-16 justify-center overflow-hidden">
             {/* Main hero content */}
-            <div className="col-span-1 lg:col-span-9 px-6 md:px-12 lg:px-16 pt-28 lg:pt-28 pb-16 flex flex-col justify-between min-h-screen lg:min-h-[85vh]">
-                {/* Tagline — mobile only */}
+            <div className="flex flex-col w-full flex-grow justify-center">
+                {/* Tagline */}
                 <motion.div
-                    className="flex items-center gap-3 mb-8 lg:hidden"
+                    className="flex items-center gap-3 mb-8"
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.2, ease }}
+                    transition={{ duration: 0.6, delay: 0.6, ease }}
                 >
                     <span className="text-[10px] uppercase tracking-[0.3em] font-bold text-black/40">
                         Strategic Agentic Excellence
@@ -76,12 +44,12 @@ export default function HeroSection() {
                 >
                     <h1 className="hero-headline font-sans uppercase flex flex-col items-start w-full">
                         <span className="opacity-90 mb-2">Wir beenden</span>
-                        <div className="relative w-full min-h-[140px] mb-8 lg:min-h-[180px]">
+                        <div className="relative w-full min-h-[100px] sm:min-h-[140px] md:min-h-[180px] lg:min-h-[220px] xl:min-h-[240px] mb-8 lg:mb-12">
                             <Typewriter
                                 words={phrases}
                                 speed={60}
                                 delayBetweenWords={1800}
-                                className="block text-acid-lime font-serif font-normal opacity-90 text-[clamp(2.5rem,7vw,7rem)] tracking-tight leading-[0.9] origin-top-left"
+                                className="block text-acid-lime font-serif font-bold opacity-90 text-[clamp(1.85rem,8.5vw,8rem)] tracking-[-0.04em] leading-[0.88] origin-top-left"
                             />
                         </div>
                     </h1>

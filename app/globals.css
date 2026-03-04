@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-acid-lime: #CDFF00;
+  --color-acid-lime: #9eff20;
   --color-text-deep: #444343;
   --color-text-muted: #7A7A7A;
   --color-border-light: #C7C7C7;
@@ -9,17 +9,34 @@
   --font-serif: var(--font-serif);
 
   @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
+    from {
+      transform: translateX(0);
+    }
+
+    to {
+      transform: translateX(-50%);
+    }
   }
+
   --animate-marquee: marquee 30s linear infinite;
 }
 
 /* Editorial Grid Borders */
-.grid-border-t { border-top: 1px solid var(--color-border-light); }
-.grid-border-b { border-bottom: 1px solid var(--color-border-light); }
-.grid-border-l { border-left: 1px solid var(--color-border-light); }
-.grid-border-r { border-right: 1px solid var(--color-border-light); }
+.grid-border-t {
+  border-top: 1px solid var(--color-border-light);
+}
+
+.grid-border-b {
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.grid-border-l {
+  border-left: 1px solid var(--color-border-light);
+}
+
+.grid-border-r {
+  border-right: 1px solid var(--color-border-light);
+}
 
 /* Editorial Typography */
 .hero-headline {

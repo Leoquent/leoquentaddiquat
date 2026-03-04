@@ -39,166 +39,153 @@ export default function AutonomousAgents() {
     const [activeAgent, setActiveAgent] = useState(0);
 
     return (
-        <section id="agenten" className="grid grid-cols-1 lg:grid-cols-12 max-w-[1440px] mx-auto grid-border-b">
-            {/* Sidebar */}
-            <aside className="hidden lg:flex lg:col-span-3 grid-border-r px-8 py-16 flex-col justify-between items-start">
-                <div>
-                    <p className="label-text">Agenten</p>
-                    <p className="mt-4 text-xs text-text-muted leading-relaxed max-w-[180px]">
-                        Wir programmieren die Software so, wie Ihr Kopf arbeitet.
-                    </p>
+        <section id="agenten" className="max-w-[1440px] mx-auto grid-border-b bg-white">
+            {/* ── Section Label & Description ── */}
+            <div className="px-6 md:px-12 lg:px-16 pt-16 pb-4">
+                <p className="label-text">Agenten</p>
+                <p className="mt-4 text-xs text-text-muted leading-relaxed max-w-[280px]">
+                    Wir programmieren die Software so, wie Ihr Kopf arbeitet.
+                </p>
+            </div>
+
+            {/* ── Section Header ── */}
+            <motion.div
+                className="px-6 md:px-12 lg:px-16 pb-12 lg:pb-16"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-100px' }}
+                transition={{ duration: 0.8, ease }}
+            >
+                <h2 className="section-headline font-sans uppercase text-left">
+                    Autonome<br />
+                    KI-Mitarbeiter.
+                </h2>
+                <p className="mt-6 text-lg text-text-deep max-w-xl leading-relaxed">
+                    Wir bauen keine UX-Wüsten. Wir bauen autonome Mitarbeiter, die sich nahtlos in Ihren Alltag einfügen.
+                </p>
+            </motion.div>
+
+            {/* ── Unified Horizontal Agent Selector ── */}
+            <div className="px-6 md:px-12 lg:px-16 pb-8 border-b border-black/10">
+                <div className="w-full overflow-x-auto hide-scrollbar flex justify-start lg:justify-center">
+                    <div className="flex flex-nowrap md:flex-wrap justify-center p-1 bg-white rounded-full border-2 border-black hover:ring-inset hover:ring-1 hover:ring-black transition-all min-w-max md:min-w-0">
+                        {agents.map((agent, i) => (
+                            <button
+                                key={agent.index}
+                                onClick={() => setActiveAgent(i)}
+                                className={`px-4 md:px-8 py-2.5 rounded-full text-sm font-sans font-bold transition-all relative whitespace-nowrap ${activeAgent === i
+                                    ? 'text-white'
+                                    : 'text-black hover:bg-black hover:text-white'
+                                    }`}
+                            >
+                                {activeAgent === i && (
+                                    <motion.div
+                                        layoutId="activeAgentTab"
+                                        className="absolute inset-0 bg-black rounded-full"
+                                        transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
+                                    />
+                                )}
+                                <span className="relative z-10">{agent.name}</span>
+                            </button>
+                        ))}
+                    </div>
                 </div>
+            </div>
 
-                {/* Agent mini-nav */}
-                <div className="flex flex-col gap-3">
-                    {agents.map((agent, i) => (
-                        <button
-                            key={agent.index}
-                            onClick={() => setActiveAgent(i)}
-                            className={`text-left text-xs uppercase tracking-widest font-bold transition-colors ${activeAgent === i ? 'text-black' : 'text-black/20 hover:text-black/50'
-                                }`}
-                        >
-                            {agent.index} / {agent.name}
-                        </button>
-                    ))}
-                </div>
-            </aside>
+            {/* ── Agent Cards Content ── */}
+            <div className="w-full">
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={activeAgent}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -20 }}
+                        transition={{ duration: 0.5, ease }}
+                        className="grid grid-cols-1 xl:grid-cols-2 gap-0"
+                    >
+                        {/* Text Content */}
+                        <div className="px-6 md:px-12 lg:px-16 py-12 lg:py-16 xl:grid-border-r order-2 xl:order-1 flex flex-col justify-center">
+                            <span className="mono-index text-sm font-bold text-text-muted mb-6 block">
+                                {agents[activeAgent].index}
+                            </span>
+                            <h3 className="text-3xl md:text-4xl font-black uppercase tracking-tight mb-4 font-sans">
+                                {agents[activeAgent].name}
+                            </h3>
+                            <p className="text-xl font-semibold mb-6 leading-tight">
+                                {agents[activeAgent].headline}
+                            </p>
+                            <p className="text-base text-text-deep leading-relaxed mb-4 max-w-lg">
+                                {agents[activeAgent].description}
+                            </p>
+                            <p className="text-sm text-black/40 leading-relaxed max-w-lg">
+                                {agents[activeAgent].detail}
+                            </p>
+                        </div>
 
-            {/* Content */}
-            <div className="col-span-1 lg:col-span-9">
-                {/* Section Header */}
-                <motion.div
-                    className="px-6 md:px-12 lg:px-16 py-12 lg:py-16 grid-border-b"
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true, margin: '-100px' }}
-                    transition={{ duration: 0.8, ease }}
-                >
-                    <p className="label-text lg:hidden mb-4">Agenten</p>
-                    <h2 className="section-headline font-sans uppercase text-left">
-                        Autonome<br />
-                        KI-Mitarbeiter.
-                    </h2>
-                    <p className="mt-6 text-lg text-text-deep max-w-xl leading-relaxed">
-                        Wir bauen keine UX-Wüsten. Wir bauen autonome Mitarbeiter, die sich nahtlos in Ihren Alltag einfügen.
-                    </p>
-                </motion.div>
+                        {/* Visual Animation */}
+                        <div className="px-6 md:px-12 lg:px-16 py-12 lg:py-16 flex items-center justify-center order-1 xl:order-2 grid-border-b xl:border-b-0">
+                            <div className="relative w-full aspect-square max-w-[280px] lg:max-w-[400px]">
+                                <svg viewBox="0 0 300 300" className="w-full h-full">
+                                    {/* Hex 1 — top center */}
+                                    <motion.path
+                                        d="M 150 20 L 200 50 L 200 110 L 150 140 L 100 110 L 100 50 Z"
+                                        fill="none"
+                                        stroke="black"
+                                        strokeWidth="1.5"
+                                        initial={{ pathLength: 0 }}
+                                        whileInView={{ pathLength: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 1, delay: 0, ease }}
+                                    />
+                                    {/* Hex 2 — bottom left */}
+                                    <motion.path
+                                        d="M 100 110 L 150 140 L 150 200 L 100 230 L 50 200 L 50 140 Z"
+                                        fill="none"
+                                        stroke="black"
+                                        strokeWidth="1.5"
+                                        initial={{ pathLength: 0 }}
+                                        whileInView={{ pathLength: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 1, delay: 0.3, ease }}
+                                    />
+                                    {/* Hex 3 — bottom right */}
+                                    <motion.path
+                                        d="M 200 110 L 250 140 L 250 200 L 200 230 L 150 200 L 150 140 Z"
+                                        fill="#9eff20"
+                                        fillOpacity={0.1}
+                                        stroke="#9eff20"
+                                        strokeWidth="1.5"
+                                        initial={{ pathLength: 0 }}
+                                        whileInView={{ pathLength: 1 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 1, delay: 0.6, ease }}
+                                    />
 
-                {/* Agent Cards */}
-                <div className="grid grid-cols-1">
-                    <AnimatePresence mode="wait">
-                        <motion.div
-                            key={activeAgent}
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -20 }}
-                            transition={{ duration: 0.5, ease }}
-                            className="grid grid-cols-1 lg:grid-cols-2 gap-0"
-                        >
-                            {/* Text */}
-                            <div className="px-6 md:px-12 lg:px-16 py-12 lg:py-16 lg:grid-border-r">
-                                <span className="mono-index text-sm font-bold text-text-muted mb-6 block">
-                                    {agents[activeAgent].index}
-                                </span>
-                                <h3 className="text-3xl md:text-4xl font-bold uppercase tracking-tight mb-4">
-                                    {agents[activeAgent].name}
-                                </h3>
-                                <p className="text-xl font-semibold mb-6 leading-tight">
-                                    {agents[activeAgent].headline}
-                                </p>
-                                <p className="text-base text-text-deep leading-relaxed mb-4">
-                                    {agents[activeAgent].description}
-                                </p>
-                                <p className="text-sm text-black/40 leading-relaxed">
-                                    {agents[activeAgent].detail}
-                                </p>
-                            </div>
-
-                            {/* SVG Placeholder: Ineinandergreifende, sich aufbauende Waben */}
-                            <div className="px-6 md:px-12 lg:px-16 py-12 lg:py-16 flex items-center justify-center">
-                                {/* ANIMATION PLACEHOLDER: Ineinandergreifende, sich aufbauende Waben
-                                     - Hexagone erscheinen nacheinander
-                                     - Verbinden sich zu einem Netzwerk
-                                     - Acid Lime Akzente */}
-                                <div className="relative w-full aspect-square max-w-[320px]">
-                                    <svg viewBox="0 0 300 300" className="w-full h-full">
-                                        {/* Hex 1 — top center */}
-                                        <motion.path
-                                            d="M 150 20 L 200 50 L 200 110 L 150 140 L 100 110 L 100 50 Z"
-                                            fill="none"
-                                            stroke="black"
-                                            strokeWidth="1.5"
-                                            initial={{ pathLength: 0 }}
-                                            whileInView={{ pathLength: 1 }}
+                                    {/* Connection dots */}
+                                    {[[150, 140], [100, 110], [200, 110]].map(([cx, cy], i) => (
+                                        <motion.circle
+                                            key={i}
+                                            cx={cx}
+                                            cy={cy}
+                                            r="3"
+                                            fill={i === 2 ? '#9eff20' : 'black'}
+                                            initial={{ scale: 0 }}
+                                            whileInView={{ scale: 1 }}
                                             viewport={{ once: true }}
-                                            transition={{ duration: 1, delay: 0, ease }}
+                                            transition={{ duration: 0.3, delay: 1 + i * 0.15 }}
                                         />
-                                        {/* Hex 2 — bottom left */}
-                                        <motion.path
-                                            d="M 100 110 L 150 140 L 150 200 L 100 230 L 50 200 L 50 140 Z"
-                                            fill="none"
-                                            stroke="black"
-                                            strokeWidth="1.5"
-                                            initial={{ pathLength: 0 }}
-                                            whileInView={{ pathLength: 1 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 1, delay: 0.3, ease }}
-                                        />
-                                        {/* Hex 3 — bottom right */}
-                                        <motion.path
-                                            d="M 200 110 L 250 140 L 250 200 L 200 230 L 150 200 L 150 140 Z"
-                                            fill="#CDFF00"
-                                            fillOpacity={0.1}
-                                            stroke="#CDFF00"
-                                            strokeWidth="1.5"
-                                            initial={{ pathLength: 0 }}
-                                            whileInView={{ pathLength: 1 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 1, delay: 0.6, ease }}
-                                        />
+                                    ))}
+                                </svg>
 
-                                        {/* Connection dots */}
-                                        {[[150, 140], [100, 110], [200, 110]].map(([cx, cy], i) => (
-                                            <motion.circle
-                                                key={i}
-                                                cx={cx}
-                                                cy={cy}
-                                                r="3"
-                                                fill={i === 2 ? '#CDFF00' : 'black'}
-                                                initial={{ scale: 0 }}
-                                                whileInView={{ scale: 1 }}
-                                                viewport={{ once: true }}
-                                                transition={{ duration: 0.3, delay: 1 + i * 0.15 }}
-                                            />
-                                        ))}
-                                    </svg>
-
-                                    <div className="absolute bottom-2 left-0 right-0 text-center">
-                                        <span className="text-[9px] uppercase tracking-[0.3em] text-black/20 font-bold">
-                                            Animation: Waben-Netzwerk
-                                        </span>
-                                    </div>
+                                <div className="absolute bottom-2 left-0 right-0 text-center">
+                                    <span className="text-[9px] uppercase tracking-[0.3em] text-black/20 font-bold">
+                                        Animation: Waben-Netzwerk
+                                    </span>
                                 </div>
                             </div>
-                        </motion.div>
-                    </AnimatePresence>
-                </div>
-
-                {/* Mobile Agent Selector */}
-                <div className="flex lg:hidden gap-2 px-6 py-6 grid-border-t">
-                    {agents.map((agent, i) => (
-                        <button
-                            key={agent.index}
-                            onClick={() => setActiveAgent(i)}
-                            className={`flex-1 py-3 text-xs font-bold uppercase tracking-wider rounded-full border-2 transition-all ${activeAgent === i
-                                ? 'bg-black text-white border-black'
-                                : 'bg-transparent text-black/40 border-black/10 hover:border-black/30'
-                                }`}
-                        >
-                            {agent.name}
-                        </button>
-                    ))}
-                </div>
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
             </div>
         </section>
     );

@@ -23,28 +23,25 @@ const founders = [
 
 export default function SymbiosisTeam() {
     return (
-        <section id="symbiose" className="grid grid-cols-1 lg:grid-cols-12 max-w-[1440px] mx-auto grid-border-b">
-            {/* Sidebar */}
-            <aside className="hidden lg:flex lg:col-span-3 grid-border-r px-8 py-16 flex-col justify-between items-start">
-                <div>
-                    <p className="label-text">Über uns</p>
-                    <p className="mt-4 text-xs text-text-muted leading-relaxed max-w-[180px]">
-                        Die perfekte Symbiose aus strategischer Kreativität und kompromissloser Technik.
-                    </p>
-                </div>
-            </aside>
+        <section id="symbiose" className="max-w-[1440px] mx-auto grid-border-b">
+            {/* ── Section Label & Description ── */}
+            <div className="px-6 md:px-12 lg:px-16 pt-16 pb-4">
+                <p className="label-text">Über uns</p>
+                <p className="mt-4 text-xs text-text-muted leading-relaxed max-w-[280px]">
+                    Die perfekte Symbiose aus strategischer Kreativität und kompromissloser Technik.
+                </p>
+            </div>
 
             {/* Content */}
-            <div className="col-span-1 lg:col-span-9">
+            <div className="w-full">
                 {/* Section Header */}
                 <motion.div
-                    className="px-6 md:px-12 lg:px-16 py-12 lg:py-16 grid-border-b"
+                    className="px-6 md:px-12 lg:px-16 pb-12 lg:pb-16 grid-border-b"
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: '-100px' }}
                     transition={{ duration: 0.8, ease }}
                 >
-                    <p className="label-text lg:hidden mb-4">Über uns</p>
                     <h2 className="section-headline font-sans uppercase text-left">
                         Die L<span className="text-acid-lime">&</span>A<br />
                         Symbiose.
@@ -119,9 +116,9 @@ export default function SymbiosisTeam() {
                                 {/* Right Hexagon — Execution (filled lime) */}
                                 <motion.path
                                     d="M 110 155 L 160 130 L 210 155 L 210 220 L 160 245 L 110 220 Z"
-                                    fill="#CDFF00"
+                                    fill="#9eff20"
                                     fillOpacity={0.2}
-                                    stroke="#CDFF00"
+                                    stroke="#9eff20"
                                     strokeWidth="2"
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -136,7 +133,7 @@ export default function SymbiosisTeam() {
                                     cx="150"
                                     cy="150"
                                     r="12"
-                                    fill="#CDFF00"
+                                    fill="#9eff20"
                                     initial={{ scale: 0, opacity: 0 }}
                                     whileInView={{ scale: 1, opacity: 0.6 }}
                                     viewport={{ once: true }}

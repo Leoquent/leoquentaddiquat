@@ -20,7 +20,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="de" className={`${inter.variable} ${playfair.variable}`}>
-      <body suppressHydrationWarning className="antialiased selection:bg-[#CDFF00] selection:text-black">
+      <body suppressHydrationWarning className="antialiased selection:bg-[#9eff20] selection:text-black">
         {children}
       </body>
     </html>

@@ -15,8 +15,8 @@ export default function Page() {
     <main className="min-h-screen bg-white">
       <Header />
       <HeroSection />
-      <Manifesto />
       <SystemGrid />
+      <Manifesto />
       <AutonomousAgents />
       <Sectors />
       <SymbiosisTeam />
