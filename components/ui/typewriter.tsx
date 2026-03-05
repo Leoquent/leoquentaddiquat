@@ -9,6 +9,7 @@ interface TypewriterProps {
     cursor?: boolean
     cursorChar?: string
     className?: string
+    markerClassName?: string
 }
 
 export function Typewriter({
@@ -18,6 +19,7 @@ export function Typewriter({
     cursor = true,
     cursorChar = "|",
     className = "",
+    markerClassName,
 }: TypewriterProps) {
     const [currentText, setCurrentText] = useState("")
     const [isDeleting, setIsDeleting] = useState(false)
@@ -48,9 +50,27 @@ export function Typewriter({
         return () => clearTimeout(timeout)
     }, [currentText, isDeleting, wordIndex, words, speed, delayBetweenWords])
 
+    const renderText = () => {
+        if (!markerClassName) {
+            return currentText
+        }
+        // Split by newlines and wrap each line in a marker span
+        const lines = currentText.split('\n')
+        return lines.map((line, i) => (
+            <span key={i}>
+                {line.length > 0 && (
+                    <span className={markerClassName}>
+                        {line}
+                    </span>
+                )}
+                {i < lines.length - 1 && '\n'}
+            </span>
+        ))
+    }
+
     return (
         <div className={`whitespace-pre-wrap ${className}`}>
-            {currentText}
+            {renderText()}
             {cursor && (
                 <span className="font-light animate-blink">
                     {cursorChar}
@@ -64,7 +84,8 @@ export function Typewriter({
         .animate-blink {
           animation: blink 1s step-end infinite;
         }
-      `}</style>
+      `}
+            </style>
         </div>
     )
 }

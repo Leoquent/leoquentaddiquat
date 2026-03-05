@@ -43,13 +43,14 @@ export default function HeroSection() {
                     className="perspective-[1000px] w-full"
                 >
                     <h1 className="hero-headline font-sans uppercase flex flex-col items-start w-full">
-                        <span className="opacity-90 mb-2">Wir beenden</span>
-                        <div className="relative w-full min-h-[100px] sm:min-h-[140px] md:min-h-[180px] lg:min-h-[220px] xl:min-h-[240px] mb-8 lg:mb-12">
+                        <span className="relative z-10 opacity-90 mb-2">Wir beenden</span>
+                        <div className="relative z-0 w-full min-h-[100px] sm:min-h-[140px] md:min-h-[180px] lg:min-h-[220px] xl:min-h-[240px] mb-8 lg:mb-12">
                             <Typewriter
                                 words={phrases}
                                 speed={60}
                                 delayBetweenWords={1800}
-                                className="block text-acid-lime font-serif font-bold opacity-90 text-[clamp(1.85rem,8.5vw,8rem)] tracking-[-0.04em] leading-[0.88] origin-top-left"
+                                className="block text-black font-sans font-bold opacity-90 text-[clamp(1.85rem,8.5vw,8rem)] tracking-[-0.04em] leading-[0.88] origin-top-left"
+                                markerClassName="typewriter-marker"
                             />
                         </div>
                     </h1>

@@ -64,3 +64,18 @@
 .mono-index {
   font-variant-numeric: tabular-nums;
 }
+
+/* Typewriter marker / highlighter effect */
+.typewriter-marker {
+  position: relative;
+  padding: 0.04em 0.15em;
+  margin: 0 -0.05em;
+}
+
+.typewriter-marker::before {
+  content: '';
+  position: absolute;
+  inset: 0.12em 0;
+  background-color: var(--color-acid-lime);
+  z-index: -1;
+}
