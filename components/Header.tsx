@@ -68,11 +68,12 @@ export default function Header() {
                 <div className="text-[10px] uppercase tracking-[0.3em] font-bold text-black/30 mb-8">Navigation</div>
                 <nav className="flex flex-col gap-8">
                   {[
-                    { label: 'Mission', href: '#start' },
-                    { label: 'Manifest', href: '#manifest' },
-                    { label: 'Technologie', href: '#technologie' },
+                    { label: 'Services', href: '#services' },
                     { label: 'Agenten', href: '#agenten' },
-                    { label: 'Über uns', href: '#symbiose' },
+                    { label: 'Prozess', href: '#prozess' },
+                    { label: 'Mehrwert', href: '#mehrwert' },
+                    { label: 'Portfolio', href: '#portfolio' },
+                    { label: 'Über uns', href: '#ueber-uns' },
                     { label: 'Kontakt', href: '#kontakt' },
                   ].map((item, i) => (
                     <motion.a

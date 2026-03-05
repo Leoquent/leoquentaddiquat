@@ -27,6 +27,7 @@ export function Typewriter({
 
     useEffect(() => {
         const currentWord = words[wordIndex]
+        if (!currentWord) return;
 
         const timeout = setTimeout(() => {
             if (!isDeleting) {

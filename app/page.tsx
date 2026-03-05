@@ -2,12 +2,15 @@
 
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
+import ScrollingTicker from '@/components/ScrollingTicker';
 import Manifesto from '@/components/Manifesto';
-import SystemGrid from '@/components/SystemGrid';
-import AutonomousAgents from '@/components/AutonomousAgents';
+import CoreCapabilities from '@/components/CoreCapabilities';
+import SystemProcess from '@/components/SystemProcess';
+import CustomAgentsNetwork from '@/components/CustomAgentsNetwork';
+import Advantages from '@/components/Advantages';
+import Portfolio from '@/components/Portfolio';
 import Sectors from '@/components/Sectors';
 import SymbiosisTeam from '@/components/SymbiosisTeam';
-import WhyDifferent from '@/components/WhyDifferent';
 import FooterCTA from '@/components/FooterCTA';
 
 export default function Page() {
@@ -15,12 +18,15 @@ export default function Page() {
     <main className="min-h-screen bg-white">
       <Header />
       <HeroSection />
-      <SystemGrid />
+      <ScrollingTicker />
       <Manifesto />
-      <AutonomousAgents />
+      <CoreCapabilities />
+      <SystemProcess />
+      <CustomAgentsNetwork />
+      <Advantages />
+      <Portfolio />
       <Sectors />
       <SymbiosisTeam />
-      <WhyDifferent />
       <FooterCTA />
     </main>
   );
