@@ -134,9 +134,10 @@ export default function Page() {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: "#content-wrapper",
-                start: "top bottom+=48px",  // starts immediately on first scroll
+                start: "top bottom-=48px",  // starts exactly when user begins scrolling up
                 end: "top 30%",
                 scrub: 0.5,
+                invalidateOnRefresh: true
             }
         });
 
@@ -160,9 +161,13 @@ export default function Page() {
                 opacity: 0,
                 filter: "blur(16px)",
                 scale: endScale,
-                ease: "power1.in"
+                ease: "power1.in",
+                immediateRender: false
             }, 0);
         });
+
+        // Ensure clean state on load for words
+        gsap.set(words, { opacity: 1, filter: "blur(0px)", x: 0, y: 0, z: 0, rotationX: 0, rotationY: 0, rotationZ: 0, scale: 1, willChange: "transform, opacity, filter" });
 
         // Fade out other hero static elements with depth
         tl.to(elements, {
