@@ -353,38 +353,40 @@ export default function Page() {
                 </nav>
 
                 {/* Hero – fixed in the background behind content */}
-                <section className="fixed top-0 left-0 right-0 h-[100svh] pt-28 flex flex-col bg-white z-0 overflow-hidden max-w-[1920px] mx-auto" id="hero-sticky-section">
-                    <div className="w-full flex-1 p-6 md:p-12 lg:p-20 flex flex-col justify-center relative" style={{ perspective: '1200px', perspectiveOrigin: '50% 40%' }}>
-                        <div className="font-mono mb-6 md:mb-8 uppercase text-sm tracking-widest flex items-center gap-4 hero-element">
-                            <span className="bg-lime text-black px-2">[01]</span>
-                            <div className="h-px bg-black/30 w-12 md:w-24"></div>
-                            <span className="bg-lime text-black px-2">Strategic Agentic Excellence</span>
-                        </div>
+                <section className="fixed top-0 left-0 right-0 h-[100svh] bg-white z-0 overflow-hidden" id="hero-sticky-section">
+                    <div className="max-w-[1920px] mx-auto h-full pt-28 flex flex-col">
+                        <div className="w-full flex-1 p-6 md:p-12 lg:p-20 flex flex-col justify-center relative" style={{ perspective: '1200px', perspectiveOrigin: '50% 40%' }}>
+                            <div className="font-mono mb-6 md:mb-8 uppercase text-sm tracking-widest flex items-center gap-4 hero-element">
+                                <span className="bg-lime text-black px-2">[01]</span>
+                                <div className="h-px bg-black/30 w-12 md:w-24"></div>
+                                <span className="bg-lime text-black px-2">Strategic Agentic Excellence</span>
+                            </div>
 
-                        <h1 className="font-syne text-4xl sm:text-5xl md:text-6xl lg:text-[5.5vw] xl:text-[6.5vw] leading-[1] font-bold tracking-tight mb-6 md:mb-8 text-black uppercase" style={{ transformStyle: 'preserve-3d' }}>
-                            <span className="hero-word inline-block">Wir</span>{" "}
-                            <span className="hero-word inline-block">bauen</span>{" "}
-                            <span className="hero-word inline-block">KI-Systeme,</span>
-                            <br className="hero-break hidden xl:block" />
-                            <span className="hero-word inline-block">die</span>{" "}
-                            <span className="hero-word inline-block">Ihre</span>{" "}
-                            <span className="hero-word inline-block">Arbeit</span>{" "}
-                            <span className="hero-word inline-block">machen.</span>
-                            <br className="hero-break hidden xl:block" />
-                            <span className="hero-word inline-block brutalist-marker">Nicht</span>{" "}
-                            <span className="hero-word inline-block brutalist-marker">umgekehrt.</span>
-                        </h1>
+                            <h1 className="font-syne text-4xl sm:text-5xl md:text-6xl lg:text-[5.5vw] xl:text-[6.5vw] leading-[1] font-bold tracking-tight mb-6 md:mb-8 text-black uppercase" style={{ transformStyle: 'preserve-3d' }}>
+                                <span className="hero-word inline-block">Wir</span>{" "}
+                                <span className="hero-word inline-block">bauen</span>{" "}
+                                <span className="hero-word inline-block">KI-Systeme,</span>
+                                <br className="hero-break hidden xl:block" />
+                                <span className="hero-word inline-block">die</span>{" "}
+                                <span className="hero-word inline-block">Ihre</span>{" "}
+                                <span className="hero-word inline-block">Arbeit</span>{" "}
+                                <span className="hero-word inline-block">machen.</span>
+                                <br className="hero-break hidden xl:block" />
+                                <span className="hero-word inline-block brutalist-marker">Nicht</span>{" "}
+                                <span className="hero-word inline-block brutalist-marker">umgekehrt.</span>
+                            </h1>
 
-                        <p className="text-lg md:text-xl text-mute leading-relaxed mb-8 md:mb-10 hero-element">
-                            Ob bestehende Insellösungen vernetzen oder komplette Tools von Grund auf neu programmieren:<br />
-                            Wir schaffen autonome Architekturen, die Arbeitsabläufe optimieren und Erfolg maximieren.
-                        </p>
+                            <p className="text-lg md:text-xl text-mute leading-relaxed mb-8 md:mb-10 hero-element">
+                                Ob bestehende Insellösungen vernetzen oder komplette Tools von Grund auf neu programmieren:<br />
+                                Wir schaffen autonome Architekturen, die Arbeitsabläufe optimieren und Erfolg maximieren.
+                            </p>
 
-                        <div className="flex items-center gap-6 hero-element">
-                            <a href="#cta" className="btn-glitch inline-block bg-lime text-vanta font-mono font-bold uppercase py-4 px-8 border border-lime transition-all duration-75">
-                                Potenzialanalyse_Starten
-                            </a>
-                            <span className="font-mono text-xs text-mute uppercase hidden sm:block">Status: <br /><span className="text-lime animate-pulse">unverbindlich</span></span>
+                            <div className="flex items-center gap-6 hero-element">
+                                <a href="#cta" className="btn-glitch inline-block bg-lime text-vanta font-mono font-bold uppercase py-4 px-8 border border-lime transition-all duration-75">
+                                    Potenzialanalyse_Starten
+                                </a>
+                                <span className="font-mono text-xs text-mute uppercase hidden sm:block">Status: <br /><span className="text-lime animate-pulse">unverbindlich</span></span>
+                            </div>
                         </div>
                     </div>
                 </section>
