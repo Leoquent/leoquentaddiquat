@@ -378,7 +378,7 @@ export default function Page() {
                             <span className="w-2 h-2 bg-lime group-hover:animate-ping rounded-full"></span>
                             RESTORE SYSTEM
                         </a>
-                        <a href="#cta" className={`font-mono text-[10px] sm:text-sm border px-3 py-1.5 sm:px-4 sm:py-2 transition-all uppercase ${scrolledPastHero ? 'bg-lime text-vanta border-lime btn-glitch font-bold duration-75' : 'border-gridline hover:border-lime hover:text-lime bg-white duration-0'}`}>
+                        <a href="#cta" className={`font-mono text-[10px] sm:text-sm border px-3 py-1.5 sm:px-4 sm:py-2 uppercase transition-colors duration-500 ease-in-out ${scrolledPastHero ? 'bg-lime text-vanta border-lime btn-glitch' : 'border-gridline hover:border-lime hover:text-lime bg-white'}`}>
                             <span className="sm:hidden">ANALYSIEREN</span>
                             <span className="hidden sm:inline">Potenzial analysieren</span>
                         </a>
