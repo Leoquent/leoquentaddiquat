@@ -376,8 +376,8 @@ export default function Page() {
                         INVERT SYSTEM
                     </a>
                     <a href="#cta" className="font-mono text-[10px] sm:text-sm border border-gridline px-3 py-1.5 sm:px-4 sm:py-2 hover:border-lime hover:text-lime transition-colors duration-0 uppercase bg-vanta">
-                        <span className="sm:hidden">INITIALISIEREN</span>
-                        <span className="hidden sm:inline">System Initialisieren</span>
+                        <span className="sm:hidden">ANALYSIEREN</span>
+                        <span className="hidden sm:inline">Potenzial analysieren</span>
                     </a>
                 </div>
             </nav>
@@ -412,7 +412,7 @@ export default function Page() {
 
                     <div className="flex items-center gap-6 hero-element">
                         <a href="#cta" className="btn-glitch inline-block bg-lime text-vanta font-mono font-bold uppercase py-4 px-8 border border-lime transition-all duration-75">
-                            Potenzialanalyse_Starten
+                            Potenzial_Analysieren
                         </a>
                         <span className="font-mono text-xs text-mute uppercase hidden sm:block">Status: <br /><span className="text-lime animate-pulse">unverbindlich</span></span>
                     </div>
