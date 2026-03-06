@@ -349,8 +349,8 @@ export default function Page() {
             <div className="noise-bg"></div>
 
             <nav id="main-nav" className={`fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[1920px] backdrop-blur-sm z-50 flex justify-between items-center px-6 border-b border-gridline transition-all duration-300 ${navScrolled ? 'py-3 bg-vanta/95 shadow-2xl' : 'py-6 bg-vanta/90'}`}>
-                <div className="flex items-center gap-3 font-sans font-normal text-lg tracking-tighter shrink-0">
-                    <div className="w-10 h-10 bg-lime shrink-0"
+                <div className="flex items-center gap-2 sm:gap-3 font-sans font-normal text-base sm:text-lg tracking-tighter shrink-0">
+                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-lime shrink-0"
                         style={{
                             WebkitMaskImage: `url('${basePath}/logo.png')`, WebkitMaskSize: "contain", WebkitMaskRepeat: "no-repeat", WebkitMaskPosition: "center",
                             maskImage: `url('${basePath}/logo.png')`, maskSize: "contain", maskRepeat: "no-repeat", maskPosition: "center"
@@ -358,7 +358,7 @@ export default function Page() {
                     </div>
                     <div className="flex items-center gap-1.5 leading-none mt-[-1px]">
                         <span>leoquent <span className="text-lime">&amp;</span> addequat</span>
-                        <span className="text-mute font-mono text-xs ml-2 font-normal hidden sm:inline-block mt-0.5">[v2.0]</span>
+                        <span className="text-mute font-mono text-[10px] ml-2 font-normal hidden md:inline-block mt-0.5">[v2.0]</span>
                     </div>
                 </div>
 
@@ -370,9 +370,14 @@ export default function Page() {
                     <a href="#warum-wir" className="hover:text-lime transition-colors">Warum Wir</a>
                 </div>
 
-                <div className="flex items-center gap-4 lg:gap-6 shrink-0">
-                    <a href="#cta" className="font-mono text-sm border border-gridline px-4 py-2 hover:border-lime hover:text-lime transition-colors duration-0 uppercase bg-vanta">
-                        System Initialisieren
+                <div className="flex items-center gap-2 sm:gap-4 lg:gap-6 shrink-0">
+                    <a href={`${basePath}/v5/`} className="hidden sm:flex items-center gap-2 font-mono text-[10px] border border-gridline px-3 py-1.5 hover:border-lime hover:text-lime transition-colors group">
+                        <span className="w-2 h-2 bg-lime group-hover:animate-ping rounded-full"></span>
+                        INVERT SYSTEM
+                    </a>
+                    <a href="#cta" className="font-mono text-[10px] sm:text-sm border border-gridline px-3 py-1.5 sm:px-4 sm:py-2 hover:border-lime hover:text-lime transition-colors duration-0 uppercase bg-vanta">
+                        <span className="sm:hidden">INITIALISIEREN</span>
+                        <span className="hidden sm:inline">System Initialisieren</span>
                     </a>
                 </div>
             </nav>
