@@ -134,7 +134,7 @@ export default function Page() {
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: "#content-wrapper",
-                start: "top bottom-=48px",  // starts exactly when user begins scrolling up
+                start: "top bottom-=150px",  // starts after 100px of scrolling – guaranteed sharp on load
                 end: "top 30%",
                 scrub: 0.5,
                 invalidateOnRefresh: true
@@ -166,8 +166,27 @@ export default function Page() {
             }, 0);
         });
 
-        // Ensure clean state on load for words
-        gsap.set(words, { opacity: 1, filter: "blur(0px)", x: 0, y: 0, z: 0, rotationX: 0, rotationY: 0, rotationZ: 0, scale: 1, willChange: "transform, opacity, filter" });
+        // Ensure clean state on load for words and static elements
+        gsap.set(words, {
+            opacity: 1,
+            filter: "none",
+            x: 0,
+            y: 0,
+            z: 0,
+            rotationX: 0,
+            rotationY: 0,
+            rotationZ: 0,
+            scale: 1,
+            willChange: "transform, opacity"
+        });
+        gsap.set(elements, {
+            opacity: 1,
+            filter: "none",
+            y: 0,
+            z: 0,
+            scale: 1,
+            willChange: "transform, opacity"
+        });
 
         // Fade out other hero static elements with depth
         tl.to(elements, {
