@@ -111,6 +111,7 @@ export default function Page() {
     const [activeSolution, setActiveSolution] = useState(0);
     const [activeIndustry, setActiveIndustry] = useState(0);
     const [navScrolled, setNavScrolled] = useState(false);
+    const [scrolledPastHero, setScrolledPastHero] = useState(false);
 
     const typewriterRef = useRef<HTMLSpanElement>(null);
     const sqGeoCoreRef = useRef<HTMLDivElement>(null);
@@ -120,6 +121,7 @@ export default function Page() {
     useEffect(() => {
         const handleScroll = () => {
             setNavScrolled(window.scrollY > 50);
+            setScrolledPastHero(window.scrollY > window.innerHeight - 100);
         };
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
@@ -375,7 +377,7 @@ export default function Page() {
                         <span className="w-2 h-2 bg-lime group-hover:animate-ping rounded-full"></span>
                         INVERT SYSTEM
                     </a>
-                    <a href="#cta" className="font-mono text-[10px] sm:text-sm border border-gridline px-3 py-1.5 sm:px-4 sm:py-2 hover:border-lime hover:text-lime transition-colors duration-0 uppercase bg-vanta">
+                    <a href="#cta" className={`font-mono text-[10px] sm:text-sm border px-3 py-1.5 sm:px-4 sm:py-2 transition-all uppercase ${scrolledPastHero ? 'bg-lime text-vanta border-lime btn-glitch font-bold duration-75' : 'border-gridline hover:border-lime hover:text-lime bg-vanta duration-0'}`}>
                         <span className="sm:hidden">ANALYSIEREN</span>
                         <span className="hidden sm:inline">Potenzial analysieren</span>
                     </a>
