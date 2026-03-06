@@ -473,10 +473,10 @@ export default function Page() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[480px]">
                         <div className="lg:col-span-4 flex flex-col border-b lg:border-b-0 lg:border-r border-gridline" id="solution-tabs">
                             {solutionsData.map((sol, idx) => (
-                                <button key={sol.id} onClick={() => setActiveSolution(idx)} className={`w-full text-left p-6 md:p-8 border-b border-gridline hover:bg-[#0a0a0a] transition-colors flex items-center gap-6 group focus:outline-none ${activeSolution === idx ? 'bg-[#0a0a0a]' : ''}`}>
+                                <button key={sol.id} onClick={() => setActiveSolution(idx)} className={`w-full text-left p-6 md:p-8 border-b border-gridline hover:bg-[#0a0a0a] transition-colors flex items-center gap-6 group focus:outline-none ${activeSolution === idx ? 'bg-[#0a0a0a]' : ''} flex-1`}>
                                     <span className={`font-mono text-sm group-hover:text-lime transition-colors ${activeSolution === idx ? 'text-lime' : 'text-mute'}`}>[{sol.id}]</span>
                                     <span className={`font-display text-xl uppercase font-bold tracking-wide ${activeSolution === idx ? 'text-white' : 'text-mute'} group-hover:text-white`}>{sol.title}</span>
                                 </button>
