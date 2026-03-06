@@ -8,6 +8,8 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(useGSAP, ScrollTrigger);
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+
 const painPoints = [
     "endlose|Zettelwirtschaft.",
     "fehleranfällige|Routinearbeit.",
@@ -351,8 +353,8 @@ export default function Page() {
                     <div className="flex items-center gap-3 font-sans font-normal text-lg tracking-tighter shrink-0">
                         <div className="w-10 h-10 bg-black shrink-0"
                             style={{
-                                WebkitMaskImage: "url('/logo.png')", WebkitMaskSize: "contain", WebkitMaskRepeat: "no-repeat", WebkitMaskPosition: "center",
-                                maskImage: "url('/logo.png')", maskSize: "contain", maskRepeat: "no-repeat", maskPosition: "center"
+                                WebkitMaskImage: `url('${basePath}/logo.png')`, WebkitMaskSize: "contain", WebkitMaskRepeat: "no-repeat", WebkitMaskPosition: "center",
+                                maskImage: `url('${basePath}/logo.png')`, maskSize: "contain", maskRepeat: "no-repeat", maskPosition: "center"
                             }}>
                         </div>
                         <div className="flex items-center gap-1.5 leading-none mt-[-1px]">
