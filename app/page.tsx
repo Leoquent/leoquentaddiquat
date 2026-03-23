@@ -360,7 +360,6 @@ export default function Page() {
                     </div>
                     <div className="flex items-center gap-1.5 leading-none mt-[-1px]">
                         <span>leoquent <span className="text-lime">&amp;</span> addequat</span>
-                        <span className="text-mute font-mono text-[10px] ml-2 font-normal hidden md:inline-block mt-0.5">[v2.0]</span>
                     </div>
                 </div>
 
@@ -377,7 +376,7 @@ export default function Page() {
                         <span className="w-2 h-2 bg-lime group-hover:animate-ping rounded-full"></span>
                         INVERT SYSTEM
                     </a>
-                    <a href="#cta" className={`font-mono text-[10px] sm:text-sm border px-3 py-1.5 sm:px-4 sm:py-2 uppercase transition-colors duration-500 ease-in-out ${scrolledPastHero ? 'bg-lime text-vanta border-lime btn-glitch' : 'border-gridline hover:border-lime hover:text-lime bg-vanta'}`}>
+                    <a href="#cta" className={`font-mono text-[10px] sm:text-sm border px-3 py-1.5 sm:px-4 sm:py-2 uppercase transition-colors duration-500 ease-in-out ${scrolledPastHero ? 'bg-lime text-vanta border-lime btn-glitch' : 'border-gridline hover:border-lime hover:text-lime bg-vanta text-white'}`}>
                         <span className="sm:hidden">ANALYSIEREN</span>
                         <span className="hidden sm:inline">Potenzial analysieren</span>
                     </a>
@@ -403,8 +402,8 @@ export default function Page() {
                         <span className="hero-word inline-block">Arbeit</span>{" "}
                         <span className="hero-word inline-block">machen.</span>
                         <br className="hero-break hidden xl:block" />
-                        <span className="hero-word inline-block text-lime">Nicht</span>{" "}
-                        <span className="hero-word inline-block text-lime">umgekehrt.</span>
+                        <span className="hero-word inline-block brutalist-marker">Nicht</span>{" "}
+                        <span className="hero-word inline-block brutalist-marker">umgekehrt.</span>
                     </h1>
 
                     <p className="text-lg md:text-xl text-mute leading-relaxed mb-8 md:mb-10 hero-element">
@@ -454,7 +453,7 @@ export default function Page() {
                         <span>DATA PIPELINES</span> <span className="opacity-30">/</span>
                     </div>
                 </div>
-                <section id="status-quo-section" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className="border-b border-gridline bg-[#080808] relative overflow-hidden">
+                <section id="status-quo-section" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className="border-b border-gridline bg-[#080808] text-white relative overflow-hidden">
                     <div className="absolute inset-0 flex items-center justify-center lg:justify-end lg:pr-[5%] pointer-events-none z-0 overflow-hidden opacity-20 lg:opacity-30 mix-blend-screen" style={{ perspective: '1200px' }}>
                         <div id="sq-geo-core" ref={sqGeoCoreRef} className="relative w-[350px] h-[350px] sm:w-[600px] sm:h-[600px] lg:w-[650px] lg:h-[650px] preserve-3d transition-transform duration-1000 ease-out" style={{ transform: "rotateX(0deg) rotateY(-15deg)" }}>
                             <div className="absolute inset-0 border border-gridline flex items-start p-4" style={{ transform: "translateZ(-100px)" }}>
@@ -492,7 +491,7 @@ export default function Page() {
                     </div>
                 </section>
 
-                <section id="solutions" className="border-b border-gridline bg-[#080808]">
+                <section id="solutions" className="border-b border-gridline bg-vanta text-white">
                     <div className="p-8 md:p-12 lg:p-16 border-b border-gridline flex flex-col md:flex-row justify-between items-start md:items-end gap-8 reveal">
                         <div>
                             <p className="font-mono text-mute text-xs uppercase mb-6 tracking-widest">[SOLUTIONS]</p>
@@ -511,11 +510,11 @@ export default function Page() {
                             {solutionsData.map((sol, idx) => (
                                 <button key={sol.id} onClick={() => setActiveSolution(idx)} className={`w-full text-left p-6 md:p-8 border-b border-gridline hover:bg-[#0a0a0a] transition-colors flex items-center gap-6 group focus:outline-none ${activeSolution === idx ? 'bg-[#0a0a0a]' : ''} flex-1`}>
                                     <span className={`font-mono text-sm group-hover:text-lime transition-colors ${activeSolution === idx ? 'text-lime' : 'text-mute'}`}>[{sol.id}]</span>
-                                    <span className={`font-display text-xl uppercase font-bold tracking-wide ${activeSolution === idx ? 'text-white' : 'text-mute'} group-hover:text-white`}>{sol.title}</span>
+                                    <span className={`font-display text-xl uppercase font-bold tracking-wide transition-colors ${activeSolution === idx ? 'text-white' : 'text-mute'} group-hover:text-white`}>{sol.title}</span>
                                 </button>
                             ))}
                         </div>
-                        <div className="lg:col-span-8 p-8 md:p-12 lg:p-20 relative flex flex-col justify-center" id="solution-content">
+                        <div className="lg:col-span-8 p-8 md:p-12 lg:p-20 relative flex flex-col justify-center bg-[#0a0a0a] text-white" id="solution-content">
                             <div className="absolute top-8 right-8 font-mono text-lime text-[10px] uppercase tracking-widest animate-pulse">[SYS_MODULE_{solutionsData[activeSolution].id}_ACTIVE]</div>
                             <div className="max-w-xl animate-[glitch_0.2s_ease-out]" key={activeSolution}>
                                 <div className="flex flex-wrap gap-2 mb-8">
@@ -540,28 +539,28 @@ export default function Page() {
                     <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-gridline">
                         <div className="p-8 md:p-12 group hover:bg-[#0a0a0a] transition-colors reveal" style={{ transitionDelay: '0ms' }}>
                             <div className="font-mono text-lime mb-6 text-2xl group-hover:animate-pulse">01</div>
-                            <h3 className="font-syne text-xl uppercase font-bold mb-4">Analyse</h3>
-                            <p className="text-mute text-sm">Wir identifizieren Ihre Flaschenhälse und ungenutzte Potenziale in einer tiefen, kostenlosen Potenzialanalyse.</p>
+                            <h3 className="font-syne text-xl uppercase font-bold mb-4 group-hover:text-white transition-colors">Analyse</h3>
+                            <p className="text-mute text-sm group-hover:text-white/80 transition-colors">Wir identifizieren Ihre Flaschenhälse und ungenutzte Potenziale in einer tiefen, kostenlosen Potenzialanalyse.</p>
                         </div>
                         <div className="p-8 md:p-12 group hover:bg-[#0a0a0a] transition-colors reveal" style={{ transitionDelay: '100ms' }}>
                             <div className="font-mono text-lime mb-6 text-2xl group-hover:animate-pulse">02</div>
-                            <h3 className="font-syne text-xl uppercase font-bold mb-4">Architektur</h3>
-                            <p className="text-mute text-sm">Wir entwerfen die maßgeschneiderte Blaupause für Ihr System – ausgelegt für minimale Latenz und höchste Sicherheit.</p>
+                            <h3 className="font-syne text-xl uppercase font-bold mb-4 group-hover:text-white transition-colors">Architektur</h3>
+                            <p className="text-mute text-sm group-hover:text-white/80 transition-colors">Wir entwerfen die maßgeschneiderte Blaupause für Ihr System – ausgelegt für minimale Latenz und höchste Sicherheit.</p>
                         </div>
                         <div className="p-8 md:p-12 group hover:bg-[#0a0a0a] transition-colors reveal" style={{ transitionDelay: '200ms' }}>
                             <div className="font-mono text-lime mb-6 text-2xl group-hover:animate-pulse">03</div>
-                            <h3 className="font-syne text-xl uppercase font-bold mb-4">Entwicklung</h3>
-                            <p className="text-mute text-sm">Wir programmieren, testen und iterieren Ihre autonome Lösung in enger Abstimmung mit Ihnen.</p>
+                            <h3 className="font-syne text-xl uppercase font-bold mb-4 group-hover:text-white transition-colors">Entwicklung</h3>
+                            <p className="text-mute text-sm group-hover:text-white/80 transition-colors">Wir programmieren, testen und iterieren Ihre autonome Lösung in enger Abstimmung mit Ihnen.</p>
                         </div>
                         <div className="p-8 md:p-12 group hover:bg-lime group-hover:text-vanta transition-colors reveal" style={{ transitionDelay: '300ms' }}>
                             <div className="font-mono text-mute mb-6 text-2xl group-hover:text-vanta">04</div>
-                            <h3 className="font-syne text-xl uppercase font-bold mb-4">Betrieb</h3>
-                            <p className="text-mute text-sm group-hover:text-vanta/80">Integration, dediziertes Hosting, ständige Wartung &amp; updates. Sie erhalten ein schlüsselfertiges System. Dauerhaft.</p>
+                            <h3 className="font-syne text-xl uppercase font-bold mb-4 group-hover:text-vanta transition-colors">Betrieb</h3>
+                            <p className="text-mute text-sm group-hover:text-vanta/80 transition-colors">Integration, dediziertes Hosting, ständige Wartung &amp; updates. Sie erhalten ein schlüsselfertiges System. Dauerhaft.</p>
                         </div>
                     </div>
                 </section>
 
-                <section id="branchen" className="border-b border-gridline">
+                <section id="branchen" className="border-b border-gridline bg-vanta text-white">
                     <div className="p-8 md:p-12 border-b border-gridline flex justify-between items-end reveal">
                         <div>
                             <p className="font-mono text-lime text-xs uppercase mb-4">[Zukunftssicherheit]</p>
@@ -588,10 +587,6 @@ export default function Page() {
                             <div className="absolute inset-0 border-[16px] border-vanta pointer-events-none"></div>
                             <div className="absolute top-8 right-8 w-2 h-2 bg-lime animate-ping"></div>
                             <div id="industry-content-inner" key={activeIndustry}>
-                                <div className="font-mono text-mute text-xs mb-8 uppercase border-b border-gridline pb-4 flex justify-between">
-                                    <span>Target_Sector: {industriesData[activeIndustry].name}</span>
-                                    <span className="text-lime">Status: Verified</span>
-                                </div>
                                 <div className="space-y-12">
                                     {industriesData[activeIndustry].cases.map((c, i) => (
                                         <div key={i} className="relative pl-8 before:content-[''] before:absolute before:left-0 before:top-2 before:w-2 before:h-2 before:bg-lime">
@@ -605,7 +600,7 @@ export default function Page() {
                     </div>
                 </section>
 
-                <section id="warum-wir" className="border-b border-gridline">
+                <section id="warum-wir" className="border-b border-gridline bg-vanta text-white">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-b border-gridline">
                         <div className="p-8 md:p-12 border-b md:border-b-0 border-r border-gridline col-span-1 md:col-span-2 lg:col-span-4 bg-vanta reveal">
                             <p className="font-mono text-mute text-xs uppercase mb-4">[Warum wir]</p>
@@ -631,7 +626,7 @@ export default function Page() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 bg-vanta text-white">
                         <div className="lg:col-span-4 p-8 md:p-12 border-r border-gridline reveal">
                             <p className="font-mono text-mute text-xs uppercase mb-4">[Über uns]</p>
                             <h2 className="font-syne text-3xl uppercase font-bold mb-6">Strategische Kreativität trifft unzerstörbares Tech-Fundament.</h2>
@@ -672,7 +667,7 @@ export default function Page() {
                     </div>
                 </section>
 
-                <section id="cta" className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center relative overflow-hidden">
+                <section id="cta" className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center relative overflow-hidden bg-vanta text-white">
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
                         <span className="font-syne text-[20vw] font-bold uppercase leading-none">Execute</span>
                     </div>
@@ -691,7 +686,7 @@ export default function Page() {
                     </div>
                 </section>
 
-                <footer className="border-t border-gridline p-6 flex flex-col md:flex-row justify-between items-center font-mono text-xs text-mute">
+                <footer className="border-t border-gridline p-6 flex flex-col md:flex-row justify-between items-center font-mono text-xs text-mute bg-vanta text-white">
                     <p>&copy; {new Date().getFullYear()} Addiquat. All systems nominal.</p>
                     <div className="flex gap-6 mt-4 md:mt-0">
                         <a href="#" className="hover:text-lime">Impressum</a>
