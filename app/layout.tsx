@@ -1,10 +1,15 @@
 import type { Metadata } from 'next';
-import { Inter, Playfair_Display } from 'next/font/google';
+import { Inter, Playfair_Display, Syne } from 'next/font/google';
 import './globals.css';
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-sans',
+});
+
+const syne = Syne({
+  subsets: ['latin'],
+  variable: '--font-syne',
 });
 
 const playfair = Playfair_Display({
@@ -19,7 +24,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="de" className={`${inter.variable} ${playfair.variable} bg-vanta text-bone overflow-x-hidden`}>
+    <html lang="de" className={`${inter.variable} ${syne.variable} ${playfair.variable} bg-vanta text-bone overflow-x-hidden`}>
       <body suppressHydrationWarning className="antialiased selection:bg-[#CCFF00] selection:text-[#050505]">
         {children}
       </body>

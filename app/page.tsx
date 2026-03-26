@@ -11,14 +11,14 @@ gsap.registerPlugin(useGSAP, ScrollTrigger);
 const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
 
 const painPoints = [
-    "endlose|Zettelwirtschaft.",
-    "fehleranfällige|Routinearbeit.",
-    "manuelle|Datenpflege.",
-    "starre|Systemvorgaben.",
-    "administrative|Dauerlast.",
-    "Sonntage am|Schreibtisch.",
-    "isolierte|Insellösungen.",
-    "Softwaresklaverei."
+    "endlose|Zettelwirtschaft",
+    "fehleranfällige|Routinearbeit",
+    "manuelle|Datenpflege",
+    "starre|Systemvorgaben",
+    "administrative|Dauerlast",
+    "Sonntage am|Schreibtisch",
+    "isolierte|Insellösungen",
+    "Softwaresklaverei"
 ];
 
 const solutionsData = [
@@ -108,10 +108,10 @@ const industriesData = [
 ];
 
 export default function Page() {
-    const [activeSolution, setActiveSolution] = useState(0);
     const [activeIndustry, setActiveIndustry] = useState(0);
     const [navScrolled, setNavScrolled] = useState(false);
     const [scrolledPastHero, setScrolledPastHero] = useState(false);
+    const [expandedSolution, setExpandedSolution] = useState<string | null>(null);
 
     const typewriterRef = useRef<HTMLSpanElement>(null);
     const sqGeoCoreRef = useRef<HTMLDivElement>(null);
@@ -294,10 +294,6 @@ export default function Page() {
                 html += '<span>';
 
                 for (let j = 0; j < word.length; j++) {
-                    if (globalCharCount === currentCharIndex) {
-                        html += '<span class="animate-pulse text-lime absolute">_</span>';
-                    }
-
                     if (globalCharCount < currentCharIndex) {
                         html += word[j];
                     } else {
@@ -308,16 +304,9 @@ export default function Page() {
                 html += '</span>';
 
                 if (i < words.length - 1) {
-                    if (globalCharCount === currentCharIndex) {
-                        html += '<span class="animate-pulse text-lime absolute">_</span>';
-                    }
-                    html += '<br />';
+                    html += '<span class="typewriter-space"> </span><br class="typewriter-break" />';
                     globalCharCount++;
                 }
-            }
-
-            if (globalCharCount === currentCharIndex) {
-                html += '<span class="animate-pulse text-lime absolute">_</span>';
             }
 
             typewriterRef.current.innerHTML = html;
@@ -346,57 +335,50 @@ export default function Page() {
     };
 
     return (
-        <div className="bg-vanta text-bone font-sans antialiased border-x border-gridline mx-auto max-w-[1920px] relative" style={{ overflowX: 'clip' }}>
-            <div className="fixed inset-0 left-1/2 -translate-x-1/2 w-full max-w-[1920px] border-x border-gridline pointer-events-none z-[9999]"></div>
+        <div className="bg-vanta text-bone font-sans antialiased relative w-full" style={{ overflowX: 'clip' }}>
             <div className="noise-bg"></div>
 
-            <nav id="main-nav" className={`fixed top-0 left-1/2 -translate-x-1/2 w-full max-w-[1920px] backdrop-blur-sm z-50 flex justify-between items-center px-6 border-b border-gridline transition-all duration-300 ${navScrolled ? 'py-3 bg-vanta/95 shadow-2xl' : 'py-6 bg-vanta/90'}`}>
-                <div className="flex items-center gap-2 sm:gap-3 font-sans font-normal text-base sm:text-lg tracking-tighter shrink-0">
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-lime shrink-0"
-                        style={{
-                            WebkitMaskImage: `url('${basePath}/logo.png')`, WebkitMaskSize: "contain", WebkitMaskRepeat: "no-repeat", WebkitMaskPosition: "center",
-                            maskImage: `url('${basePath}/logo.png')`, maskSize: "contain", maskRepeat: "no-repeat", maskPosition: "center"
-                        }}>
+            <nav id="main-nav" className={`fixed top-0 w-full backdrop-blur-sm z-50 border-b transition-all duration-300 flex justify-center ${navScrolled ? 'shadow-2xl' : ''} ${scrolledPastHero ? 'bg-vanta/95 text-white border-gridline' : 'bg-white/95 text-vanta border-black/5'}`}>
+                <div className={`w-full max-w-[1440px] flex justify-between items-center px-6 md:px-8 lg:px-10 transition-all duration-300 ${navScrolled ? 'py-3' : 'py-6'}`}>
+                    <div className="flex items-center gap-2 sm:gap-3 font-sans font-normal text-base sm:text-lg tracking-tighter shrink-0">
+                        <div className={`w-8 h-8 sm:w-10 sm:h-10 shrink-0 transition-colors duration-300 ${scrolledPastHero ? 'bg-lime' : 'bg-vanta'}`}
+                            style={{
+                                WebkitMaskImage: `url('${basePath}/logo.png')`, WebkitMaskSize: "contain", WebkitMaskRepeat: "no-repeat", WebkitMaskPosition: "center",
+                                maskImage: `url('${basePath}/logo.png')`, maskSize: "contain", maskRepeat: "no-repeat", maskPosition: "center"
+                            }}>
+                        </div>
+                        <div className="flex items-center gap-1.5 leading-none mt-[-1px]">
+                            <span>leoquent <span className="text-lime">&amp;</span> addequat</span>
+                        </div>
                     </div>
-                    <div className="flex items-center gap-1.5 leading-none mt-[-1px]">
-                        <span>leoquent <span className="text-lime">&amp;</span> addequat</span>
+
+                    <div className="hidden lg:flex items-center gap-8 font-mono text-[10px] uppercase tracking-widest text-mute">
+                        <a href="#status-quo-section" className="hover:text-lime transition-colors">Status Quo</a>
+                        <a href="#solutions" className="hover:text-lime transition-colors">Solutions</a>
+                        <a href="#prozess" className="hover:text-lime transition-colors">Prozess</a>
+                        <a href="#branchen" className="hover:text-lime transition-colors">Branchen</a>
+                        <a href="#warum-wir" className="hover:text-lime transition-colors">Warum Wir</a>
                     </div>
-                </div>
 
-                <div className="hidden lg:flex items-center gap-8 font-mono text-[10px] uppercase tracking-widest text-mute">
-                    <a href="#status-quo-section" className="hover:text-lime transition-colors">Status Quo</a>
-                    <a href="#solutions" className="hover:text-lime transition-colors">Solutions</a>
-                    <a href="#prozess" className="hover:text-lime transition-colors">Prozess</a>
-                    <a href="#branchen" className="hover:text-lime transition-colors">Branchen</a>
-                    <a href="#warum-wir" className="hover:text-lime transition-colors">Warum Wir</a>
-                </div>
+                    <div className="flex items-center gap-2 sm:gap-4 lg:gap-6 shrink-0">
 
-                <div className="flex items-center gap-2 sm:gap-4 lg:gap-6 shrink-0">
-                    <a href={`${basePath}/v5/`} className="hidden sm:flex items-center gap-2 font-mono text-[10px] border border-gridline px-3 py-1.5 hover:border-lime hover:text-lime transition-colors group">
-                        <span className="w-2 h-2 bg-lime group-hover:animate-ping rounded-full"></span>
-                        INVERT SYSTEM
-                    </a>
-                    <a href="#cta" className={`font-mono text-[10px] sm:text-sm border px-3 py-1.5 sm:px-4 sm:py-2 uppercase transition-colors duration-500 ease-in-out ${scrolledPastHero ? 'bg-lime text-vanta border-lime btn-glitch' : 'border-gridline hover:border-lime hover:text-lime bg-vanta text-white'}`}>
-                        <span className="sm:hidden">ANALYSIEREN</span>
-                        <span className="hidden sm:inline">Potenzial analysieren</span>
-                    </a>
+                        <a href="#cta" className={`font-mono text-[10px] sm:text-sm border px-3 py-1.5 sm:px-4 sm:py-2 uppercase transition-colors duration-500 ease-in-out ${scrolledPastHero ? 'bg-lime text-vanta border-lime btn-glitch' : 'border-gridline hover:border-lime hover:text-lime bg-vanta text-white'}`}>
+                            <span className="sm:hidden">ANALYSIEREN</span>
+                            <span className="hidden sm:inline">Potenzial analysieren</span>
+                        </a>
+                    </div>
                 </div>
             </nav>
 
             {/* Hero – fixed in the background behind content */}
-            <section className="fixed top-0 left-0 right-0 h-[100svh] pt-28 flex flex-col bg-vanta z-0 overflow-hidden max-w-[1920px] mx-auto" id="hero-sticky-section">
-                <div className="w-full flex-1 p-6 md:p-12 lg:p-20 flex flex-col justify-center relative" style={{ perspective: '1200px', perspectiveOrigin: '50% 40%' }}>
-                    <div className="font-mono text-lime mb-6 md:mb-8 uppercase text-sm tracking-widest flex items-center gap-4 hero-element">
-                        <span>[01]</span>
-                        <div className="h-px bg-lime/30 w-12 md:w-24"></div>
-                        <span>Strategic Agentic Excellence</span>
+            <section className="fixed top-0 left-0 right-0 h-[100svh] flex flex-col bg-white z-0 overflow-hidden" id="hero-sticky-section">
+                <div className="w-full flex-1 px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 flex flex-col justify-center relative mx-auto max-w-[1440px]" style={{ perspective: '1200px', perspectiveOrigin: '50% 40%' }}>
+                    <div className="font-mono mb-6 md:mb-8 uppercase text-sm tracking-widest hero-element">
+                        <span className="brutalist-marker text-vanta">Strategic Agentic Excellence</span>
                     </div>
 
-                    <h1 className="font-syne text-4xl sm:text-5xl md:text-6xl lg:text-[5.5vw] xl:text-[6.5vw] leading-[1] font-bold tracking-tight mb-6 md:mb-8 text-white uppercase" style={{ transformStyle: 'preserve-3d' }}>
-                        <span className="hero-word inline-block">Wir</span>{" "}
-                        <span className="hero-word inline-block">bauen</span>{" "}
-                        <span className="hero-word inline-block">KI-Systeme,</span>
-                        <br className="hero-break hidden xl:block" />
+                    <h1 className="hero-headline text-vanta uppercase mb-6 md:mb-8" style={{ transformStyle: 'preserve-3d' }}>
+                        <span className="hero-word inline-block">KI-Systeme,</span>{" "}
                         <span className="hero-word inline-block">die</span>{" "}
                         <span className="hero-word inline-block">Ihre</span>{" "}
                         <span className="hero-word inline-block">Arbeit</span>{" "}
@@ -413,7 +395,7 @@ export default function Page() {
 
                     <div className="flex items-center gap-6 hero-element">
                         <a href="#cta" className="btn-glitch inline-block bg-lime text-vanta font-mono font-bold uppercase py-4 px-8 border border-lime transition-all duration-75">
-                            Potenzial_Analysieren
+                            Potenzial Analysieren
                         </a>
                         <span className="font-mono text-xs text-mute uppercase hidden sm:block">Status: <br /><span className="text-lime animate-pulse">unverbindlich</span></span>
                     </div>
@@ -423,7 +405,7 @@ export default function Page() {
             {/* Content area – starts at viewport bottom (ticker flush), scrolls up over hero */}
             <div className="relative z-10" id="content-wrapper" style={{ marginTop: 'calc(100svh - 48px)' }}>
                 {/* Ticker – flush at viewport bottom on load, scrolls up with content */}
-                <div className="h-[48px] shrink-0 border-t border-b border-gridline text-lime overflow-hidden flex items-center whitespace-nowrap w-full bg-[#080808]">
+                <div className="h-[48px] shrink-0 border-t border-b border-gridline text-lime overflow-hidden flex items-center whitespace-nowrap bg-[#080808] w-full relative">
                     <div className="animate-marquee font-mono text-xs uppercase tracking-widest flex gap-12 items-center pr-12 shrink-0">
                         <span>GENERATIVE UI</span> <span className="opacity-30">/</span>
                         <span>COMPUTER VISION</span> <span className="opacity-30">/</span>
@@ -453,11 +435,11 @@ export default function Page() {
                         <span>DATA PIPELINES</span> <span className="opacity-30">/</span>
                     </div>
                 </div>
-                <section id="status-quo-section" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className="border-b border-gridline bg-[#080808] text-white relative overflow-hidden">
-                    <div className="absolute inset-0 flex items-center justify-center lg:justify-end lg:pr-[5%] pointer-events-none z-0 overflow-hidden opacity-20 lg:opacity-30 mix-blend-screen" style={{ perspective: '1200px' }}>
+                <section id="status-quo-section" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className="border-b border-gridline bg-[#080808] text-white overflow-hidden flex justify-center">
+                    <div className="w-full max-w-[1440px] relative">
+                        <div className="absolute inset-0 flex items-center justify-center lg:justify-end lg:pr-[5%] pointer-events-none z-0 overflow-hidden opacity-20 lg:opacity-30 mix-blend-screen" style={{ perspective: '1200px' }}>
                         <div id="sq-geo-core" ref={sqGeoCoreRef} className="relative w-[350px] h-[350px] sm:w-[600px] sm:h-[600px] lg:w-[650px] lg:h-[650px] preserve-3d transition-transform duration-1000 ease-out" style={{ transform: "rotateX(0deg) rotateY(-15deg)" }}>
                             <div className="absolute inset-0 border border-gridline flex items-start p-4" style={{ transform: "translateZ(-100px)" }}>
-                                <span className="font-mono text-[10px] text-mute uppercase tracking-widest opacity-30">[SYS_DATA: FRAGMENTED]</span>
                             </div>
                             <div id="sq-ring" ref={sqRingRef} className="absolute inset-8 border border-mute/30 rotate-12 transition-all duration-700" style={{ transform: "translateZ(20px)" }}></div>
                             <div className="absolute inset-20 border border-lime/10 -rotate-12" style={{ transform: "translateZ(80px)" }}></div>
@@ -469,33 +451,48 @@ export default function Page() {
                         </div>
                     </div>
 
-                    <div className="p-8 md:p-12 lg:p-16 lg:py-32 flex flex-col justify-center min-h-[70vh] relative z-10">
-                        <p className="font-mono text-lime text-xs uppercase mb-10 tracking-widest flex items-center gap-4 reveal">
-                            <span className="w-2 h-2 bg-lime animate-pulse"></span>
-                            [DER STATUS QUO]
-                        </p>
-                        <h2 className="font-display text-4xl sm:text-6xl md:text-[5.5vw] font-bold uppercase tracking-tight leading-[1.05] mb-8 min-h-[3.5em] reveal w-full" style={{ transitionDelay: '100ms', hyphens: 'auto', WebkitHyphens: 'auto' }}>
-                            WIR BEENDEN<br />
-                            <span id="typewriter" ref={typewriterRef} className="text-lime block mt-1"></span>
-                        </h2>
-                        <div className="max-w-3xl mt-2 border-l-2 border-gridline pl-6 reveal" style={{ transitionDelay: '250ms' }}>
-                            <h3 className="font-display text-2xl md:text-3xl font-bold uppercase tracking-tight mb-4 text-white">
+                    <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 flex flex-col gap-8 md:gap-12 relative z-10 w-full border-x border-gridline">
+                        <div className="reveal w-full">
+                            <p className="font-mono text-xs uppercase mb-6 tracking-widest">
+                                <span className="brutalist-marker text-vanta">Status Quo</span>
+                            </p>
+                            <h2 className="section-headline w-full" style={{ transitionDelay: '100ms' }}>
+                                <span className="text-white">WIR BEENDEN</span><br />
+                                <span id="typewriter" ref={typewriterRef} className="text-lime block"></span>
+                            </h2>
+                        </div>
+
+                        <div className="w-full max-w-4xl reveal" style={{ transitionDelay: '200ms' }}>
+                            <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-white/90">
                                 Software sollte Zeit sparen. Nicht kosten.
                             </h3>
-                            <p className="text-lg md:text-xl text-bone leading-relaxed font-light">
+                            <p className="text-base md:text-lg text-bone/80 leading-relaxed font-light">
                                 Standard-Tools zwingen Ihr Unternehmen in starre Prozesse und rauben Ihnen wertvolle Zeit. Wir
                                 drehen den Spieß um: Wir konzipieren und programmieren <span className="bg-lime text-vanta px-1.5 py-0.5 font-normal">autonome Architekturen</span>, die sich
-                                kompromisslos Ihrer Geschäftslogik unterwerfen. Exakt so, wie Sie es brauchen.
+                                kompromisslos Ihrer Geschäftslogik unterwerfen.
+                            </p>
+                        </div>
+
+                        <div className="flex flex-col gap-3 pt-8 md:pt-12 border-t border-gridline/20 reveal" style={{ transitionDelay: '300ms' }}>
+                            <p className="text-[10px] md:text-xs text-mute/60 leading-relaxed font-mono tracking-wide">
+                                <span className="text-lime/70 uppercase">Mission</span> · Wir verwandeln Unternehmenswissen in autonome Systeme. Mit strategischer Kreativität und kompromissloser IT-Sicherheit machen wir KI für den Mittelstand skalierbar – und so einfach und sicher wie Licht einschalten.
+                            </p>
+                            <p className="text-[10px] md:text-xs text-mute/60 leading-relaxed font-mono tracking-wide">
+                                <span className="text-lime/70 uppercase">Vision</span> · Das autonome Betriebssystem für den europäischen Mittelstand – die Infrastruktur, auf der Unternehmen der Zukunft laufen.
                             </p>
                         </div>
                     </div>
+                    </div>
                 </section>
 
-                <section id="solutions" className="border-b border-gridline bg-vanta text-white">
-                    <div className="p-8 md:p-12 lg:p-16 border-b border-gridline flex flex-col md:flex-row justify-between items-start md:items-end gap-8 reveal">
+                <section id="solutions" className="border-b border-gridline bg-vanta text-white flex justify-center">
+                    <div className="w-full max-w-[1440px]">
+                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 flex flex-col md:flex-row justify-between items-start md:items-end gap-8 reveal border-x border-gridline">
                         <div>
-                            <p className="font-mono text-mute text-xs uppercase mb-6 tracking-widest">[SOLUTIONS]</p>
-                            <h2 className="font-display text-4xl md:text-6xl uppercase font-bold tracking-tight max-w-2xl leading-[1.05]">
+                            <p className="font-mono text-xs uppercase mb-6 tracking-widest">
+                                <span className="brutalist-marker text-vanta">Solutions</span>
+                            </p>
+                            <h2 className="section-headline max-w-2xl">
                                 Ihre Logik.<br />Unser Code.
                             </h2>
                         </div>
@@ -505,66 +502,89 @@ export default function Page() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[480px]">
-                        <div className="lg:col-span-4 flex flex-col border-b lg:border-b-0 lg:border-r border-gridline" id="solution-tabs">
-                            {solutionsData.map((sol, idx) => (
-                                <button key={sol.id} onClick={() => setActiveSolution(idx)} className={`w-full text-left p-6 md:p-8 border-b border-gridline hover:bg-[#0a0a0a] transition-colors flex items-center gap-6 group focus:outline-none ${activeSolution === idx ? 'bg-[#0a0a0a]' : ''} flex-1`}>
-                                    <span className={`font-mono text-sm group-hover:text-lime transition-colors ${activeSolution === idx ? 'text-lime' : 'text-mute'}`}>[{sol.id}]</span>
-                                    <span className={`font-display text-xl uppercase font-bold tracking-wide transition-colors ${activeSolution === idx ? 'text-white' : 'text-mute'} group-hover:text-white`}>{sol.title}</span>
-                                </button>
-                            ))}
-                        </div>
-                        <div className="lg:col-span-8 p-8 md:p-12 lg:p-20 relative flex flex-col justify-center bg-[#0a0a0a] text-white" id="solution-content">
-                            <div className="absolute top-8 right-8 font-mono text-lime text-[10px] uppercase tracking-widest animate-pulse">[SYS_MODULE_{solutionsData[activeSolution].id}_ACTIVE]</div>
-                            <div className="max-w-xl animate-[glitch_0.2s_ease-out]" key={activeSolution}>
-                                <div className="flex flex-wrap gap-2 mb-8">
-                                    {solutionsData[activeSolution].badges.map(b => (
-                                        <span key={b} className="border border-lime text-lime px-3 py-1 text-[10px] md:text-xs font-mono uppercase tracking-widest">{b}</span>
-                                    ))}
+                    <div className="w-full">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 reveal border-x border-gridline">
+                            {solutionsData.map((sol, idx) => {
+                                const isExpanded = expandedSolution === sol.id;
+                                return (
+                                <div 
+                                    key={sol.id} 
+                                    onClick={() => setExpandedSolution(isExpanded ? null : sol.id)}
+                                    className={`group relative bg-vanta p-6 md:p-8 lg:p-10 transition-colors duration-500 flex flex-col cursor-pointer border-gridline hover:bg-[#080808] border-b last:border-b-0 md:border-b-0 md:[&:nth-child(n+3)]:border-t md:even:border-l lg:border-t-0 lg:[&:not(:first-child)]:border-l min-h-[450px] lg:min-h-[500px]`}
+                                >
+                                    <div className="flex justify-end items-start mb-8">
+                                        <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-colors duration-500 ${isExpanded ? 'border-lime bg-lime/10' : 'border-gridline group-hover:border-lime group-hover:bg-lime/10'}`}>
+                                            <svg className={`w-3 h-3 transition-transform duration-500 ${isExpanded ? 'text-lime rotate-90' : 'text-mute group-hover:text-lime -rotate-45 group-hover:rotate-0'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                            </svg>
+                                        </div>
+                                    </div>
+                                    
+                                    <h3 className={`text-xl md:text-2xl uppercase font-bold mb-6 transition-colors duration-300 ${isExpanded ? 'text-lime' : 'text-white group-hover:text-lime'}`}>{sol.title}</h3>
+                                    
+                                    <div className="flex flex-wrap gap-2">
+                                        {sol.badges.map(b => (
+                                            <span key={b} className={`border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest transition-colors duration-300 ${isExpanded ? 'border-lime text-vanta bg-lime' : 'border-lime/30 group-hover:border-lime text-lime/70 group-hover:text-vanta group-hover:bg-lime bg-lime/5'}`}>{b}</span>
+                                        ))}
+                                    </div>
+                                    
+                                    <div className={`grid transition-all duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] ${isExpanded ? 'grid-rows-[1fr] opacity-100 mt-6' : 'grid-rows-[0fr] opacity-0 mt-0'}`}>
+                                        <div className="overflow-hidden">
+                                            <p className="text-mute text-sm leading-relaxed transition-colors font-light pt-6 border-t border-gridline/30 group-hover:text-white">
+                                                {sol.text}
+                                            </p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <h3 className="font-display text-4xl uppercase font-bold mb-6 tracking-tight">{solutionsData[activeSolution].title}</h3>
-                                <p className="text-bone font-light text-lg leading-relaxed">{solutionsData[activeSolution].text}</p>
-                            </div>
+                            )})}
                         </div>
+                    </div>
                     </div>
                 </section>
 
-                <section id="prozess" className="border-b border-gridline relative">
-                    <div className="p-8 md:p-12 border-b border-gridline reveal">
-                        <p className="font-mono text-mute text-xs uppercase mb-4">[Prozess]</p>
-                        <h2 className="font-syne text-4xl md:text-5xl uppercase font-bold">Unser Weg zu<br />Ihrer Lösung.</h2>
+                <section id="prozess" className="border-b border-gridline relative bg-white text-vanta flex justify-center">
+                    <div className="w-full max-w-[1440px]">
+                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b border-x border-gridline reveal">
+                        <p className="font-mono text-xs uppercase mb-4">
+                            <span className="brutalist-marker text-vanta">Prozess</span>
+                        </p>
+                        <h2 className="section-headline">Unser Weg zu<br />Ihrer Lösung.</h2>
                         <p className="text-mute mt-4">Transparente Meilensteine von der Analyse bis zum Betrieb. Keine Blackbox.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-4 divide-y md:divide-y-0 md:divide-x divide-gridline">
-                        <div className="p-8 md:p-12 group hover:bg-[#0a0a0a] transition-colors reveal" style={{ transitionDelay: '0ms' }}>
+                    <div className="grid grid-cols-1 md:grid-cols-4 border-x border-b border-gridline">
+                        <div className="p-6 md:p-10 group hover:bg-[#0a0a0a] transition-colors reveal border-b md:border-b-0 md:border-r border-gridline" style={{ transitionDelay: '0ms' }}>
                             <div className="font-mono text-lime mb-6 text-2xl group-hover:animate-pulse">01</div>
-                            <h3 className="font-syne text-xl uppercase font-bold mb-4 group-hover:text-white transition-colors">Analyse</h3>
+                            <h3 className="text-xl uppercase font-bold mb-4 group-hover:text-white transition-colors">Analyse</h3>
                             <p className="text-mute text-sm group-hover:text-white/80 transition-colors">Wir identifizieren Ihre Flaschenhälse und ungenutzte Potenziale in einer tiefen, kostenlosen Potenzialanalyse.</p>
                         </div>
-                        <div className="p-8 md:p-12 group hover:bg-[#0a0a0a] transition-colors reveal" style={{ transitionDelay: '100ms' }}>
+                        <div className="p-6 md:p-10 group hover:bg-[#0a0a0a] transition-colors reveal border-b md:border-b-0 md:border-r border-gridline" style={{ transitionDelay: '100ms' }}>
                             <div className="font-mono text-lime mb-6 text-2xl group-hover:animate-pulse">02</div>
-                            <h3 className="font-syne text-xl uppercase font-bold mb-4 group-hover:text-white transition-colors">Architektur</h3>
+                            <h3 className="text-xl uppercase font-bold mb-4 group-hover:text-white transition-colors">Architektur</h3>
                             <p className="text-mute text-sm group-hover:text-white/80 transition-colors">Wir entwerfen die maßgeschneiderte Blaupause für Ihr System – ausgelegt für minimale Latenz und höchste Sicherheit.</p>
                         </div>
-                        <div className="p-8 md:p-12 group hover:bg-[#0a0a0a] transition-colors reveal" style={{ transitionDelay: '200ms' }}>
+                        <div className="p-6 md:p-10 group hover:bg-[#0a0a0a] transition-colors reveal border-b md:border-b-0 md:border-r border-gridline" style={{ transitionDelay: '200ms' }}>
                             <div className="font-mono text-lime mb-6 text-2xl group-hover:animate-pulse">03</div>
-                            <h3 className="font-syne text-xl uppercase font-bold mb-4 group-hover:text-white transition-colors">Entwicklung</h3>
+                            <h3 className="text-xl uppercase font-bold mb-4 group-hover:text-white transition-colors">Entwicklung</h3>
                             <p className="text-mute text-sm group-hover:text-white/80 transition-colors">Wir programmieren, testen und iterieren Ihre autonome Lösung in enger Abstimmung mit Ihnen.</p>
                         </div>
-                        <div className="p-8 md:p-12 group hover:bg-lime group-hover:text-vanta transition-colors reveal" style={{ transitionDelay: '300ms' }}>
+                        <div className="p-6 md:p-10 group hover:bg-lime group-hover:text-vanta transition-colors reveal" style={{ transitionDelay: '300ms' }}>
                             <div className="font-mono text-mute mb-6 text-2xl group-hover:text-vanta">04</div>
-                            <h3 className="font-syne text-xl uppercase font-bold mb-4 group-hover:text-vanta transition-colors">Betrieb</h3>
-                            <p className="text-mute text-sm group-hover:text-vanta/80 transition-colors">Integration, dediziertes Hosting, ständige Wartung &amp; updates. Sie erhalten ein schlüsselfertiges System. Dauerhaft.</p>
+                            <h3 className="text-xl uppercase font-bold mb-4 group-hover:text-vanta transition-colors">Betrieb</h3>
+                            <p className="text-mute text-sm group-hover:text-vanta/80 transition-colors">Integration, dediziertes Hosting, ständige Wartung & updates. Sie erhalten ein schlüsselfertiges System. Dauerhaft.</p>
                         </div>
+                    </div>
                     </div>
                 </section>
 
-                <section id="branchen" className="border-b border-gridline bg-vanta text-white">
-                    <div className="p-8 md:p-12 border-b border-gridline flex justify-between items-end reveal">
+                <section id="branchen" className="border-b border-gridline bg-vanta text-white flex justify-center">
+                    <div className="w-full max-w-[1440px]">
+                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b border-x border-gridline flex justify-between items-end reveal">
                         <div>
-                            <p className="font-mono text-lime text-xs uppercase mb-4">[Zukunftssicherheit]</p>
-                            <h2 className="font-syne text-4xl md:text-5xl uppercase font-bold">Der Mittelstand<br />wird autonom.</h2>
+                            <p className="font-mono text-xs uppercase mb-4">
+                                <span className="brutalist-marker text-vanta">Zukunftssicherheit</span>
+                            </p>
+                            <h2 className="section-headline">Der Mittelstand<br />wird autonom.</h2>
                         </div>
                         <p className="hidden lg:block max-w-md text-right text-mute text-sm">
                             Egal aus welcher Branche Sie kommen: Wir bauen spezifische KI-Systeme, die reale Probleme lösen.
@@ -574,23 +594,23 @@ export default function Page() {
                     <div className="grid grid-cols-1 lg:grid-cols-2">
                         <div className="border-b lg:border-b-0 lg:border-r border-gridline flex flex-col" id="industry-list">
                             {industriesData.map((ind, idx) => (
-                                <button key={ind.id} onMouseEnter={() => setActiveIndustry(idx)} className={`w-full text-left p-6 border-b border-gridline hover:bg-lime hover:text-vanta transition-all duration-0 font-syne text-xl uppercase font-bold group flex justify-between items-center ${activeIndustry === idx ? 'text-lime' : 'text-mute'}`}>
+                                <button key={ind.id} onMouseEnter={() => setActiveIndustry(idx)} className={`w-full text-left px-6 md:px-8 lg:px-10 py-5 border-b border-gridline hover:bg-lime hover:text-vanta transition-all duration-0 text-xl uppercase font-bold group flex justify-between items-center ${activeIndustry === idx ? 'text-lime' : 'text-mute'}`}>
                                     <span className="group-hover:translate-x-4 transition-transform duration-100 flex items-center gap-4">
                                         <span className="text-2xl opacity-50 grayscale group-hover:grayscale-0">{ind.icon}</span>
                                         {ind.name}
                                     </span>
-                                    <span className="font-mono text-xs opacity-0 group-hover:opacity-100 uppercase">Load_Data</span>
+                                    <span className="font-mono text-xs opacity-0 group-hover:opacity-100 uppercase">Ansehen</span>
                                 </button>
                             ))}
                         </div>
-                        <div className="p-8 md:p-12 lg:p-20 relative min-h-[500px] flex flex-col justify-center bg-[#0a0a0a]" id="industry-display">
+                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 relative min-h-[500px] flex flex-col justify-center bg-[#0a0a0a]" id="industry-display">
                             <div className="absolute inset-0 border-[16px] border-vanta pointer-events-none"></div>
                             <div className="absolute top-8 right-8 w-2 h-2 bg-lime animate-ping"></div>
                             <div id="industry-content-inner" key={activeIndustry}>
                                 <div className="space-y-12">
                                     {industriesData[activeIndustry].cases.map((c, i) => (
                                         <div key={i} className="relative pl-8 before:content-[''] before:absolute before:left-0 before:top-2 before:w-2 before:h-2 before:bg-lime">
-                                            <h4 className="font-display text-2xl uppercase font-bold mb-3">{c.title}</h4>
+                                            <h4 className="text-2xl uppercase font-bold mb-3">{c.title}</h4>
                                             <p className="text-mute">{c.desc}</p>
                                         </div>
                                     ))}
@@ -598,83 +618,69 @@ export default function Page() {
                             </div>
                         </div>
                     </div>
+                    </div>
                 </section>
 
-                <section id="warum-wir" className="border-b border-gridline bg-vanta text-white">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-b border-gridline">
-                        <div className="p-8 md:p-12 border-b md:border-b-0 border-r border-gridline col-span-1 md:col-span-2 lg:col-span-4 bg-vanta reveal">
-                            <p className="font-mono text-mute text-xs uppercase mb-4">[Warum wir]</p>
-                            <h2 className="font-syne text-3xl md:text-4xl uppercase font-bold">Keine Standard-Agentur.<br />Keine Kompromisse.</h2>
-                            <p className="text-mute mt-4 max-w-2xl">Wir tauschen nicht Zeit gegen Geld. Wir liefern Systeme, die messbare Effizienz bringen. Kompromisslos auf den Erfolg des Mittelstands ausgerichtet.</p>
+                <section id="warum-wir" className="border-b border-gridline bg-white text-vanta flex justify-center">
+                    <div className="w-full max-w-[1440px]">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-b border-x border-gridline">
+                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b border-gridline col-span-1 md:col-span-2 lg:col-span-4 bg-white reveal">
+                            <p className="font-mono text-xs uppercase mb-4">
+                                <span className="brutalist-marker text-vanta">Warum wir</span>
+                            </p>
+                            <h2 className="section-headline text-vanta">Keine Standard-Agentur.<br />Keine Kompromisse.</h2>
+                            <p className="text-vanta/80 mt-4 max-w-2xl">Wir tauschen nicht Zeit gegen Geld. Wir liefern Systeme, die messbare Effizienz bringen. Kompromisslos auf den Erfolg des Mittelstands ausgerichtet.</p>
                         </div>
 
-                        <div className="p-8 border-b lg:border-b-0 border-r border-gridline reveal">
-                            <h3 className="font-mono text-lime uppercase mb-4">01. Performance Pricing</h3>
-                            <p className="text-sm text-mute">Sie zahlen für das funktionierende Ergebnis und garantierten ROI. Wir gewinnen, wenn Sie gewinnen.</p>
+                        <div className="p-6 md:p-8 lg:p-10 border-b lg:border-b-0 md:border-r border-gridline reveal">
+                            <h3 className="font-mono text-vanta uppercase font-bold mb-4">01. Performance Pricing</h3>
+                            <p className="text-sm text-vanta/70">Sie zahlen für das funktionierende Ergebnis und garantierten ROI. Wir gewinnen, wenn Sie gewinnen.</p>
                         </div>
-                        <div className="p-8 border-b lg:border-b-0 lg:border-r border-gridline reveal">
-                            <h3 className="font-mono text-lime uppercase mb-4">02. Radikale Agilität</h3>
-                            <p className="text-sm text-mute">Keine monatelangen Wasserfall-Projekte. Wir bauen schnelle Prototypen und iterieren live an Ihren Daten.</p>
+                        <div className="p-6 md:p-8 lg:p-10 border-b lg:border-b-0 lg:border-r border-gridline reveal">
+                            <h3 className="font-mono text-vanta uppercase font-bold mb-4">02. Radikale Agilität</h3>
+                            <p className="text-sm text-vanta/70">Keine monatelangen Wasserfall-Projekte. Wir bauen schnelle Prototypen und iterieren live an Ihren Daten.</p>
                         </div>
-                        <div className="p-8 border-b md:border-b-0 border-r border-gridline reveal">
-                            <h3 className="font-mono text-lime uppercase mb-4">03. Enterprise Sicherheit</h3>
-                            <p className="text-sm text-mute">Modernste KI-Innovation plus IT-Sicherheit. Alles DSGVO-konform, stabil und gehostet in Deutschland.</p>
+                        <div className="p-6 md:p-8 lg:p-10 border-b md:border-b-0 md:border-r border-gridline reveal">
+                            <h3 className="font-mono text-vanta uppercase font-bold mb-4">03. DSGVO-Konform</h3>
+                            <p className="text-sm text-vanta/70">Modernste KI-Innovation plus IT-Sicherheit. Alles DSGVO-konform, stabil und gehostet in Deutschland.</p>
                         </div>
-                        <div className="p-8 reveal">
-                            <h3 className="font-mono text-lime uppercase mb-4">04. Maßanzug statt Masse</h3>
-                            <p className="text-sm text-mute">Wir biegen nicht den Kunden für die Software. Jede Lösung wird individuell für Ihren Prozess entwickelt.</p>
+                        <div className="p-6 md:p-8 lg:p-10 reveal">
+                            <h3 className="font-mono text-vanta uppercase font-bold mb-4">04. Maßanzug statt Masse</h3>
+                            <p className="text-sm text-vanta/70">Wir biegen nicht den Kunden für die Software. Jede Lösung wird individuell für Ihren Prozess entwickelt.</p>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 bg-vanta text-white">
-                        <div className="lg:col-span-4 p-8 md:p-12 border-r border-gridline reveal">
-                            <p className="font-mono text-mute text-xs uppercase mb-4">[Über uns]</p>
-                            <h2 className="font-syne text-3xl uppercase font-bold mb-6">Strategische Kreativität trifft unzerstörbares Tech-Fundament.</h2>
+                        <div className="lg:col-span-4 px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-r border-gridline reveal">
+                            <p className="font-mono text-xs uppercase mb-4">
+                                <span className="brutalist-marker text-vanta">Über uns</span>
+                            </p>
+                            <h2 className="text-3xl uppercase font-bold mb-6">Strategische Kreativität trifft unzerstörbares Tech-Fundament.</h2>
                             <p className="text-mute text-sm">Wir schließen die Lücke zwischen dem Laborzweck und Ihrem Praxisalltag. Zwei Spezialisten, perfekt verzahnt.</p>
                         </div>
 
-                        <div className="lg:col-span-4 p-8 md:p-12 border-r border-gridline relative group overflow-hidden bg-[#080808]">
-                            <div className="text-gridline font-mono text-[8px] leading-[8px] mb-8 select-none group-hover:text-lime/20 transition-colors duration-700 h-32 overflow-hidden">
-                                01101100 01100101 01101111<br />
-                                ██╗   ███████╗ ██████╗ <br />
-                                ██║   ██╔════╝██╔═══██╗<br />
-                                ██║   █████╗  ██║   ██║<br />
-                                ██║   ██╔══╝  ██║   ██║<br />
-                                ███████╗███████╗╚██████╔╝<br />
-                                ╚══════╝╚══════╝ ╚═════╝ <br />
-                                01101100 01100101 01101111
-                            </div>
-                            <h3 className="font-syne text-2xl uppercase font-bold mb-2">Leonid</h3>
-                            <p className="font-mono text-lime text-xs mb-6">&gt; The Architect of Intent</p>
+                        <div className="lg:col-span-4 px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-r border-gridline relative group overflow-hidden bg-[#080808]">
+                            <h3 className="text-2xl uppercase font-bold mb-2">Leonid</h3>
+                            <p className="font-mono text-lime text-xs mb-6">The Architect of Intent</p>
                             <p className="text-mute text-sm">Er übersetzt tiefe Geschäftsbedürfnisse in präzise Sprachlogik und Workflows. Gestaltet die Schnittstelle zwischen Mensch und Maschine. *Sorgt dafür, dass die KI Ihr Geschäft &quot;versteht&quot;.*</p>
                         </div>
 
-                        <div className="lg:col-span-4 p-8 md:p-12 relative group overflow-hidden bg-[#080808]">
-                            <div className="text-gridline font-mono text-[8px] leading-[8px] mb-8 select-none group-hover:text-lime/20 transition-colors duration-700 h-32 overflow-hidden">
-                                01100001 01100100 01101101<br />
-                                █████╗ ██████╗ ███╗   ███╗<br />
-                                ██╔══██╗██╔══██╗████╗ ████║<br />
-                                ███████║██║  ██║██╔████╔██║<br />
-                                ██╔══██║██║  ██║██║╚██╔╝██║<br />
-                                ██║  ██║██████╔╝██║ ╚═╝ ██║<br />
-                                ╚═╝  ╚═╝╚═════╝ ╚═╝     ╚═╝<br />
-                                01100001 01100100 01101101
-                            </div>
-                            <h3 className="font-syne text-2xl uppercase font-bold mb-2">Admir</h3>
-                            <p className="font-mono text-lime text-xs mb-6">&gt; The Guardian of Execution</p>
+                        <div className="lg:col-span-4 px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 relative group overflow-hidden bg-[#080808]">
+                            <h3 className="text-2xl uppercase font-bold mb-2">Admir</h3>
+                            <p className="font-mono text-lime text-xs mb-6">The Guardian of Execution</p>
                             <p className="text-mute text-sm">Baut das Backend-Fundament, das Ihre Daten schützt. Garantiert absolute Datensicherheit, stabile Server-Deployments und reibungslosen Code, der niemals einbricht. *Macht die Vision &quot;bulletproof&quot;.*</p>
                         </div>
                     </div>
+                    </div>
                 </section>
 
-                <section id="cta" className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center relative overflow-hidden bg-vanta text-white">
+                <section id="cta" className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center relative overflow-hidden bg-vanta text-white w-full">
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
-                        <span className="font-syne text-[20vw] font-bold uppercase leading-none">Execute</span>
+                        <span className="text-[20vw] font-bold uppercase leading-none">Execute</span>
                     </div>
 
                     <div className="relative z-10 w-full max-w-2xl mx-auto reveal">
-                        <p className="font-mono text-lime text-sm uppercase mb-6">[System Override Ready]</p>
-                        <h2 className="font-syne text-5xl md:text-7xl uppercase font-bold mb-6">Bereit für echte<br /><span className="brutalist-marker">Freiräume?</span></h2>
+                        <h2 className="text-5xl md:text-7xl uppercase font-bold mb-6">Bereit für echte<br /><span className="brutalist-marker">Freiräume?</span></h2>
                         <p className="text-mute mb-12">Der erste Schritt ist menschlich: Eine unverbindliche Potenzialanalyse. Wir zeigen Ihnen, wo Sie Zeit bluten. Der zweite Schritt: Automatisierung.</p>
 
                         <form className="flex flex-col sm:flex-row w-full group relative" onSubmit={handleFormSubmit}>
@@ -686,11 +692,13 @@ export default function Page() {
                     </div>
                 </section>
 
-                <footer className="border-t border-gridline p-6 flex flex-col md:flex-row justify-between items-center font-mono text-xs text-mute bg-vanta text-white">
-                    <p>&copy; {new Date().getFullYear()} Addiquat. All systems nominal.</p>
-                    <div className="flex gap-6 mt-4 md:mt-0">
-                        <a href="#" className="hover:text-lime">Impressum</a>
-                        <a href="#" className="hover:text-lime">Datenschutz</a>
+                <footer className="border-t border-gridline flex justify-center font-mono text-xs text-mute bg-vanta text-white w-full">
+                    <div className="w-full max-w-[1440px] px-6 py-6 md:px-8 lg:px-10 flex flex-col md:flex-row justify-between items-center">
+                        <p>&copy; {new Date().getFullYear()} Addiquat. All systems nominal.</p>
+                        <div className="flex gap-6 mt-4 md:mt-0">
+                            <a href="#" className="hover:text-lime">Impressum</a>
+                            <a href="#" className="hover:text-lime">Datenschutz</a>
+                        </div>
                     </div>
                 </footer>
             </div>

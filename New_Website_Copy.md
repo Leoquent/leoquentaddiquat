@@ -8,7 +8,7 @@ Dieses Dokument dient als zentrale "Single Source of Truth" für die neue inhalt
 **Status:** ✅ Finalisiert
 
 - **Tagline:** Strategic Agentic Excellence
-- **Headline:** Wir bauen KI-Systeme, die Ihre Arbeit machen. Nicht umgekehrt.
+- **Headline:** KI-Systeme, die Ihre Arbeit machen. Nicht umgekehrt.
 - **Subline:** Ob wir bestehende Insellösungen vernetzen oder komplette Software von Grund auf neu programmieren: Wir schaffen autonome Architekturen, die Ihre Arbeitsabläufe optimieren und den Erfolg maximieren.
 - **CTA:** Kostenlose Potenzialanalyse starten (oder ähnlich)
 

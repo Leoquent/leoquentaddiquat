@@ -12,10 +12,10 @@
   --color-border-light: #C7C7C7;
 
   --font-sans: var(--font-sans);
-  --font-syne: var(--font-sans);
+  --font-syne: var(--font-syne);
   --font-outfit: var(--font-sans);
   --font-mono: var(--font-mono);
-  --font-display: var(--font-sans);
+  --font-display: var(--font-syne);
   --font-serif: var(--font-serif);
 
   --animate-marquee: marquee 25s linear infinite;
@@ -131,17 +131,18 @@
 
 /* Editorial Typography */
 .hero-headline {
-  font-size: clamp(3.5rem, 10vw, 9rem);
-  line-height: 0.88;
+  font-size: clamp(2.75rem, 8vw, 7.5rem);
+  line-height: 0.9;
   letter-spacing: -0.04em;
   font-weight: 900;
 }
 
 .section-headline {
-  font-size: clamp(2.5rem, 7vw, 5.5rem);
-  line-height: 0.9;
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.05;
   letter-spacing: -0.03em;
-  font-weight: 700;
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
 .label-text {
@@ -177,7 +178,6 @@
   z-index: 1;
   display: inline-block;
   padding: 0 0.1em;
-  color: var(--color-vanta);
   white-space: nowrap;
 }
 
@@ -193,4 +193,64 @@
   z-index: -1;
   opacity: 0.95;
   clip-path: polygon(0.5% 2%, 99.2% 0.5%, 100% 98%, 1% 99.5%);
+}
+
+/* Solutions Accordion */
+.accordion-content {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordion-content.accordion-open {
+  max-height: 400px;
+  opacity: 1;
+}
+
+.accordion-chevron {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.accordion-chevron.accordion-rotated {
+  transform: rotate(180deg);
+}
+
+.accordion-item {
+  transition: background-color 0.3s ease;
+}
+
+.accordion-badge {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.accordion-open .accordion-badge {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.accordion-open .accordion-badge:nth-child(1) { transition-delay: 0.05s; }
+.accordion-open .accordion-badge:nth-child(2) { transition-delay: 0.1s; }
+.accordion-open .accordion-badge:nth-child(3) { transition-delay: 0.15s; }
+.accordion-open .accordion-badge:nth-child(4) { transition-delay: 0.2s; }
+.accordion-open .accordion-badge:nth-child(5) { transition-delay: 0.25s; }
+
+/* Typewriter Break System & Headline Overrides */
+.typewriter-break {
+  display: block;
+}
+.typewriter-space {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .typewriter-break {
+    display: none !important;
+  }
+  .typewriter-space {
+    display: inline !important;
+  }
 }
