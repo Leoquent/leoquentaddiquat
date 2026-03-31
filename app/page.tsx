@@ -548,7 +548,7 @@ export default function Page() {
                         <p className="text-mute mt-4">Transparente Meilensteine von der Analyse bis zum Betrieb. Keine Blackbox.</p>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-4 border-x border-b border-gridline">
+                    <div className="grid grid-cols-1 md:grid-cols-4 border-x border-gridline">
                         <div className="p-6 md:p-10 group hover:bg-[#0a0a0a] transition-colors reveal border-b md:border-b-0 md:border-r border-gridline" style={{ transitionDelay: '0ms' }}>
                             <div className="font-mono text-lime mb-6 text-2xl group-hover:animate-pulse">01</div>
                             <h3 className="text-xl uppercase font-bold mb-4 group-hover:text-white transition-colors">Analyse</h3>
@@ -677,25 +677,76 @@ export default function Page() {
                         </div>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 bg-vanta text-white">
-                        <div className="lg:col-span-4 px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-r border-gridline reveal">
-                            <p className="font-mono text-xs uppercase mb-4">
-                                <span className="brutalist-marker text-vanta">Über uns</span>
-                            </p>
-                            <h2 className="text-3xl uppercase font-bold mb-6">Strategische Kreativität trifft unzerstörbares Tech-Fundament.</h2>
-                            <p className="text-mute text-sm">Wir schließen die Lücke zwischen dem Laborzweck und Ihrem Praxisalltag. Zwei Spezialisten, perfekt verzahnt.</p>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 bg-vanta text-white lg:min-h-[600px]">
+                        {/* Intro Column */}
+                        <div className="lg:col-span-4 px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b lg:border-b-0 lg:border-r border-gridline flex flex-col justify-between reveal">
+                            <div>
+                                <p className="font-mono text-xs uppercase mb-4">
+                                    <span className="brutalist-marker text-vanta">Über uns</span>
+                                </p>
+                                <h2 className="text-3xl lg:text-4xl uppercase font-bold mb-6 leading-tight">Strategische Kreativität trifft<br /> <span className="text-lime/90">unzerstörbares</span> Tech-Fundament.</h2>
+                            </div>
+                            <p className="text-mute text-sm max-w-sm mt-8 lg:mt-0">Wir schließen die Lücke zwischen dem Laborzweck und Ihrem Praxisalltag. Zwei Spezialisten, perfekt verzahnt.</p>
                         </div>
 
-                        <div className="lg:col-span-4 px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-r border-gridline relative group overflow-hidden bg-[#080808]">
-                            <h3 className="text-2xl uppercase font-bold mb-2">Leonid</h3>
-                            <p className="font-mono text-lime text-xs mb-6">The Architect of Intent</p>
-                            <p className="text-mute text-sm">Er übersetzt tiefe Geschäftsbedürfnisse in präzise Sprachlogik und Workflows. Gestaltet die Schnittstelle zwischen Mensch und Maschine. *Sorgt dafür, dass die KI Ihr Geschäft &quot;versteht&quot;.*</p>
+                        {/* Card: Leonid */}
+                        <div className="lg:col-span-4 relative group overflow-hidden bg-[#0a0a0a] border-b lg:border-b-0 lg:border-r border-gridline flex flex-col justify-end min-h-[450px]">
+                            {/* Background Image */}
+                            <div 
+                                className="absolute inset-0 bg-cover bg-top bg-no-repeat opacity-40 grayscale contrast-125 saturate-0 group-hover:saturate-100 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
+                                style={{ backgroundImage: `url('${basePath}/FOTOS/leonid.png')` }}
+                            />
+                            
+                            {/* Overlay Gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-vanta via-vanta/60 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-700 z-10" />
+
+                            {/* Content */}
+                            <div className="relative z-20 px-6 py-6 md:px-8 md:py-10 flex flex-col justify-end h-full">
+                                <div>
+                                    <h3 className="text-4xl uppercase font-black mb-1 text-white/90 group-hover:text-white transition-colors duration-500">Leonid</h3>
+                                    <p className="font-mono text-lime/80 text-[10px] sm:text-xs tracking-widest uppercase mb-6 group-hover:text-lime transition-colors duration-500">The Architect of Intent</p>
+                                </div>
+                                
+                                {/* Expanding Text */}
+                                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                                    <div className="overflow-hidden">
+                                        <p className="text-white/70 text-sm leading-relaxed pt-6 border-t border-gridline/50 font-light">
+                                            Er übersetzt tiefe Geschäftsbedürfnisse in präzise Sprachlogik und Workflows. Gestaltet die Schnittstelle zwischen Mensch und Maschine.<br /><br />
+                                            <span className="text-lime/90 font-mono text-xs tracking-wider uppercase">* Sorgt dafür, dass die KI Ihr Geschäft &quot;versteht&quot;.</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div className="lg:col-span-4 px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 relative group overflow-hidden bg-[#080808]">
-                            <h3 className="text-2xl uppercase font-bold mb-2">Admir</h3>
-                            <p className="font-mono text-lime text-xs mb-6">The Guardian of Execution</p>
-                            <p className="text-mute text-sm">Baut das Backend-Fundament, das Ihre Daten schützt. Garantiert absolute Datensicherheit, stabile Server-Deployments und reibungslosen Code, der niemals einbricht. *Macht die Vision &quot;bulletproof&quot;.*</p>
+                        {/* Card: Admir */}
+                        <div className="lg:col-span-4 relative group overflow-hidden bg-[#0a0a0a] flex flex-col justify-end min-h-[450px]">
+                            {/* Background Image */}
+                            <div 
+                                className="absolute inset-0 bg-cover bg-top bg-no-repeat opacity-40 grayscale contrast-125 saturate-0 group-hover:saturate-100 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
+                                style={{ backgroundImage: `url('${basePath}/FOTOS/admir.png')` }}
+                            />
+                            
+                            {/* Overlay Gradient */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-vanta via-vanta/60 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-700 z-10" />
+
+                            {/* Content */}
+                            <div className="relative z-20 px-6 py-6 md:px-8 md:py-10 flex flex-col justify-end h-full">
+                                <div>
+                                    <h3 className="text-4xl uppercase font-black mb-1 text-white/90 group-hover:text-white transition-colors duration-500">Admir</h3>
+                                    <p className="font-mono text-lime/80 text-[10px] sm:text-xs tracking-widest uppercase mb-6 group-hover:text-lime transition-colors duration-500">The Guardian of Execution</p>
+                                </div>
+                                
+                                {/* Expanding Text */}
+                                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                                    <div className="overflow-hidden">
+                                        <p className="text-white/70 text-sm leading-relaxed pt-6 border-t border-gridline/50 font-light">
+                                            Baut das Backend-Fundament, das Ihre Daten schützt. Garantiert absolute Datensicherheit, stabile Server-Deployments und reibungslosen Code.<br /><br />
+                                            <span className="text-lime/90 font-mono text-xs tracking-wider uppercase">* Macht die Vision &quot;bulletproof&quot;.</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     </div>
