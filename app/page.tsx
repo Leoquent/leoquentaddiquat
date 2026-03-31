@@ -50,68 +50,69 @@ const solutionsData = [
 
 const industriesData = [
     {
-        id: "real-estate", icon: "🏢", name: "Immobilien",
+        id: "real-estate", name: "Immobilien",
         cases: [
             { title: "Immobilienbewertung", desc: "KI-Algorithmen analysieren Marktdaten in Echtzeit, um Werte präzise vorherzusagen." },
-            { title: "Marketing-Optimierung", desc: "Automatisierte Tools analysieren Daten, um Inserate zu optimieren und Zielgruppen exakt anzusprechen." }
+            { title: "Marketing-Optimierung", desc: "Automatisierte Tools optimieren Inserate und sprechen Zielgruppen exakt an." }
         ]
     },
     {
-        id: "healthcare", icon: "⚕️", name: "Gesundheitswesen",
+        id: "healthcare", name: "Gesundheit",
         cases: [
-            { title: "Datenbasierte Diagnostik", desc: "Bereitstellung hochmoderner Datenanalysen zur Unterstützung kritischer Entscheidungen." },
-            { title: "Vernetzte Plattformen", desc: "Entwicklung sicherer Systeme zur Datenerfassung, die Diagnosen autonom unterstützen." }
+            { title: "Datenbasierte Diagnostik", desc: "Hochmoderne Analysen zur Unterstützung kritischer medizinischer Entscheidungen." },
+            { title: "Vernetzte Plattformen", desc: "Sichere Systeme zur Datenerfassung, die Diagnosen autonom unterstützen." }
         ]
     },
     {
-        id: "education", icon: "🎓", name: "Bildung",
+        id: "education", name: "Bildung",
         cases: [
-            { title: "Personalisiertes Lernen", desc: "KI analysiert Daten, um dynamische Lehrpläne an individuelle Bedürfnisse anzupassen." },
+            { title: "Personalisiertes Lernen", desc: "KI analysiert Daten, um Lehrpläne dynamisch an individuelle Bedürfnisse anzupassen." },
             { title: "Automatisierte Bewertung", desc: "Intelligente Systeme übernehmen die Korrektur von Routineaufgaben und Prüfungen." }
         ]
     },
     {
-        id: "construction", icon: "🔨", name: "Handwerk & Bau",
+        id: "construction", name: "Handwerk",
         cases: [
-            { title: "Autonome Administration", desc: "Daten von der Baustelle werden sofort in präzise Angebote und Rechnungen umgewandelt." },
+            { title: "Autonome Administration", desc: "Vom Baustellenprotokoll direkt zu präzisen Angeboten und Rechnungen – für Handwerk und Bau." },
             { title: "Einsatzplanung", desc: "KI-gestützte Disposition von Teams basierend auf Auftragslage, Wetter und Verfügbarkeiten." }
         ]
     },
     {
-        id: "ecommerce", icon: "📦", name: "Handel & E-Commerce",
+        id: "ecommerce", name: "Handel",
         cases: [
-            { title: "Proaktives Bestandsmanagement", desc: "Intelligente Prognose-Modelle überwachen Lieferketten und steuern den Einkauf völlig autonom." },
-            { title: "Hyperpersonalisierung", desc: "KI analysiert Verhalten in Millisekunden und empfiehlt hochkonvertierende Produkte." }
+            { title: "Bestandsmanagement", desc: "Intelligente Prognose-Modelle steuern den Einkauf autonom – egal ob stationär oder E-Commerce." },
+            { title: "Hyperpersonalisierung", desc: "KI analysiert Kundenverhalten in Millisekunden und empfiehlt hochkonvertierende Produkte." }
         ]
     },
     {
-        id: "logistics", icon: "🚚", name: "Logistik & Supply",
+        id: "logistics", name: "Logistik",
         cases: [
-            { title: "Echtzeit-Routing", desc: "KI-Agenten berechnen dynamisch die effizientesten Routen für Flotten." },
+            { title: "Echtzeit-Routing", desc: "KI-Agenten berechnen dynamisch die effizientesten Routen für ganze Flotten." },
             { title: "Predictive Maintenance", desc: "Systeme überwachen Sensordaten, um Wartungen einzuplanen, bevor es zum Stillstand kommt." }
         ]
     },
     {
-        id: "agriculture", icon: "🌾", name: "Landwirtschaft",
+        id: "agriculture", name: "Agrar",
         cases: [
-            { title: "Automatisierte Ertragsanalyse", desc: "Computer Vision überwacht Pflanzengesundheit und optimiert den Ertrag." },
+            { title: "Ertragsanalyse", desc: "Computer Vision überwacht Pflanzengesundheit und optimiert den Ertrag autonom." },
             { title: "Ressourcensteuerung", desc: "Algorithmen steuern Bewässerung und Düngung präzise nach tagesaktuellen Daten." }
         ]
     },
     {
-        id: "marketing", icon: "📱", name: "Social Media",
+        id: "marketing", name: "Social",
         cases: [
-            { title: "Content-Generierung", desc: "Agenten erstellen und skalieren Werbemittel autonom basierend auf Metriken." },
-            { title: "Kampagnen-Steuerung", desc: "Intelligente Bots schichten Budgets in Millisekunden auf die profitabelste Zielgruppe um." }
+            { title: "Content-Generierung", desc: "Agenten erstellen und skalieren Werbemittel autonom basierend auf Performance-Metriken." },
+            { title: "Kampagnen-Steuerung", desc: "Intelligente Bots schichten Budgets in Echtzeit auf die profitabelste Zielgruppe um." }
         ]
     }
 ];
 
 export default function Page() {
-    const [activeIndustry, setActiveIndustry] = useState(0);
+
     const [navScrolled, setNavScrolled] = useState(false);
     const [scrolledPastHero, setScrolledPastHero] = useState(false);
-    const [expandedSolution, setExpandedSolution] = useState<string | null>(null);
+
+
 
     const typewriterRef = useRef<HTMLSpanElement>(null);
     const sqGeoCoreRef = useRef<HTMLDivElement>(null);
@@ -503,40 +504,35 @@ export default function Page() {
                     </div>
 
                     <div className="w-full">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 reveal border-x border-gridline">
-                            {solutionsData.map((sol, idx) => {
-                                const isExpanded = expandedSolution === sol.id;
-                                return (
+                        <div className="grid grid-cols-1 md:grid-cols-2 reveal border-x border-gridline">
+                            {solutionsData.map((sol, idx) => (
                                 <div 
                                     key={sol.id} 
-                                    onClick={() => setExpandedSolution(isExpanded ? null : sol.id)}
-                                    className={`group relative bg-vanta p-6 md:p-8 lg:p-10 transition-colors duration-500 flex flex-col cursor-pointer border-gridline hover:bg-[#080808] border-b last:border-b-0 md:border-b-0 md:[&:nth-child(n+3)]:border-t md:even:border-l lg:border-t-0 lg:[&:not(:first-child)]:border-l min-h-[450px] lg:min-h-[500px]`}
+                                    className="group relative bg-vanta p-6 md:p-8 lg:p-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col overflow-hidden hover:bg-lime h-[280px] md:h-[300px]"
                                 >
-                                    <div className="flex justify-end items-start mb-8">
-                                        <div className={`w-8 h-8 rounded-full border flex items-center justify-center transition-colors duration-500 ${isExpanded ? 'border-lime bg-lime/10' : 'border-gridline group-hover:border-lime group-hover:bg-lime/10'}`}>
-                                            <svg className={`w-3 h-3 transition-transform duration-500 ${isExpanded ? 'text-lime rotate-90' : 'text-mute group-hover:text-lime -rotate-45 group-hover:rotate-0'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <div className="flex justify-end items-start mb-4">
+                                        <div className="w-7 h-7 rounded-full border border-gridline group-hover:border-vanta/30 flex items-center justify-center transition-all duration-500 group-hover:bg-vanta/10">
+                                            <svg className="w-3 h-3 text-mute group-hover:text-vanta transition-all duration-500 -rotate-45 group-hover:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                             </svg>
                                         </div>
                                     </div>
                                     
-                                    <h3 className={`text-xl md:text-2xl uppercase font-bold mb-6 transition-colors duration-300 ${isExpanded ? 'text-lime' : 'text-white group-hover:text-lime'}`}>{sol.title}</h3>
+                                    <h3 className="text-xl md:text-2xl uppercase font-bold mb-4 text-white group-hover:text-vanta transition-colors duration-500">{sol.title}</h3>
                                     
-                                    <div className="flex flex-wrap gap-2">
+                                    <div className="flex flex-wrap gap-2 mb-4">
                                         {sol.badges.map(b => (
-                                            <span key={b} className={`border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest transition-colors duration-300 ${isExpanded ? 'border-lime text-vanta bg-lime' : 'border-lime/30 group-hover:border-lime text-lime/70 group-hover:text-vanta group-hover:bg-lime bg-lime/5'}`}>{b}</span>
+                                            <span key={b} className="border border-lime/30 group-hover:border-vanta/30 group-hover:bg-vanta group-hover:text-lime px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-lime/70 bg-lime/5 transition-all duration-500">{b}</span>
                                         ))}
                                     </div>
-                                    
-                                    <div className={`grid transition-all duration-500 ease-[cubic-bezier(0.87,0,0.13,1)] ${isExpanded ? 'grid-rows-[1fr] opacity-100 mt-6' : 'grid-rows-[0fr] opacity-0 mt-0'}`}>
-                                        <div className="overflow-hidden">
-                                            <p className="text-mute text-sm leading-relaxed transition-colors font-light pt-6 border-t border-gridline/30 group-hover:text-white">
-                                                {sol.text}
-                                            </p>
-                                        </div>
+
+                                    <div className="mt-auto translate-y-[120%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                                        <p className="text-vanta/80 text-sm leading-relaxed font-light pt-4 border-t border-vanta/20">
+                                            {sol.text}
+                                        </p>
                                     </div>
                                 </div>
-                            )})}
+                            ))}
                         </div>
                     </div>
                     </div>
@@ -579,7 +575,7 @@ export default function Page() {
 
                 <section id="branchen" className="border-b border-gridline bg-vanta text-white flex justify-center">
                     <div className="w-full max-w-[1440px]">
-                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b border-x border-gridline flex justify-between items-end reveal">
+                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-x border-gridline flex justify-between items-end reveal">
                         <div>
                             <p className="font-mono text-xs uppercase mb-4">
                                 <span className="brutalist-marker text-vanta">Zukunftssicherheit</span>
@@ -591,32 +587,63 @@ export default function Page() {
                         </p>
                     </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-2">
-                        <div className="border-b lg:border-b-0 lg:border-r border-gridline flex flex-col" id="industry-list">
-                            {industriesData.map((ind, idx) => (
-                                <button key={ind.id} onMouseEnter={() => setActiveIndustry(idx)} className={`w-full text-left px-6 md:px-8 lg:px-10 py-5 border-b border-gridline hover:bg-lime hover:text-vanta transition-all duration-0 text-xl uppercase font-bold group flex justify-between items-center ${activeIndustry === idx ? 'text-lime' : 'text-mute'}`}>
-                                    <span className="group-hover:translate-x-4 transition-transform duration-100 flex items-center gap-4">
-                                        <span className="text-2xl opacity-50 grayscale group-hover:grayscale-0">{ind.icon}</span>
-                                        {ind.name}
-                                    </span>
-                                    <span className="font-mono text-xs opacity-0 group-hover:opacity-100 uppercase">Ansehen</span>
-                                </button>
-                            ))}
-                        </div>
-                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 relative min-h-[500px] flex flex-col justify-center bg-[#0a0a0a]" id="industry-display">
-                            <div className="absolute inset-0 border-[16px] border-vanta pointer-events-none"></div>
-                            <div className="absolute top-8 right-8 w-2 h-2 bg-lime animate-ping"></div>
-                            <div id="industry-content-inner" key={activeIndustry}>
-                                <div className="space-y-12">
-                                    {industriesData[activeIndustry].cases.map((c, i) => (
-                                        <div key={i} className="relative pl-8 before:content-[''] before:absolute before:left-0 before:top-2 before:w-2 before:h-2 before:bg-lime">
-                                            <h4 className="text-2xl uppercase font-bold mb-3">{c.title}</h4>
-                                            <p className="text-mute">{c.desc}</p>
-                                        </div>
-                                    ))}
+                    {/* Desktop: Vertical Film Strips */}
+                    <div className="hidden md:flex w-full border-x border-gridline" style={{ height: '370px' }}>
+                        {industriesData.map((ind) => (
+                            <div
+                                key={ind.id}
+                                className="group relative overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex-[1] hover:flex-[4] hover:bg-lime"
+                            >
+                                {/* Vertical name — top-aligned, stays at left edge on hover */}
+                                <span
+                                    className="absolute top-5 lg:top-6 left-1/2 -translate-x-1/2 group-hover:left-3 group-hover:lg:left-4 group-hover:translate-x-0 uppercase font-black text-white group-hover:text-vanta transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] whitespace-nowrap pointer-events-none"
+                                    style={{
+                                        writingMode: 'vertical-rl',
+                                        transform: 'rotate(180deg)',
+                                        fontSize: 'clamp(1.8rem, 4.8vh, 2.6rem)',
+                                        letterSpacing: '0.06em',
+                                        lineHeight: 0.9
+                                    }}
+                                >
+                                    {ind.name}
+                                </span>
+
+                                {/* Expanded content — Masked gracefully by the moving vertical word */}
+                                <div
+                                    className="absolute top-5 lg:top-6 bottom-0 right-0 overflow-hidden transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] left-[65%] group-hover:left-[clamp(3rem,7vh,4.5rem)] pointer-events-none"
+                                >
+                                    <div className="absolute top-0 right-3 lg:right-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 group-hover:delay-100 space-y-4 w-[180px] md:w-[220px] lg:w-[280px] xl:w-[340px] pb-4">
+                                        {ind.cases.map((c, i) => (
+                                            <div key={i} className="relative pl-3 border-l-2 border-vanta/30">
+                                                <h4 className="text-[10px] lg:text-[11px] uppercase font-bold text-vanta/80 mb-0.5 tracking-wider">{c.title}</h4>
+                                                <p className="text-vanta/50 text-[10px] lg:text-[11px] leading-relaxed">{c.desc}</p>
+                                            </div>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        ))}
+                    </div>
+
+                    {/* Mobile: Stacked Rows */}
+                    <div className="md:hidden border-x border-gridline">
+                        {industriesData.map((ind) => (
+                            <div key={ind.id} className="group border-b border-gridline last:border-b-0 px-6 py-5 hover:bg-lime transition-all duration-300">
+                                <h3 className="text-lg uppercase font-bold text-mute group-hover:text-vanta transition-colors">{ind.name}</h3>
+                                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500">
+                                    <div className="overflow-hidden">
+                                        <div className="space-y-4 pt-4">
+                                            {ind.cases.map((c, i) => (
+                                                <div key={i}>
+                                                    <h4 className="text-sm uppercase font-bold text-vanta/90 mb-1">{c.title}</h4>
+                                                    <p className="text-vanta/60 text-sm">{c.desc}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                     </div>
                 </section>
