@@ -694,7 +694,7 @@ export default function Page() {
                             {/* Background Image */}
                             <div 
                                 className="absolute inset-0 bg-cover bg-top bg-no-repeat opacity-40 grayscale contrast-125 saturate-0 group-hover:saturate-100 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
-                                style={{ backgroundImage: `url('${basePath}/FOTOS/leonid.png')` }}
+                                style={{ backgroundImage: `url('${basePath}/FOTOS/leonid_v3.png')` }}
                             />
                             
                             {/* Overlay Gradient */}
