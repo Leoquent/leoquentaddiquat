@@ -510,14 +510,7 @@ export default function Page() {
                                     key={sol.id} 
                                     className="group relative bg-vanta p-6 md:p-8 lg:p-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col overflow-hidden hover:bg-lime h-[280px] md:h-[300px]"
                                 >
-                                    <div className="flex justify-end items-start mb-4">
-                                        <div className="w-7 h-7 rounded-full border border-gridline group-hover:border-vanta/30 flex items-center justify-center transition-all duration-500 group-hover:bg-vanta/10">
-                                            <svg className="w-3 h-3 text-mute group-hover:text-vanta transition-all duration-500 -rotate-45 group-hover:rotate-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                            </svg>
-                                        </div>
-                                    </div>
-                                    
+                                
                                     <h3 className="text-xl md:text-2xl uppercase font-bold mb-4 text-white group-hover:text-vanta transition-colors duration-500">{sol.title}</h3>
                                     
                                     <div className="flex flex-wrap gap-2 mb-4">
@@ -540,12 +533,14 @@ export default function Page() {
 
                 <section id="prozess" className="border-b border-gridline relative bg-white text-vanta flex justify-center">
                     <div className="w-full max-w-[1440px]">
-                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b border-x border-gridline reveal">
-                        <p className="font-mono text-xs uppercase mb-4">
-                            <span className="brutalist-marker text-vanta">Prozess</span>
-                        </p>
-                        <h2 className="section-headline">Unser Weg zu<br />Ihrer Lösung.</h2>
-                        <p className="text-mute mt-4">Transparente Meilensteine von der Analyse bis zum Betrieb. Keine Blackbox.</p>
+                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b border-x border-gridline flex flex-col md:flex-row justify-between items-start md:items-end gap-8 reveal">
+                        <div>
+                            <p className="font-mono text-xs uppercase mb-6 tracking-widest">
+                                <span className="brutalist-marker text-vanta">Prozess</span>
+                            </p>
+                            <h2 className="section-headline">Unser Weg zu<br />Ihrer Lösung.</h2>
+                        </div>
+                        <p className="max-w-md text-mute text-sm leading-relaxed font-light">Transparente Meilensteine von der Analyse bis zum Betrieb. Keine Blackbox.</p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-4 border-x border-gridline">
@@ -565,7 +560,7 @@ export default function Page() {
                             <p className="text-mute text-sm group-hover:text-white/80 transition-colors">Wir programmieren, testen und iterieren Ihre autonome Lösung in enger Abstimmung mit Ihnen.</p>
                         </div>
                         <div className="p-6 md:p-10 group hover:bg-lime group-hover:text-vanta transition-colors reveal" style={{ transitionDelay: '300ms' }}>
-                            <div className="font-mono text-mute mb-6 text-2xl group-hover:text-vanta">04</div>
+                            <div className="font-mono text-lime mb-6 text-2xl group-hover:text-vanta">04</div>
                             <h3 className="text-xl uppercase font-bold mb-4 group-hover:text-vanta transition-colors">Betrieb</h3>
                             <p className="text-mute text-sm group-hover:text-vanta/80 transition-colors">Integration, dediziertes Hosting, ständige Wartung & updates. Sie erhalten ein schlüsselfertiges System. Dauerhaft.</p>
                         </div>
@@ -651,30 +646,39 @@ export default function Page() {
                 <section id="warum-wir" className="border-b border-gridline bg-white text-vanta flex justify-center">
                     <div className="w-full max-w-[1440px]">
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-b border-x border-gridline">
-                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b border-gridline col-span-1 md:col-span-2 lg:col-span-4 bg-white reveal">
-                            <p className="font-mono text-xs uppercase mb-4">
-                                <span className="brutalist-marker text-vanta">Warum wir</span>
-                            </p>
-                            <h2 className="section-headline text-vanta">Keine Standard-Agentur.<br />Keine Kompromisse.</h2>
-                            <p className="text-vanta/80 mt-4 max-w-2xl">Wir tauschen nicht Zeit gegen Geld. Wir liefern Systeme, die messbare Effizienz bringen. Kompromisslos auf den Erfolg des Mittelstands ausgerichtet.</p>
+                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b border-gridline col-span-1 md:col-span-2 lg:col-span-4 bg-white flex flex-col md:flex-row justify-between items-start md:items-end gap-8 reveal">
+                            <div>
+                                <p className="font-mono text-xs uppercase mb-6 tracking-widest">
+                                    <span className="brutalist-marker text-vanta">Warum wir</span>
+                                </p>
+                                <h2 className="section-headline text-vanta">Keine Standard-Agentur.<br />Keine Kompromisse.</h2>
+                            </div>
+                            <p className="max-w-md text-vanta/80 text-sm leading-relaxed font-light">Wir tauschen nicht Zeit gegen Geld. Wir liefern Systeme, die messbare Effizienz bringen. Kompromisslos auf den Erfolg des Mittelstands ausgerichtet.</p>
                         </div>
 
-                        <div className="p-6 md:p-8 lg:p-10 border-b lg:border-b-0 md:border-r border-gridline reveal">
-                            <h3 className="font-mono text-vanta uppercase font-bold mb-4">01. Performance Pricing</h3>
-                            <p className="text-sm text-vanta/70">Sie zahlen für das funktionierende Ergebnis und garantierten ROI. Wir gewinnen, wenn Sie gewinnen.</p>
-                        </div>
-                        <div className="p-6 md:p-8 lg:p-10 border-b lg:border-b-0 lg:border-r border-gridline reveal">
-                            <h3 className="font-mono text-vanta uppercase font-bold mb-4">02. Radikale Agilität</h3>
-                            <p className="text-sm text-vanta/70">Keine monatelangen Wasserfall-Projekte. Wir bauen schnelle Prototypen und iterieren live an Ihren Daten.</p>
-                        </div>
-                        <div className="p-6 md:p-8 lg:p-10 border-b md:border-b-0 md:border-r border-gridline reveal">
-                            <h3 className="font-mono text-vanta uppercase font-bold mb-4">03. DSGVO-Konform</h3>
-                            <p className="text-sm text-vanta/70">Modernste KI-Innovation plus IT-Sicherheit. Alles DSGVO-konform, stabil und gehostet in Deutschland.</p>
-                        </div>
-                        <div className="p-6 md:p-8 lg:p-10 reveal">
-                            <h3 className="font-mono text-vanta uppercase font-bold mb-4">04. Maßanzug statt Masse</h3>
-                            <p className="text-sm text-vanta/70">Wir biegen nicht den Kunden für die Software. Jede Lösung wird individuell für Ihren Prozess entwickelt.</p>
-                        </div>
+                        {[
+                            { title: "Performance Pricing", text: "Sie zahlen für das funktionierende Ergebnis und garantierten ROI. Wir gewinnen, wenn Sie gewinnen." },
+                            { title: "Radikale Agilität", text: "Keine monatelangen Wasserfall-Projekte. Wir bauen schnelle Prototypen und iterieren live an Ihren Daten." },
+                            { title: "DSGVO-Konform", text: "Modernste KI-Innovation plus IT-Sicherheit. Alles DSGVO-konform, stabil und gehostet in Deutschland." },
+                            { title: "Maßanzug statt Masse", text: "Wir biegen nicht den Kunden für die Software. Jede Lösung wird individuell für Ihren Prozess entwickelt." }
+                        ].map((item, idx) => (
+                            <div
+                                key={idx}
+                                className={`group relative p-6 md:p-8 lg:p-10 overflow-hidden transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#0a0a0a] reveal ${
+                                    idx < 3 ? (idx < 2 ? 'border-b lg:border-b-0 md:border-r border-gridline' : 'border-b md:border-b-0 md:border-r border-gridline') : ''
+                                }`}
+                                style={{ transitionDelay: `${idx * 80}ms` }}
+                            >
+
+                                {/* Title — stays fixed, color transitions */}
+                                <h3 className="font-mono text-vanta uppercase font-bold mb-4 group-hover:text-white transition-colors duration-500">{item.title}</h3>
+
+                                {/* Text — slides up from below on hover */}
+                                <div className="translate-y-[120%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                                    <p className="text-sm text-white/70 leading-relaxed font-light">{item.text}</p>
+                                </div>
+                            </div>
+                        ))}
                     </div>
 
                     <div className="grid grid-cols-1 lg:grid-cols-12 bg-vanta text-white lg:min-h-[600px]">
@@ -691,10 +695,9 @@ export default function Page() {
 
                         {/* Card: Leonid */}
                         <div className="lg:col-span-4 relative group overflow-hidden bg-[#0a0a0a] border-b lg:border-b-0 lg:border-r border-gridline flex flex-col justify-end min-h-[450px]">
-                            {/* Background Image */}
                             <div 
-                                className="absolute inset-0 bg-cover bg-top bg-no-repeat opacity-40 grayscale contrast-125 saturate-0 group-hover:saturate-100 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
-                                style={{ backgroundImage: `url('${basePath}/FOTOS/leonid_v3.png')` }}
+                                className="absolute inset-0 bg-no-repeat bg-[length:115%] bg-[center_10%] opacity-40 grayscale contrast-125 saturate-0 group-hover:saturate-100 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
+                                style={{ backgroundImage: `url('${basePath}/FOTOS/leonid_v4.png')` }}
                             />
                             
                             {/* Overlay Gradient */}
@@ -710,9 +713,9 @@ export default function Page() {
                                 {/* Expanding Text */}
                                 <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
                                     <div className="overflow-hidden">
-                                        <p className="text-white/70 text-sm leading-relaxed pt-6 border-t border-gridline/50 font-light">
+                                        <p className="text-white/70 text-sm leading-relaxed pt-6 font-light">
                                             Er übersetzt tiefe Geschäftsbedürfnisse in präzise Sprachlogik und Workflows. Gestaltet die Schnittstelle zwischen Mensch und Maschine.<br /><br />
-                                            <span className="text-lime/90 font-mono text-xs tracking-wider uppercase">* Sorgt dafür, dass die KI Ihr Geschäft &quot;versteht&quot;.</span>
+                                            <span className="text-lime/90 font-mono text-xs tracking-wider uppercase">Sorgt dafür, dass die KI Ihr Geschäft &quot;versteht&quot;.</span>
                                         </p>
                                     </div>
                                 </div>
@@ -724,7 +727,7 @@ export default function Page() {
                             {/* Background Image */}
                             <div 
                                 className="absolute inset-0 bg-cover bg-top bg-no-repeat opacity-40 grayscale contrast-125 saturate-0 group-hover:saturate-100 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
-                                style={{ backgroundImage: `url('${basePath}/FOTOS/admir.png')` }}
+                                style={{ backgroundImage: `url('${basePath}/FOTOS/admir_v2.png')` }}
                             />
                             
                             {/* Overlay Gradient */}
@@ -740,9 +743,9 @@ export default function Page() {
                                 {/* Expanding Text */}
                                 <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
                                     <div className="overflow-hidden">
-                                        <p className="text-white/70 text-sm leading-relaxed pt-6 border-t border-gridline/50 font-light">
+                                        <p className="text-white/70 text-sm leading-relaxed pt-6 font-light">
                                             Baut das Backend-Fundament, das Ihre Daten schützt. Garantiert absolute Datensicherheit, stabile Server-Deployments und reibungslosen Code.<br /><br />
-                                            <span className="text-lime/90 font-mono text-xs tracking-wider uppercase">* Macht die Vision &quot;bulletproof&quot;.</span>
+                                            <span className="text-lime/90 font-mono text-xs tracking-wider uppercase">Macht die Vision &quot;bulletproof&quot;.</span>
                                         </p>
                                     </div>
                                 </div>
@@ -772,7 +775,7 @@ export default function Page() {
 
                 <footer className="border-t border-gridline flex justify-center font-mono text-xs text-mute bg-vanta text-white w-full">
                     <div className="w-full max-w-[1440px] px-6 py-6 md:px-8 lg:px-10 flex flex-col md:flex-row justify-between items-center">
-                        <p>&copy; {new Date().getFullYear()} Addiquat. All systems nominal.</p>
+                        <p>&copy; {new Date().getFullYear()} leoquent &amp; addequat. All systems nominal.</p>
                         <div className="flex gap-6 mt-4 md:mt-0">
                             <a href="#" className="hover:text-lime">Impressum</a>
                             <a href="#" className="hover:text-lime">Datenschutz</a>
