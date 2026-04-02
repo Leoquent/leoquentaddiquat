@@ -59,6 +59,14 @@
 }
 
 /* Base tailwind elements */
+html {
+  scroll-behavior: smooth;
+}
+
+section, #cta {
+  scroll-margin-top: 65px; /* Exact height of scrolled nav */
+}
+
 
 /* CSS Noise Overlay */
 .noise-bg {
@@ -95,17 +103,7 @@
   transform: translate(2px, -2px);
 }
 
-/* Smooth Scroll Reveal Animations */
-.reveal {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.reveal.active {
-  opacity: 1;
-  transform: translateY(0);
-}
+/* Smooth Scroll Fallback (Removed for GSAP override) */
 
 /* 3D Transform Utilities for Interactive Grid */
 .preserve-3d {

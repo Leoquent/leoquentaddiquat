@@ -128,82 +128,25 @@ export default function Page() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // --- HERO SCROLL HIGHLIGHT / DISPERSION ---
+    const scrollToTop = (e: React.MouseEvent) => {
+        e.preventDefault();
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    };
+
+    // --- GSAP ORCHESTRATOR ---
     useGSAP(() => {
+        let mm = gsap.matchMedia();
+
         const words = gsap.utils.toArray('.hero-word') as HTMLElement[];
         const elements = gsap.utils.toArray('.hero-element') as HTMLElement[];
 
         // Set transform-origin to center for each word so 3D rotation looks natural
         words.forEach(w => { w.style.transformOrigin = '50% 50%'; });
 
-        const tl = gsap.timeline({
-            scrollTrigger: {
-                trigger: "#content-wrapper",
-                start: "top bottom-=150px",  // starts after 100px of scrolling – guaranteed sharp on load
-                end: "top 30%",
-                scrub: 0.5,
-                invalidateOnRefresh: true
-            }
-        });
-
-        // 3D Depth Dispersion – words tumble upward-backward into the scene
-        words.forEach((word, i) => {
-            const dirX = (Math.random() - 0.5) * 200;           // lateral scatter
-            const dirY = -(30 + Math.random() * 120);           // drift upward
-            const dirZ = -(200 + Math.random() * 400);          // push deep into screen
-            const rotX = -10 + (Math.random() - 0.5) * 60;     // tilt back
-            const rotY = (Math.random() - 0.5) * 90;            // yaw
-            const rotZ = (Math.random() - 0.5) * 25;            // slight roll
-            const endScale = 0.4 + Math.random() * 0.3;         // shrink = depth
-
-            tl.to(word, {
-                x: dirX,
-                y: dirY,
-                z: dirZ,
-                rotationX: rotX,
-                rotationY: rotY,
-                rotationZ: rotZ,
-                opacity: 0,
-                filter: "blur(16px)",
-                scale: endScale,
-                ease: "power1.in",
-                immediateRender: false
-            }, 0);
-        });
-
-        // Ensure clean state on load for words and static elements
-        gsap.set(words, {
-            opacity: 1,
-            filter: "none",
-            x: 0,
-            y: 0,
-            z: 0,
-            rotationX: 0,
-            rotationY: 0,
-            rotationZ: 0,
-            scale: 1,
-            willChange: "transform, opacity"
-        });
-        gsap.set(elements, {
-            opacity: 1,
-            filter: "none",
-            y: 0,
-            z: 0,
-            scale: 1,
-            willChange: "transform, opacity"
-        });
-
-        // Fade out other hero static elements with depth
-        tl.to(elements, {
-            y: -40,
-            z: -150,
-            opacity: 0,
-            filter: "blur(10px)",
-            scale: 0.85,
-            ease: "power1.in"
-        }, 0);
-
-        // --- HERO PARALLAX: subtle upward drift as user scrolls ---
+        // --- HERO PARALLAX: subtle upward drift as user scrolls (All screens) ---
         const heroSection = document.getElementById('hero-sticky-section');
         if (heroSection) {
             gsap.to(heroSection, {
@@ -218,23 +161,138 @@ export default function Page() {
             });
         }
 
-    }, { scope: undefined });
-
-    // --- REVEAL ANIMATIONS ---
-    useEffect(() => {
-        const revealElements = document.querySelectorAll(".reveal");
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("active");
-                    revealObserver.unobserve(entry.target);
+        // --- DESKTOP ONLY ANIMATIONS (Animations play only if user has no reduced motion preference) ---
+        mm.add("(min-width: 1024px) and (prefers-reduced-motion: no-preference)", () => {
+            
+            // 1. HERO 3D Dispersion
+            const heroTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#content-wrapper",
+                    start: "top bottom-=150px", 
+                    end: "top 30%",
+                    scrub: 0.5,
+                    invalidateOnRefresh: true
                 }
             });
-        }, { threshold: 0.1 });
 
-        revealElements.forEach(el => revealObserver.observe(el));
-        return () => revealObserver.disconnect();
-    }, []);
+            words.forEach((word, i) => {
+                const dirX = (Math.random() - 0.5) * 200;           // lateral scatter
+                const dirY = -(30 + Math.random() * 120);           // drift upward
+                const dirZ = -(200 + Math.random() * 400);          // push deep into screen
+                const rotX = -10 + (Math.random() - 0.5) * 60;      // tilt back
+                const rotY = (Math.random() - 0.5) * 90;            // yaw
+                const rotZ = (Math.random() - 0.5) * 25;            // slight roll
+                const endScale = 0.4 + Math.random() * 0.3;         // shrink = depth
+
+                heroTl.to(word, {
+                    x: dirX, y: dirY, z: dirZ,
+                    rotationX: rotX, rotationY: rotY, rotationZ: rotZ,
+                    opacity: 0,
+                    filter: "blur(16px)",
+                    scale: endScale,
+                    ease: "power1.in",
+                    immediateRender: false
+                }, 0);
+            });
+
+            gsap.set(words, {
+                opacity: 1, filter: "none", x: 0, y: 0, z: 0,
+                rotationX: 0, rotationY: 0, rotationZ: 0, scale: 1,
+                willChange: "transform, opacity"
+            });
+            gsap.set(elements, {
+                opacity: 1, filter: "none", y: 0, z: 0, scale: 1,
+                willChange: "transform, opacity"
+            });
+
+            heroTl.to(elements, {
+                y: -40, z: -150, opacity: 0, filter: "blur(10px)",
+                scale: 0.85, ease: "power1.in"
+            }, 0);
+
+            // 2. STATUS QUO (Removed per user request to avoid jumping/bugs)
+
+            // 3. SOLUTIONS
+            const solHeader = document.querySelector('#solutions > div > div:first-child') as HTMLElement;
+            const solCards = gsap.utils.toArray('#solutions .group') as HTMLElement[];
+            
+            const solTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#solutions',
+                    start: "top 75%",
+                    end: "center 50%",
+                    scrub: 1,
+                }
+            });
+            if (solHeader) solTl.from(solHeader, { opacity: 0, y: 50, duration: 1 });
+            if (solCards.length > 0) solTl.from(solCards, { opacity: 0, scale: 0.95, y: 50, duration: 2, stagger: 0.2 }, "-=0.5");
+
+            // 4. PROZESS
+            const prozHeader = document.querySelector('#prozess > div > div:first-child') as HTMLElement;
+            const prozSteps = gsap.utils.toArray('#prozess .grid > div') as HTMLElement[];
+            
+            const prozTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#prozess',
+                    start: "top 75%",
+                    end: "center center",
+                    scrub: 1,
+                }
+            });
+            if (prozHeader) prozTl.from(prozHeader, { opacity: 0, y: 50, duration: 1 });
+            if (prozSteps.length > 0) prozTl.from(prozSteps, { opacity: 0, y: 50, duration: 2, stagger: 0.2 }, "-=0.5");
+
+            // 5. BRANCHEN
+            const branchenHeader = document.querySelector('#branchen > div > div:first-child') as HTMLElement;
+            const branchenStrips = gsap.utils.toArray('#branchen .hidden.md\\:flex > div') as HTMLElement[];
+            
+            const branchenTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#branchen',
+                    start: "top 75%",
+                    end: "center center",
+                    scrub: 1,
+                }
+            });
+            if (branchenHeader) branchenTl.from(branchenHeader, { opacity: 0, y: 50, duration: 1 });
+            if (branchenStrips.length > 0) branchenTl.from(branchenStrips, { opacity: 0, y: 50, stagger: 0.15, duration: 2, ease: "power2.out" }, "-=0.5");
+
+            // 6. WARUM WIR
+            const wwHeader = document.querySelector('#warum-wir > div > div:first-child') as HTMLElement;
+            const wwCards = gsap.utils.toArray('#warum-wir .group') as HTMLElement[];
+            
+            const wwTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#warum-wir',
+                    start: "top 80%",
+                    end: "center center",
+                    scrub: 1,
+                }
+            });
+            if (wwHeader) wwTl.from(wwHeader, { opacity: 0, y: 50, duration: 1 });
+            if (wwCards.length > 0) wwTl.from(wwCards, { opacity: 0, y: 50, rotationY: 5, transformOrigin: "left center", stagger: 0.1, ease: "power2.out" }, "-=0.5");
+
+            // 7. CTA
+            const ctaReveal = document.querySelector('#cta .reveal') as HTMLElement;
+            const ctaExecute = document.querySelector('#cta span.text-\\[20vw\\]') as HTMLElement;
+            
+            const ctaTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: '#cta',
+                    start: "top 90%",
+                    end: "bottom bottom",
+                    scrub: 1,
+                }
+            });
+            
+            if (ctaExecute) ctaTl.fromTo(ctaExecute, { y: 150 }, { y: -50, duration: 2 });
+            if (ctaReveal) ctaTl.from(ctaReveal, { opacity: 0, y: 80, duration: 1 }, "-=1.5");
+
+        });
+
+        // Cleanup
+        return () => mm.revert();
+    }, { scope: undefined });
 
     // --- 3D INTERACTION ---
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
@@ -339,9 +397,9 @@ export default function Page() {
         <div className="bg-vanta text-bone font-sans antialiased relative w-full" style={{ overflowX: 'clip' }}>
             <div className="noise-bg"></div>
 
-            <nav id="main-nav" className={`fixed top-0 w-full backdrop-blur-sm z-50 border-b transition-all duration-300 flex justify-center ${navScrolled ? 'shadow-2xl' : ''} ${scrolledPastHero ? 'bg-vanta/95 text-white border-gridline' : 'bg-white/95 text-vanta border-black/5'}`}>
+            <nav id="main-nav" className={`fixed top-0 w-full z-50 border-b transition-all duration-300 flex justify-center ${navScrolled ? 'shadow-2xl' : ''} ${scrolledPastHero ? 'bg-vanta text-white border-gridline' : 'bg-white text-vanta border-black/5'}`}>
                 <div className={`w-full max-w-[1440px] flex justify-between items-center px-6 md:px-8 lg:px-10 transition-all duration-300 ${navScrolled ? 'py-3' : 'py-6'}`}>
-                    <div className="flex items-center gap-2 sm:gap-3 font-sans font-normal text-base sm:text-lg tracking-tighter shrink-0">
+                    <a href="#" onClick={scrollToTop} className="flex items-center gap-2 sm:gap-3 font-sans font-normal text-base sm:text-lg tracking-tighter shrink-0 hover:opacity-80 transition-opacity cursor-pointer">
                         <div className={`w-8 h-8 sm:w-10 sm:h-10 shrink-0 transition-colors duration-300 ${scrolledPastHero ? 'bg-lime' : 'bg-vanta'}`}
                             style={{
                                 WebkitMaskImage: `url('${basePath}/logo.png')`, WebkitMaskSize: "contain", WebkitMaskRepeat: "no-repeat", WebkitMaskPosition: "center",
@@ -351,7 +409,7 @@ export default function Page() {
                         <div className="flex items-center gap-1.5 leading-none mt-[-1px]">
                             <span>leoquent <span className="text-lime">&amp;</span> addequat</span>
                         </div>
-                    </div>
+                    </a>
 
                     <div className="hidden lg:flex items-center gap-8 font-mono text-[10px] uppercase tracking-widest text-mute">
                         <a href="#status-quo-section" className="hover:text-lime transition-colors">Status Quo</a>
@@ -645,15 +703,16 @@ export default function Page() {
 
                 <section id="warum-wir" className="border-b border-gridline bg-white text-vanta flex justify-center">
                     <div className="w-full max-w-[1440px]">
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-b border-x border-gridline">
-                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b border-gridline col-span-1 md:col-span-2 lg:col-span-4 bg-white flex flex-col md:flex-row justify-between items-start md:items-end gap-8 reveal">
+                        {/* Cards: Grid clipped at the bottom to prevent layout bleed */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-b border-x border-gridline overflow-hidden relative z-10 bg-white">
+                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b border-gridline col-span-1 md:col-span-2 lg:col-span-4 bg-white flex flex-col md:flex-row justify-between items-start md:items-end gap-8 reveal relative z-10">
                             <div>
                                 <p className="font-mono text-xs uppercase mb-6 tracking-widest">
                                     <span className="brutalist-marker text-vanta">Warum wir</span>
                                 </p>
                                 <h2 className="section-headline text-vanta">Keine Standard-Agentur.<br />Keine Kompromisse.</h2>
                             </div>
-                            <p className="max-w-md text-vanta/80 text-sm leading-relaxed font-light">Wir tauschen nicht Zeit gegen Geld. Wir liefern Systeme, die messbare Effizienz bringen. Kompromisslos auf den Erfolg des Mittelstands ausgerichtet.</p>
+                            <p className="max-w-md text-vanta/80 text-sm leading-relaxed font-light relative z-10">Wir tauschen nicht Zeit gegen Geld. Wir liefern Systeme, die messbare Effizienz bringen. Kompromisslos auf den Erfolg des Mittelstands ausgerichtet.</p>
                         </div>
 
                         {[
@@ -664,7 +723,7 @@ export default function Page() {
                         ].map((item, idx) => (
                             <div
                                 key={idx}
-                                className={`group relative p-6 md:p-8 lg:p-10 overflow-hidden transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#0a0a0a] reveal ${
+                                className={`group relative p-6 md:p-8 lg:p-10 overflow-hidden transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#0a0a0a] reveal z-10 ${
                                     idx < 3 ? (idx < 2 ? 'border-b lg:border-b-0 md:border-r border-gridline' : 'border-b md:border-b-0 md:border-r border-gridline') : ''
                                 }`}
                                 style={{ transitionDelay: `${idx * 80}ms` }}
@@ -679,51 +738,62 @@ export default function Page() {
                                 </div>
                             </div>
                         ))}
-                    </div>
+                        </div>
 
-                    <div className="grid grid-cols-1 lg:grid-cols-12 bg-vanta text-white lg:min-h-[600px]">
-                        {/* Intro Column */}
-                        <div className="lg:col-span-4 px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b lg:border-b-0 lg:border-r border-gridline flex flex-col justify-between reveal">
-                            <div>
+                        <div className="grid grid-cols-1 lg:grid-cols-12 bg-vanta text-white lg:min-h-[600px]">
+                            {/* Intro Column */}
+                            <div className="lg:col-span-4 px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b lg:border-b-0 lg:border-r border-gridline flex flex-col justify-between reveal">
+                                <div>
                                 <p className="font-mono text-xs uppercase mb-4">
                                     <span className="brutalist-marker text-vanta">Über uns</span>
                                 </p>
                                 <h2 className="text-3xl lg:text-4xl uppercase font-bold mb-6 leading-tight">Strategische Kreativität trifft<br /> <span className="text-lime/90">unzerstörbares</span> Tech-Fundament.</h2>
                             </div>
-                            <p className="text-mute text-sm max-w-sm mt-8 lg:mt-0">Wir schließen die Lücke zwischen dem Laborzweck und Ihrem Praxisalltag. Zwei Spezialisten, perfekt verzahnt.</p>
+                            <p className="text-mute text-sm max-w-sm mt-8 lg:mt-0">Zwei Spezialisten. Eine Lücke geschlossen: die zwischen dem, was KI verspricht &mdash; und dem, was Ihr Unternehmen wirklich braucht.</p>
                         </div>
 
                         {/* Card: Leonid */}
-                        <div className="lg:col-span-4 relative group overflow-hidden bg-[#0a0a0a] border-b lg:border-b-0 lg:border-r border-gridline flex flex-col justify-end min-h-[450px]">
+                        <div className="lg:col-span-4 relative group overflow-hidden bg-[#0a0a0a] border-b lg:border-b-0 lg:border-r border-gridline min-h-[550px] lg:min-h-[650px] flex flex-col justify-end">
+                            {/* Background Image */}
                             <div 
                                 className="absolute inset-0 bg-no-repeat bg-[length:115%] bg-[center_10%] opacity-40 grayscale contrast-125 saturate-0 group-hover:saturate-100 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
                                 style={{ backgroundImage: `url('${basePath}/FOTOS/leonid_v4.png')` }}
                             />
                             
                             {/* Overlay Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-vanta via-vanta/60 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-700 z-10" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-vanta via-vanta/70 to-transparent opacity-90 transition-opacity duration-700 z-10" />
 
-                            {/* Content */}
-                            <div className="relative z-20 px-6 py-6 md:px-8 md:py-10 flex flex-col justify-end h-full">
-                                <div>
+                            {/* Content Block */}
+                            <div className="absolute left-6 right-6 md:left-8 md:right-8 bottom-6 md:bottom-10 z-20 flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-[calc(100%-70px)] group-hover:translate-y-0 pointer-events-none group-hover:pointer-events-auto">
+                                
+                                {/* Title (Always visible) */}
+                                <div className="pointer-events-auto shrink-0">
                                     <h3 className="text-4xl uppercase font-black mb-1 text-white/90 group-hover:text-white transition-colors duration-500">Leonid</h3>
-                                    <p className="font-mono text-lime/80 text-[10px] sm:text-xs tracking-widest uppercase mb-6 group-hover:text-lime transition-colors duration-500">The Architect of Intent</p>
+                                    <p className="font-mono text-lime/80 text-[10px] sm:text-xs tracking-widest uppercase mb-0 group-hover:text-lime transition-colors duration-500">The Architect of Intent</p>
                                 </div>
                                 
-                                {/* Expanding Text */}
-                                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                                    <div className="overflow-hidden">
-                                        <p className="text-white/70 text-sm leading-relaxed pt-6 font-light">
-                                            Er übersetzt tiefe Geschäftsbedürfnisse in präzise Sprachlogik und Workflows. Gestaltet die Schnittstelle zwischen Mensch und Maschine.<br /><br />
-                                            <span className="text-lime/90 font-mono text-xs tracking-wider uppercase">Sorgt dafür, dass die KI Ihr Geschäft &quot;versteht&quot;.</span>
+                                {/* Hidden Hover Content */}
+                                <div className="flex flex-col opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] mt-4">
+                                    
+                                    <div className="bg-lime/5 border-l-2 border-lime pl-3 py-2 mb-4">
+                                        <p className="text-lime font-mono text-[10px] tracking-wider uppercase leading-relaxed">
+                                            Übersetzt tiefe Geschäftsbedürfnisse in präzise Sprachlogik und Workflows. Gestaltet die Schnittstelle zwischen Mensch und Maschine.
                                         </p>
                                     </div>
+                                    
+                                    <p className="text-white/80 text-xs lg:text-sm leading-relaxed font-light mb-4">
+                                        Viele kommen heute mit KI-Lösungen. Die wenigsten verstehen den Menschen dahinter.<br /><br />
+                                        Leonid kommt aus einer Welt, in der jedes Wort zählt und jede Idee beweisbar sein muss. Als Senior Copywriter und Konzeptioner in internationalen Agenturnetzwerken hat er gelernt: Strategie ohne Kreativität ist eine Tabelle. Kreativität ohne Strategie ist Dekoration. Er hat beides &mdash; und gibt es jetzt an Maschinen weiter.<br /><br />
+                                        In KI-Workshops hat er Creative Teams auf das vorbereitet, was kommt. Heute baut er es selbst. Als Creative AI Engineer gestaltet er die Schnittstelle zwischen dem, was Ihr Unternehmen meint &mdash; und dem, was die KI versteht.
+                                    </p>
+                                    
+                                    <span className="text-lime/90 font-mono text-[10px] tracking-wider uppercase opacity-90 block">ENTWICKELT DIE VISION &mdash; UND SORGT DAFÜR, DASS DIE KI SIE VERSTEHT.</span>
                                 </div>
                             </div>
                         </div>
 
                         {/* Card: Admir */}
-                        <div className="lg:col-span-4 relative group overflow-hidden bg-[#0a0a0a] flex flex-col justify-end min-h-[450px]">
+                        <div className="lg:col-span-4 relative group overflow-hidden bg-[#0a0a0a] min-h-[550px] lg:min-h-[650px] flex flex-col justify-end">
                             {/* Background Image */}
                             <div 
                                 className="absolute inset-0 bg-cover bg-top bg-no-repeat opacity-40 grayscale contrast-125 saturate-0 group-hover:saturate-100 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
@@ -731,29 +801,38 @@ export default function Page() {
                             />
                             
                             {/* Overlay Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-vanta via-vanta/60 to-transparent opacity-90 group-hover:opacity-70 transition-opacity duration-700 z-10" />
+                            <div className="absolute inset-0 bg-gradient-to-t from-vanta via-vanta/70 to-transparent opacity-90 transition-opacity duration-700 z-10" />
 
-                            {/* Content */}
-                            <div className="relative z-20 px-6 py-6 md:px-8 md:py-10 flex flex-col justify-end h-full">
-                                <div>
+                            {/* Content Block */}
+                            <div className="absolute left-6 right-6 md:left-8 md:right-8 bottom-6 md:bottom-10 z-20 flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-[calc(100%-70px)] group-hover:translate-y-0 pointer-events-none group-hover:pointer-events-auto">
+                                
+                                {/* Title (Always visible) */}
+                                <div className="pointer-events-auto shrink-0">
                                     <h3 className="text-4xl uppercase font-black mb-1 text-white/90 group-hover:text-white transition-colors duration-500">Admir</h3>
-                                    <p className="font-mono text-lime/80 text-[10px] sm:text-xs tracking-widest uppercase mb-6 group-hover:text-lime transition-colors duration-500">The Guardian of Execution</p>
+                                    <p className="font-mono text-lime/80 text-[10px] sm:text-xs tracking-widest uppercase mb-0 group-hover:text-lime transition-colors duration-500">The Guardian of Execution</p>
                                 </div>
                                 
-                                {/* Expanding Text */}
-                                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                                    <div className="overflow-hidden">
-                                        <p className="text-white/70 text-sm leading-relaxed pt-6 font-light">
-                                            Baut das Backend-Fundament, das Ihre Daten schützt. Garantiert absolute Datensicherheit, stabile Server-Deployments und reibungslosen Code.<br /><br />
-                                            <span className="text-lime/90 font-mono text-xs tracking-wider uppercase">Macht die Vision &quot;bulletproof&quot;.</span>
+                                {/* Hidden Hover Content */}
+                                <div className="flex flex-col opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] mt-4">
+                                    
+                                    <div className="bg-lime/5 border-l-2 border-lime pl-3 py-2 mb-4">
+                                        <p className="text-lime font-mono text-[10px] tracking-wider uppercase leading-relaxed">
+                                            Baut das Backend-Fundament, das Ihre Daten schützt. Garantiert absolute Datensicherheit, stabile Server-Deployments und reibungslosen Code.
                                         </p>
                                     </div>
+                                    
+                                    <p className="text-white/80 text-xs lg:text-sm leading-relaxed font-light mb-4">
+                                        Es gibt viele, die heute über KI reden. Admir ist einer der wenigen, der die Infrastruktur darunter versteht &mdash; und die Menschen, die sie nutzen müssen.<br /><br />
+                                        Als IT-Berater hat er Projekte für den Mittelstand umgesetzt, die sonst gescheitert wären. Als SaaS-Insider hat er Prozesse optimiert, die auf dem Papier schon perfekt aussahen. Als Technical AI Engineer und jemand, der von Anfang an in der KI-Entwicklung dabei war, weiß er: Die Technologie ist nicht das Problem. Die Lücke zwischen dem, was ein Tool verspricht, und dem, was ein Unternehmen wirklich braucht &mdash; das ist das Problem. Diese Lücke schließt er.
+                                    </p>
+                                    
+                                    <span className="text-lime/90 font-mono text-[10px] tracking-wider uppercase opacity-90 block">MACHT DIE VISION ZUR REALITÄT &mdash; UND SORGT DAFÜR, DASS SIE ZUVERLÄSSIG LÄUFT.</span>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    </div>
-                </section>
+                </div>
+            </section>
 
                 <section id="cta" className="min-h-[70vh] flex flex-col items-center justify-center p-6 text-center relative overflow-hidden bg-vanta text-white w-full">
                     <div className="absolute inset-0 flex items-center justify-center pointer-events-none opacity-5">
