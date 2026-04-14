@@ -749,7 +749,7 @@ export default function Page() {
                                 </p>
                                 <h2 className="text-3xl lg:text-4xl uppercase font-bold mb-6 leading-tight">Strategische Kreativität trifft<br /> <span className="text-lime/90">unzerstörbares</span> Tech-Fundament.</h2>
                             </div>
-                            <p className="text-mute text-sm max-w-sm mt-8 lg:mt-0">Zwei Spezialisten. Eine Lücke geschlossen: die zwischen dem, was KI verspricht &mdash; und dem, was Ihr Unternehmen wirklich braucht.</p>
+                            <p className="text-mute text-sm max-w-sm mt-8 lg:mt-0">Zwei Spezialisten vereint. Eine Lücke geschlossen: die zwischen dem, was KI verspricht &mdash; und dem, was Ihr Unternehmen wirklich braucht.</p>
                         </div>
 
                         {/* Card: Leonid */}
@@ -787,7 +787,7 @@ export default function Page() {
                                         In KI-Workshops hat er Creative Teams auf das vorbereitet, was kommt. Heute baut er es selbst. Als Creative AI Engineer gestaltet er die Schnittstelle zwischen dem, was Ihr Unternehmen meint &mdash; und dem, was die KI versteht.
                                     </p>
                                     
-                                    <span className="text-lime/90 font-mono text-[10px] tracking-wider uppercase opacity-90 block">ENTWICKELT DIE VISION &mdash; UND SORGT DAFÜR, DASS DIE KI SIE VERSTEHT.</span>
+                                    <span className="text-lime/90 font-mono text-[10px] tracking-wider uppercase opacity-90 block">ENTWICKELT DIE STRATEGISCHE VISION &mdash; UND SORGT DAFÜR, DASS DIE KI JEDE GESCHÄFTSLOGIK PRÄZISE VERSTEHT.</span>
                                 </div>
                             </div>
                         </div>
@@ -817,16 +817,17 @@ export default function Page() {
                                     
                                     <div className="bg-lime/5 border-l-2 border-lime pl-3 py-2 mb-4">
                                         <p className="text-lime font-mono text-[10px] tracking-wider uppercase leading-relaxed">
-                                            Baut das Backend-Fundament, das Ihre Daten schützt. Garantiert absolute Datensicherheit, stabile Server-Deployments und reibungslosen Code.
+                                            Verwandelt Konzepte in produktionsreifen Code. Garantiert DSGVO-Konformität, stabile Infrastruktur und lückenlose Sicherheit.
                                         </p>
                                     </div>
                                     
                                     <p className="text-white/80 text-xs lg:text-sm leading-relaxed font-light mb-4">
-                                        Es gibt viele, die heute über KI reden. Admir ist einer der wenigen, der die Infrastruktur darunter versteht &mdash; und die Menschen, die sie nutzen müssen.<br /><br />
-                                        Als IT-Berater hat er Projekte für den Mittelstand umgesetzt, die sonst gescheitert wären. Als SaaS-Insider hat er Prozesse optimiert, die auf dem Papier schon perfekt aussahen. Als Technical AI Engineer und jemand, der von Anfang an in der KI-Entwicklung dabei war, weiß er: Die Technologie ist nicht das Problem. Die Lücke zwischen dem, was ein Tool verspricht, und dem, was ein Unternehmen wirklich braucht &mdash; das ist das Problem. Diese Lücke schließt er.
+                                        Es gibt unzählige Visionen für KI. Admir ist derjenige, der das Fundament dafür gießt, damit sie in der Realität bestehen &mdash; sicher, skalierbar und absolut DSGVO-konform.<br /><br />
+                                        Als IT-Berater hat er Projekte für den Mittelstand gerettet, die vor dem Aus standen. Als SaaS-Insider hat er komplexe Prozesse automatisiert. Und weil er die moderne KI-Entwicklung seit ihren absoluten Anfängen begleitet, trennt er den Hype präzise vom Machbaren. Heute schreibt er als Technical AI Engineer den Code, der Konzepte in produktionsreife Systeme übersetzt &mdash; mit sauberer Architektur, starker Verschlüsselung und Hosting in Deutschland.<br /><br />
+                                        Er baut die Infrastruktur unter der Oberfläche. Und was er programmiert, das hält.
                                     </p>
                                     
-                                    <span className="text-lime/90 font-mono text-[10px] tracking-wider uppercase opacity-90 block">MACHT DIE VISION ZUR REALITÄT &mdash; UND SORGT DAFÜR, DASS SIE ZUVERLÄSSIG LÄUFT.</span>
+                                    <span className="text-lime/90 font-mono text-[10px] tracking-wider uppercase opacity-90 block">BAUT DAS TECHNISCHE FUNDAMENT &mdash; UND SORGT DAFÜR, DASS JEDE ZEILE CODE ABSOLUT SICHER UND COMPLIANT LÄUFT.</span>
                                 </div>
                             </div>
                         </div>
