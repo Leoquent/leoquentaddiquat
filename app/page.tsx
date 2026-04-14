@@ -723,7 +723,7 @@ export default function Page() {
                         ].map((item, idx) => (
                             <div
                                 key={idx}
-                                className={`group relative p-6 md:p-8 lg:p-10 overflow-hidden transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#0a0a0a] reveal z-10 ${
+                                className={`group relative p-6 md:p-8 lg:p-10 overflow-hidden transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#0a0a0a] hover:border-[#0a0a0a] reveal z-10 ${
                                     idx < 3 ? (idx < 2 ? 'border-b lg:border-b-0 md:border-r border-gridline' : 'border-b md:border-b-0 md:border-r border-gridline') : ''
                                 }`}
                                 style={{ transitionDelay: `${idx * 80}ms` }}
@@ -732,9 +732,9 @@ export default function Page() {
                                 {/* Title — stays fixed, color transitions */}
                                 <h3 className="font-mono text-vanta uppercase font-bold mb-4 group-hover:text-white transition-colors duration-500">{item.title}</h3>
 
-                                {/* Text — slides up from below on hover */}
-                                <div className="translate-y-[120%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                                    <p className="text-sm text-white/70 leading-relaxed font-light">{item.text}</p>
+                                {/* Text — slides up from below on hover (patched with opacity to prevent popping) */}
+                                <div className="translate-y-[120%] opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                                    <p className="text-sm text-white/70 leading-relaxed font-light mt-4 border-t border-white/20 pt-4">{item.text}</p>
                                 </div>
                             </div>
                         ))}
@@ -783,7 +783,7 @@ export default function Page() {
                                     
                                     <p className="text-white/80 text-xs lg:text-sm leading-relaxed font-light mb-4">
                                         Viele kommen heute mit KI-Lösungen. Die wenigsten verstehen den Menschen dahinter.<br /><br />
-                                        Leonid kommt aus einer Welt, in der jedes Wort zählt und jede Idee beweisbar sein muss. Als Senior Copywriter und Konzeptioner in internationalen Agenturnetzwerken hat er gelernt: Strategie ohne Kreativität ist eine Tabelle. Kreativität ohne Strategie ist Dekoration. Er hat beides &mdash; und gibt es jetzt an Maschinen weiter.<br /><br />
+                                        Leonid kommt aus einer Welt, in der jedes Wort zählt und jede Idee beweisbar sein muss. Als Senior Copywriter und Konzeptioner in internationalen Agenturnetzwerken hat er gelernt: Strategie ohne Kreativität ist eine Tabelle. Kreativität ohne Strategie ist Dekoration. Er vereint beides &mdash; und gießt diese Symbiose in präzise KI-Architekturen.<br /><br />
                                         In KI-Workshops hat er Creative Teams auf das vorbereitet, was kommt. Heute baut er es selbst. Als Creative AI Engineer gestaltet er die Schnittstelle zwischen dem, was Ihr Unternehmen meint &mdash; und dem, was die KI versteht.
                                     </p>
                                     
