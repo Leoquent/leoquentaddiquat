@@ -727,14 +727,14 @@ export default function Page() {
 
                 <section id="branchen" className="border-b border-gridline bg-vanta text-white flex justify-center">
                     <div className="w-full max-w-[1440px]">
-                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-x border-gridline flex justify-between items-end reveal">
+                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-x border-gridline flex flex-col md:flex-row justify-between items-start md:items-end gap-8 reveal">
                         <div>
-                            <p className="font-mono text-xs uppercase mb-4">
+                            <p className="font-mono text-xs uppercase mb-6 tracking-widest">
                                 <span className="brutalist-marker text-vanta">Zukunftssicherheit</span>
                             </p>
                             <h2 className="section-headline">Der Mittelstand<br />wird autonom.</h2>
                         </div>
-                        <p className="hidden lg:block max-w-md text-right text-mute text-sm">
+                        <p className="max-w-md md:text-right text-mute text-sm leading-relaxed font-light">
                             Egal aus welcher Branche Sie kommen: Wir bauen spezifische KI-Systeme, die reale Probleme lösen.
                         </p>
                     </div>
