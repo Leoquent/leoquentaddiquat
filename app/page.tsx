@@ -114,8 +114,7 @@ export default function Page() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [openIndustry, setOpenIndustry] = useState<string | null>(null);
     const [openSolution, setOpenSolution] = useState<string | null>(null);
-
-
+    const [openMember, setOpenMember] = useState<string | null>(null);
 
     const typewriterRef = useRef<HTMLSpanElement>(null);
     const sqGeoCoreRef = useRef<HTMLDivElement>(null);
@@ -857,7 +856,10 @@ export default function Page() {
                         </div>
 
                         {/* Card: Leonid */}
-                        <div className="lg:col-span-4 relative group overflow-hidden bg-[#0a0a0a] border-b lg:border-b-0 lg:border-r border-gridline min-h-[550px] lg:min-h-[650px] flex flex-col justify-end">
+                        <div 
+                            className="lg:col-span-4 relative group overflow-hidden bg-[#0a0a0a] border-b lg:border-b-0 lg:border-r border-gridline min-h-[550px] lg:min-h-[650px] flex flex-col justify-end cursor-pointer lg:cursor-default"
+                            onClick={() => setOpenMember(openMember === 'leonid' ? null : 'leonid')}
+                        >
                             {/* Background Image */}
                             <div 
                                 className="absolute inset-0 bg-no-repeat bg-[length:115%] bg-[center_10%] opacity-40 grayscale contrast-125 saturate-0 group-hover:saturate-100 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
@@ -865,19 +867,24 @@ export default function Page() {
                             />
                             
                             {/* Overlay Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-vanta via-vanta/70 to-transparent opacity-90 transition-opacity duration-700 z-10" />
+                            <div className={`absolute inset-0 bg-gradient-to-t from-vanta via-vanta/70 to-transparent transition-opacity duration-700 z-10 ${openMember === 'leonid' ? 'opacity-90' : 'opacity-60'} lg:opacity-90`} />
 
                             {/* Content Block */}
-                            <div className="absolute left-6 right-6 md:left-8 md:right-8 bottom-6 md:bottom-10 z-20 flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-0 lg:translate-y-[calc(100%-70px)] lg:group-hover:translate-y-0 pointer-events-auto lg:pointer-events-none lg:group-hover:pointer-events-auto">
+                            <div className={`absolute left-6 right-6 md:left-8 md:right-8 bottom-6 md:bottom-10 z-20 flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${openMember === 'leonid' ? 'translate-y-0' : 'translate-y-[calc(100%-70px)]'} lg:translate-y-[calc(100%-70px)] lg:group-hover:translate-y-0 pointer-events-auto lg:pointer-events-none lg:group-hover:pointer-events-auto`}>
                                 
                                 {/* Title (Always visible) */}
-                                <div className="pointer-events-auto shrink-0">
-                                    <h3 className="text-4xl uppercase font-black mb-1 text-white/90 group-hover:text-white transition-colors duration-500">Leonid</h3>
-                                    <p className="font-mono text-lime/80 text-[10px] sm:text-xs tracking-widest uppercase mb-0 group-hover:text-lime transition-colors duration-500">The Architect of Intent</p>
+                                <div className="pointer-events-auto shrink-0 flex justify-between items-end w-full">
+                                    <div>
+                                        <h3 className="text-4xl uppercase font-black mb-1 text-white/90 group-hover:text-white transition-colors duration-500">Leonid</h3>
+                                        <p className="font-mono text-lime/80 text-[10px] sm:text-xs tracking-widest uppercase mb-0 group-hover:text-lime transition-colors duration-500">The Architect of Intent</p>
+                                    </div>
+                                    <div className={`lg:hidden w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-500 mb-1 ${openMember === 'leonid' ? 'rotate-45 border-lime text-lime' : 'border-white/30 text-white/70'}`}>
+                                        <span className="text-2xl font-light leading-none mt-[-2px]">+</span>
+                                    </div>
                                 </div>
                                 
                                 {/* Hidden Hover Content */}
-                                <div className="flex flex-col opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] mt-4">
+                                <div className={`flex flex-col ${openMember === 'leonid' ? 'opacity-100' : 'opacity-0'} lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] mt-4`}>
                                     
                                     <div className="bg-lime/5 border-l-2 border-lime pl-3 py-2 mb-4">
                                         <p className="text-lime font-mono text-[10px] tracking-wider uppercase leading-relaxed">
@@ -897,7 +904,10 @@ export default function Page() {
                         </div>
 
                         {/* Card: Admir */}
-                        <div className="lg:col-span-4 relative group overflow-hidden bg-[#0a0a0a] min-h-[550px] lg:min-h-[650px] flex flex-col justify-end">
+                        <div 
+                            className="lg:col-span-4 relative group overflow-hidden bg-[#0a0a0a] min-h-[550px] lg:min-h-[650px] flex flex-col justify-end cursor-pointer lg:cursor-default"
+                            onClick={() => setOpenMember(openMember === 'admir' ? null : 'admir')}
+                        >
                             {/* Background Image */}
                             <div 
                                 className="absolute inset-0 bg-cover bg-top bg-no-repeat opacity-40 grayscale contrast-125 saturate-0 group-hover:saturate-100 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
@@ -905,19 +915,24 @@ export default function Page() {
                             />
                             
                             {/* Overlay Gradient */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-vanta via-vanta/70 to-transparent opacity-90 transition-opacity duration-700 z-10" />
+                            <div className={`absolute inset-0 bg-gradient-to-t from-vanta via-vanta/70 to-transparent transition-opacity duration-700 z-10 ${openMember === 'admir' ? 'opacity-90' : 'opacity-60'} lg:opacity-90`} />
 
                             {/* Content Block */}
-                            <div className="absolute left-6 right-6 md:left-8 md:right-8 bottom-6 md:bottom-10 z-20 flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-0 lg:translate-y-[calc(100%-70px)] lg:group-hover:translate-y-0 pointer-events-auto lg:pointer-events-none lg:group-hover:pointer-events-auto">
+                            <div className={`absolute left-6 right-6 md:left-8 md:right-8 bottom-6 md:bottom-10 z-20 flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${openMember === 'admir' ? 'translate-y-0' : 'translate-y-[calc(100%-70px)]'} lg:translate-y-[calc(100%-70px)] lg:group-hover:translate-y-0 pointer-events-auto lg:pointer-events-none lg:group-hover:pointer-events-auto`}>
                                 
                                 {/* Title (Always visible) */}
-                                <div className="pointer-events-auto shrink-0">
-                                    <h3 className="text-4xl uppercase font-black mb-1 text-white/90 group-hover:text-white transition-colors duration-500">Admir</h3>
-                                    <p className="font-mono text-lime/80 text-[10px] sm:text-xs tracking-widest uppercase mb-0 group-hover:text-lime transition-colors duration-500">The Guardian of Execution</p>
+                                <div className="pointer-events-auto shrink-0 flex justify-between items-end w-full">
+                                    <div>
+                                        <h3 className="text-4xl uppercase font-black mb-1 text-white/90 group-hover:text-white transition-colors duration-500">Admir</h3>
+                                        <p className="font-mono text-lime/80 text-[10px] sm:text-xs tracking-widest uppercase mb-0 group-hover:text-lime transition-colors duration-500">The Guardian of Execution</p>
+                                    </div>
+                                    <div className={`lg:hidden w-8 h-8 rounded-full border flex items-center justify-center transition-all duration-500 mb-1 ${openMember === 'admir' ? 'rotate-45 border-lime text-lime' : 'border-white/30 text-white/70'}`}>
+                                        <span className="text-2xl font-light leading-none mt-[-2px]">+</span>
+                                    </div>
                                 </div>
                                 
                                 {/* Hidden Hover Content */}
-                                <div className="flex flex-col opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] mt-4">
+                                <div className={`flex flex-col ${openMember === 'admir' ? 'opacity-100' : 'opacity-0'} lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] mt-4`}>
                                     
                                     <div className="bg-lime/5 border-l-2 border-lime pl-3 py-2 mb-4">
                                         <p className="text-lime font-mono text-[10px] tracking-wider uppercase leading-relaxed">
