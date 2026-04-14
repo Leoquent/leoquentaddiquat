@@ -111,6 +111,8 @@ export default function Page() {
 
     const [navScrolled, setNavScrolled] = useState(false);
     const [scrolledPastHero, setScrolledPastHero] = useState(false);
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+    const [openIndustry, setOpenIndustry] = useState<string | null>(null);
 
 
 
@@ -127,6 +129,18 @@ export default function Page() {
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    // --- BODY SCROLL LOCK ---
+    useEffect(() => {
+        if (isMobileMenuOpen) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+    }, [isMobileMenuOpen]);
+
+    const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
+    const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
     const scrollToTop = (e: React.MouseEvent) => {
         e.preventDefault();
@@ -397,10 +411,10 @@ export default function Page() {
         <div className="bg-vanta text-bone font-sans antialiased relative w-full" style={{ overflowX: 'clip' }}>
             <div className="noise-bg"></div>
 
-            <nav id="main-nav" className={`fixed top-0 w-full z-50 border-b transition-all duration-300 flex justify-center ${navScrolled ? 'shadow-2xl' : ''} ${scrolledPastHero ? 'bg-vanta text-white border-gridline' : 'bg-white text-vanta border-black/5'}`}>
+            <nav id="main-nav" className={`fixed top-0 w-full z-50 border-b transition-all duration-300 flex justify-center ${navScrolled ? 'shadow-2xl' : ''} ${scrolledPastHero ? 'bg-vanta text-white border-gridline' : 'bg-white text-vanta border-black/5'} ${isMobileMenuOpen ? 'bg-vanta text-white border-gridline' : ''}`}>
                 <div className={`w-full max-w-[1440px] flex justify-between items-center px-6 md:px-8 lg:px-10 transition-all duration-300 ${navScrolled ? 'py-3' : 'py-6'}`}>
-                    <a href="#" onClick={scrollToTop} className="flex items-center gap-2 sm:gap-3 font-sans font-normal text-base sm:text-lg tracking-tighter shrink-0 hover:opacity-80 transition-opacity cursor-pointer">
-                        <div className={`w-8 h-8 sm:w-10 sm:h-10 shrink-0 transition-colors duration-300 ${scrolledPastHero ? 'bg-lime' : 'bg-vanta'}`}
+                    <a href="#" onClick={(e) => { scrollToTop(e); closeMobileMenu(); }} className="flex items-center gap-2 sm:gap-3 font-sans font-normal text-base sm:text-lg tracking-tighter shrink-0 hover:opacity-80 transition-opacity cursor-pointer z-50">
+                        <div className={`w-8 h-8 sm:w-10 sm:h-10 shrink-0 transition-colors duration-300 ${(scrolledPastHero || isMobileMenuOpen) ? 'bg-lime' : 'bg-vanta'}`}
                             style={{
                                 WebkitMaskImage: `url('${basePath}/logo.png')`, WebkitMaskSize: "contain", WebkitMaskRepeat: "no-repeat", WebkitMaskPosition: "center",
                                 maskImage: `url('${basePath}/logo.png')`, maskSize: "contain", maskRepeat: "no-repeat", maskPosition: "center"
@@ -411,6 +425,7 @@ export default function Page() {
                         </div>
                     </a>
 
+                    {/* Desktop Menu */}
                     <div className="hidden lg:flex items-center gap-8 font-mono text-[10px] uppercase tracking-widest text-mute">
                         <a href="#status-quo-section" className="hover:text-lime transition-colors">Status Quo</a>
                         <a href="#solutions" className="hover:text-lime transition-colors">Solutions</a>
@@ -419,11 +434,54 @@ export default function Page() {
                         <a href="#warum-wir" className="hover:text-lime transition-colors">Warum Wir</a>
                     </div>
 
-                    <div className="flex items-center gap-2 sm:gap-4 lg:gap-6 shrink-0">
+                    <div className="flex items-center gap-4 lg:gap-6 shrink-0">
+                        <div className="hidden lg:block">
+                            <a href="#cta" className={`font-mono text-[10px] sm:text-sm border px-3 py-1.5 sm:px-4 sm:py-2 uppercase transition-colors duration-500 ease-in-out ${scrolledPastHero ? 'bg-lime text-vanta border-lime btn-glitch' : 'border-gridline hover:border-lime hover:text-lime bg-vanta text-white'}`}>
+                                <span className="sm:hidden">ANALYSIEREN</span>
+                                <span className="hidden sm:inline">Potenzial analysieren</span>
+                            </a>
+                        </div>
 
-                        <a href="#cta" className={`font-mono text-[10px] sm:text-sm border px-3 py-1.5 sm:px-4 sm:py-2 uppercase transition-colors duration-500 ease-in-out ${scrolledPastHero ? 'bg-lime text-vanta border-lime btn-glitch' : 'border-gridline hover:border-lime hover:text-lime bg-vanta text-white'}`}>
-                            <span className="sm:hidden">ANALYSIEREN</span>
-                            <span className="hidden sm:inline">Potenzial analysieren</span>
+                        {/* Hamburger Button */}
+                        <button 
+                            onClick={toggleMobileMenu}
+                            className={`lg:hidden flex flex-col justify-center items-center w-8 h-8 z-50 relative ${isMobileMenuOpen ? 'menu-open' : ''}`}
+                            aria-label="Toggle Menu"
+                        >
+                            <span className={`hamburger-line line-top w-6 h-0.5 mb-1.5 ${(scrolledPastHero || isMobileMenuOpen) ? 'bg-white' : 'bg-vanta'}`}></span>
+                            <span className={`hamburger-line line-middle w-6 h-0.5 mb-1.5 ${(scrolledPastHero || isMobileMenuOpen) ? 'bg-white' : 'bg-vanta'}`}></span>
+                            <span className={`hamburger-line line-bottom w-6 h-0.5 ${(scrolledPastHero || isMobileMenuOpen) ? 'bg-white' : 'bg-vanta'}`}></span>
+                        </button>
+                    </div>
+                </div>
+
+                {/* Mobile Menu Overlay */}
+                <div className={`fixed inset-0 bg-vanta z-40 mobile-menu-overlay flex flex-col justify-center items-center lg:hidden ${isMobileMenuOpen ? 'opacity-100 visible mobile-menu-open' : 'opacity-0 invisible pointer-events-none'}`}>
+                    <div className="flex flex-col gap-8 text-center px-10">
+                        {[
+                            { name: "Status Quo", href: "#status-quo-section" },
+                            { name: "Solutions", href: "#solutions" },
+                            { name: "Prozess", href: "#prozess" },
+                            { name: "Branchen", href: "#branchen" },
+                            { name: "Warum Wir", href: "#warum-wir" }
+                        ].map((link, i) => (
+                            <a 
+                                key={link.name}
+                                href={link.href}
+                                onClick={closeMobileMenu}
+                                className="mobile-menu-link text-3xl font-bold uppercase tracking-tighter text-white hover:text-lime transition-colors"
+                                style={{ transitionDelay: `${i * 100}ms` }}
+                            >
+                                {link.name}
+                            </a>
+                        ))}
+                        <a 
+                            href="#cta" 
+                            onClick={closeMobileMenu}
+                            className="mobile-menu-link mt-4 inline-block bg-lime text-vanta font-mono font-bold uppercase py-4 px-8 border border-lime mobile-menu-link"
+                            style={{ transitionDelay: '500ms' }}
+                        >
+                            Potenzial Analysieren
                         </a>
                     </div>
                 </div>
@@ -566,19 +624,19 @@ export default function Page() {
                             {solutionsData.map((sol, idx) => (
                                 <div 
                                     key={sol.id} 
-                                    className="group relative bg-vanta p-6 md:p-8 lg:p-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col overflow-hidden hover:bg-lime h-[280px] md:h-[300px]"
+                                    className="group relative bg-vanta p-6 md:p-8 lg:p-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col overflow-hidden hover:bg-lime h-auto min-h-[280px] md:h-[300px]"
                                 >
                                 
-                                    <h3 className="text-xl md:text-2xl uppercase font-bold mb-4 text-white group-hover:text-vanta transition-colors duration-500">{sol.title}</h3>
+                                    <h3 className="text-xl md:text-2xl uppercase font-bold mb-4 text-white group-hover:text-vanta transition-colors duration-500 relative z-10">{sol.title}</h3>
                                     
-                                    <div className="flex flex-wrap gap-2 mb-4">
+                                    <div className="flex flex-wrap gap-2 mb-4 relative z-10">
                                         {sol.badges.map(b => (
                                             <span key={b} className="border border-lime/30 group-hover:border-vanta/30 group-hover:bg-vanta group-hover:text-lime px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-lime/70 bg-lime/5 transition-all duration-500">{b}</span>
                                         ))}
                                     </div>
 
-                                    <div className="mt-auto translate-y-[120%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                                        <p className="text-vanta/80 text-sm leading-relaxed font-light pt-4 border-t border-vanta/20">
+                                    <div className="mt-6 md:mt-auto translate-y-0 opacity-100 md:translate-y-[120%] md:opacity-0 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] relative z-10">
+                                        <p className="text-white/80 group-hover:text-vanta/80 text-sm leading-relaxed font-light pt-4 border-t border-white/20 group-hover:border-vanta/20 transition-colors duration-500">
                                             {sol.text}
                                         </p>
                                     </div>
@@ -681,9 +739,13 @@ export default function Page() {
                     {/* Mobile: Stacked Rows */}
                     <div className="md:hidden border-x border-gridline">
                         {industriesData.map((ind) => (
-                            <div key={ind.id} className="group border-b border-gridline last:border-b-0 px-6 py-5 hover:bg-lime transition-all duration-300">
-                                <h3 className="text-lg uppercase font-bold text-mute group-hover:text-vanta transition-colors">{ind.name}</h3>
-                                <div className="grid grid-rows-[0fr] group-hover:grid-rows-[1fr] transition-all duration-500">
+                            <div 
+                                key={ind.id} 
+                                onClick={() => setOpenIndustry(openIndustry === ind.id ? null : ind.id)}
+                                className={`group border-b border-gridline last:border-b-0 px-6 py-5 transition-all duration-300 cursor-pointer ${openIndustry === ind.id ? 'bg-lime' : ''}`}
+                            >
+                                <h3 className={`text-lg uppercase font-bold transition-colors ${openIndustry === ind.id ? 'text-vanta' : 'text-mute'}`}>{ind.name}</h3>
+                                <div className={`grid transition-all duration-500 ${openIndustry === ind.id ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'}`}>
                                     <div className="overflow-hidden">
                                         <div className="space-y-4 pt-4">
                                             {ind.cases.map((c, i) => (
@@ -704,8 +766,8 @@ export default function Page() {
                 <section id="warum-wir" className="border-b border-gridline bg-white text-vanta flex justify-center">
                     <div className="w-full max-w-[1440px]">
                         {/* Cards: Grid clipped at the bottom to prevent layout bleed */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-b border-x border-gridline overflow-hidden relative z-10 bg-white">
-                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b border-gridline col-span-1 md:col-span-2 lg:col-span-4 bg-white flex flex-col md:flex-row justify-between items-start md:items-end gap-8 reveal relative z-10">
+                        <div className="grid grid-cols-2 lg:grid-cols-4 border-b border-x border-gridline overflow-hidden relative z-10 bg-white">
+                        <div className="px-6 py-6 md:px-8 md:py-12 lg:px-10 lg:py-20 border-b border-gridline col-span-2 lg:col-span-4 bg-white flex flex-col md:flex-row justify-between items-start md:items-end gap-8 reveal relative z-10">
                             <div>
                                 <p className="font-mono text-xs uppercase mb-6 tracking-widest">
                                     <span className="brutalist-marker text-vanta">Warum wir</span>
@@ -723,18 +785,18 @@ export default function Page() {
                         ].map((item, idx) => (
                             <div
                                 key={idx}
-                                className={`group relative p-6 md:p-8 lg:p-10 overflow-hidden transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#0a0a0a] hover:border-[#0a0a0a] reveal z-10 ${
-                                    idx < 3 ? (idx < 2 ? 'border-b lg:border-b-0 md:border-r border-gridline' : 'border-b md:border-b-0 md:border-r border-gridline') : ''
+                                className={`group relative p-4 sm:p-6 md:p-8 lg:p-10 overflow-hidden transition-colors duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:bg-[#0a0a0a] hover:border-[#0a0a0a] reveal z-10 ${
+                                    idx === 0 ? 'border-b border-r border-gridline lg:border-b-0' : idx === 1 ? 'border-b border-gridline lg:border-b-0 lg:border-r' : idx === 2 ? 'border-r border-gridline' : ''
                                 }`}
                                 style={{ transitionDelay: `${idx * 80}ms` }}
                             >
 
                                 {/* Title — stays fixed, color transitions */}
-                                <h3 className="font-mono text-vanta uppercase font-bold mb-4 group-hover:text-white transition-colors duration-500">{item.title}</h3>
+                                <h3 className="font-mono text-[10px] sm:text-xs md:text-sm lg:text-base text-vanta uppercase font-bold mb-2 md:mb-4 group-hover:text-white transition-colors duration-500">{item.title}</h3>
 
                                 {/* Text — read-first on mobile, slides up on hover for desktop */}
                                 <div className="translate-y-0 opacity-100 lg:translate-y-[120%] lg:opacity-0 lg:group-hover:opacity-100 lg:group-hover:translate-y-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
-                                    <p className="text-sm text-white/70 leading-relaxed font-light mt-4 border-t border-white/20 pt-4">{item.text}</p>
+                                    <p className="text-[10px] sm:text-xs lg:text-sm text-vanta/70 group-hover:text-white/70 leading-relaxed font-light mt-2 md:mt-4 border-t border-vanta/20 group-hover:border-white/20 pt-2 md:pt-4 transition-colors duration-500">{item.text}</p>
                                 </div>
                             </div>
                         ))}
