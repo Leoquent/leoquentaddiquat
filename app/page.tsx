@@ -497,7 +497,7 @@ export default function Page() {
                 <section id="status-quo-section" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} className="border-b border-gridline bg-[#080808] text-white overflow-hidden flex justify-center">
                     <div className="w-full max-w-[1440px] relative">
                         <div className="absolute inset-0 flex items-center justify-center lg:justify-end lg:pr-[5%] pointer-events-none z-0 overflow-hidden opacity-20 lg:opacity-30 mix-blend-screen" style={{ perspective: '1200px' }}>
-                        <div id="sq-geo-core" ref={sqGeoCoreRef} className="relative w-[350px] h-[350px] sm:w-[600px] sm:h-[600px] lg:w-[650px] lg:h-[650px] preserve-3d transition-transform duration-1000 ease-out" style={{ transform: "rotateX(0deg) rotateY(-15deg)" }}>
+                        <div id="sq-geo-core" ref={sqGeoCoreRef} className="hidden lg:block relative w-[350px] h-[350px] sm:w-[600px] sm:h-[600px] lg:w-[650px] lg:h-[650px] preserve-3d transition-transform duration-1000 ease-out" style={{ transform: "rotateX(0deg) rotateY(-15deg)" }}>
                             <div className="absolute inset-0 border border-gridline flex items-start p-4" style={{ transform: "translateZ(-100px)" }}>
                             </div>
                             <div id="sq-ring" ref={sqRingRef} className="absolute inset-8 border border-mute/30 rotate-12 transition-all duration-700" style={{ transform: "translateZ(20px)" }}></div>
@@ -732,8 +732,8 @@ export default function Page() {
                                 {/* Title — stays fixed, color transitions */}
                                 <h3 className="font-mono text-vanta uppercase font-bold mb-4 group-hover:text-white transition-colors duration-500">{item.title}</h3>
 
-                                {/* Text — slides up from below on hover (patched with opacity to prevent popping) */}
-                                <div className="translate-y-[120%] opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
+                                {/* Text — read-first on mobile, slides up on hover for desktop */}
+                                <div className="translate-y-0 opacity-100 lg:translate-y-[120%] lg:opacity-0 lg:group-hover:opacity-100 lg:group-hover:translate-y-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]">
                                     <p className="text-sm text-white/70 leading-relaxed font-light mt-4 border-t border-white/20 pt-4">{item.text}</p>
                                 </div>
                             </div>
@@ -764,7 +764,7 @@ export default function Page() {
                             <div className="absolute inset-0 bg-gradient-to-t from-vanta via-vanta/70 to-transparent opacity-90 transition-opacity duration-700 z-10" />
 
                             {/* Content Block */}
-                            <div className="absolute left-6 right-6 md:left-8 md:right-8 bottom-6 md:bottom-10 z-20 flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-[calc(100%-70px)] group-hover:translate-y-0 pointer-events-none group-hover:pointer-events-auto">
+                            <div className="absolute left-6 right-6 md:left-8 md:right-8 bottom-6 md:bottom-10 z-20 flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-0 lg:translate-y-[calc(100%-70px)] lg:group-hover:translate-y-0 pointer-events-auto lg:pointer-events-none lg:group-hover:pointer-events-auto">
                                 
                                 {/* Title (Always visible) */}
                                 <div className="pointer-events-auto shrink-0">
@@ -773,7 +773,7 @@ export default function Page() {
                                 </div>
                                 
                                 {/* Hidden Hover Content */}
-                                <div className="flex flex-col opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] mt-4">
+                                <div className="flex flex-col opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] mt-4">
                                     
                                     <div className="bg-lime/5 border-l-2 border-lime pl-3 py-2 mb-4">
                                         <p className="text-lime font-mono text-[10px] tracking-wider uppercase leading-relaxed">
@@ -804,7 +804,7 @@ export default function Page() {
                             <div className="absolute inset-0 bg-gradient-to-t from-vanta via-vanta/70 to-transparent opacity-90 transition-opacity duration-700 z-10" />
 
                             {/* Content Block */}
-                            <div className="absolute left-6 right-6 md:left-8 md:right-8 bottom-6 md:bottom-10 z-20 flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-[calc(100%-70px)] group-hover:translate-y-0 pointer-events-none group-hover:pointer-events-auto">
+                            <div className="absolute left-6 right-6 md:left-8 md:right-8 bottom-6 md:bottom-10 z-20 flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] translate-y-0 lg:translate-y-[calc(100%-70px)] lg:group-hover:translate-y-0 pointer-events-auto lg:pointer-events-none lg:group-hover:pointer-events-auto">
                                 
                                 {/* Title (Always visible) */}
                                 <div className="pointer-events-auto shrink-0">
@@ -813,7 +813,7 @@ export default function Page() {
                                 </div>
                                 
                                 {/* Hidden Hover Content */}
-                                <div className="flex flex-col opacity-0 group-hover:opacity-100 transition-opacity duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] mt-4">
+                                <div className="flex flex-col opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity duration-700 delay-100 ease-[cubic-bezier(0.16,1,0.3,1)] mt-4">
                                     
                                     <div className="bg-lime/5 border-l-2 border-lime pl-3 py-2 mb-4">
                                         <p className="text-lime font-mono text-[10px] tracking-wider uppercase leading-relaxed">
