@@ -113,6 +113,7 @@ export default function Page() {
     const [scrolledPastHero, setScrolledPastHero] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [openIndustry, setOpenIndustry] = useState<string | null>(null);
+    const [openSolution, setOpenSolution] = useState<number | null>(null);
 
 
 
@@ -620,25 +621,40 @@ export default function Page() {
                     </div>
 
                     <div className="w-full">
-                        <div className="grid grid-cols-1 md:grid-cols-2 reveal border-x border-gridline">
+                        <div className="grid grid-cols-1 reveal border-x border-gridline">
                             {solutionsData.map((sol, idx) => (
                                 <div 
                                     key={sol.id} 
-                                    className="group relative bg-vanta p-6 md:p-8 lg:p-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col overflow-hidden hover:bg-lime h-auto min-h-[280px] md:h-[300px]"
+                                    onClick={() => setOpenSolution(openSolution === sol.id ? null : sol.id)}
+                                    className={`group relative p-6 md:p-8 lg:p-10 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col overflow-hidden cursor-pointer border-b border-gridline last:border-b-0 ${openSolution === sol.id ? 'bg-lime' : 'bg-vanta hover:bg-[#0a0a0a]'}`}
                                 >
                                 
-                                    <h3 className="text-xl md:text-2xl uppercase font-bold mb-4 text-white group-hover:text-vanta transition-colors duration-500 relative z-10">{sol.title}</h3>
-                                    
-                                    <div className="flex flex-wrap gap-2 mb-4 relative z-10">
-                                        {sol.badges.map(b => (
-                                            <span key={b} className="border border-lime/30 group-hover:border-vanta/30 group-hover:bg-vanta group-hover:text-lime px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest text-lime/70 bg-lime/5 transition-all duration-500">{b}</span>
-                                        ))}
+                                    <div className="flex flex-row items-center justify-between gap-4 md:gap-8 relative z-10 w-full">
+                                        <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 w-full">
+                                            <h3 className={`text-xl md:text-2xl uppercase font-bold transition-colors duration-500 md:w-[35%] shrink-0 ${openSolution === sol.id ? 'text-vanta' : 'text-white group-hover:text-lime'}`}>
+                                                {sol.title}
+                                            </h3>
+                                            
+                                            <div className="flex flex-wrap gap-2 md:w-[65%]">
+                                                {sol.badges.map(b => (
+                                                    <span key={b} className={`border px-2.5 py-1 text-[10px] font-mono uppercase tracking-widest transition-all duration-500 ${openSolution === sol.id ? 'border-vanta/30 bg-vanta text-lime' : 'border-lime/30 text-lime/70 bg-lime/5 group-hover:border-lime/50'}`}>
+                                                        {b}
+                                                    </span>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div className="flex justify-end shrink-0 pl-2 md:pl-0 mt-0.5 md:mt-0">
+                                            <span className={`font-mono text-2xl md:text-3xl font-light transition-transform duration-500 leading-none ${openSolution === sol.id ? 'rotate-45 text-vanta' : 'text-lime/50 group-hover:text-lime'}`}>+</span>
+                                        </div>
                                     </div>
 
-                                    <div className="mt-6 md:mt-auto translate-y-0 opacity-100 md:translate-y-[120%] md:opacity-0 md:group-hover:opacity-100 md:group-hover:translate-y-0 transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] relative z-10">
-                                        <p className="text-white/80 group-hover:text-vanta/80 text-sm leading-relaxed font-light pt-4 border-t border-white/20 group-hover:border-vanta/20 transition-colors duration-500">
-                                            {sol.text}
-                                        </p>
+                                    <div className={`grid transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${openSolution === sol.id ? 'grid-rows-[1fr] mt-6 md:mt-8' : 'grid-rows-[0fr] mt-0'}`}>
+                                        <div className="overflow-hidden relative z-10 w-full">
+                                            <p className={`text-sm md:text-base lg:text-lg leading-relaxed font-light pt-4 md:pt-6 border-t transition-all duration-500 max-w-3xl ${openSolution === sol.id ? 'text-vanta/90 border-vanta/20 opacity-100' : 'text-vanta/0 border-transparent opacity-0'}`}>
+                                                {sol.text}
+                                            </p>
+                                        </div>
                                     </div>
                                 </div>
                             ))}
