@@ -575,13 +575,13 @@ export default function Page() {
                             </p>
                             <h2 className="section-headline w-full" style={{ transitionDelay: '100ms' }}>
                                 <span className="text-white">WIR BEENDEN</span><br />
-                                <span id="typewriter" ref={typewriterRef} className="text-lime block"></span>
+                                <span id="typewriter" ref={typewriterRef} className="text-lime block min-h-[2.4em] md:min-h-0"></span>
                             </h2>
                         </div>
 
                         <div className="w-full max-w-4xl reveal" style={{ transitionDelay: '200ms' }}>
                             <h3 className="text-xl md:text-2xl font-bold uppercase tracking-tight text-white/90">
-                                Software sollte Zeit sparen. Nicht kosten.
+                                Software sollte Zeit sparen. Nicht Zeit kosten.
                             </h3>
                             <p className="text-base md:text-lg text-bone/80 leading-relaxed font-light">
                                 Standard-Tools zwingen Ihr Unternehmen in starre Prozesse und rauben Ihnen wertvolle Zeit. Wir
