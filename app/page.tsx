@@ -113,7 +113,7 @@ export default function Page() {
     const [scrolledPastHero, setScrolledPastHero] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [openIndustry, setOpenIndustry] = useState<string | null>(null);
-    const [openSolution, setOpenSolution] = useState<number | null>(null);
+    const [openSolution, setOpenSolution] = useState<string | null>(null);
 
 
 
