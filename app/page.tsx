@@ -862,12 +862,20 @@ export default function Page() {
                         >
                             {/* Background Image */}
                             <div 
-                                className="absolute inset-0 bg-no-repeat bg-[length:115%] bg-[center_10%] opacity-40 grayscale contrast-125 saturate-0 group-hover:saturate-100 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
+                                className={`absolute inset-0 bg-no-repeat bg-[length:115%] bg-[center_10%] transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0 ${
+                                    openMember === 'leonid' 
+                                    ? 'opacity-30 grayscale contrast-125 saturate-0 scale-105' 
+                                    : 'opacity-100 grayscale-0 saturate-100 scale-100 lg:group-hover:opacity-30 lg:group-hover:grayscale lg:group-hover:contrast-125 lg:group-hover:saturate-0 lg:group-hover:scale-105'
+                                }`}
                                 style={{ backgroundImage: `url('${basePath}/FOTOS/leonid_v4.png')` }}
                             />
                             
                             {/* Overlay Gradient */}
-                            <div className={`absolute inset-0 bg-gradient-to-t from-vanta via-vanta/70 to-transparent transition-opacity duration-700 z-10 ${openMember === 'leonid' ? 'opacity-90' : 'opacity-60'} lg:opacity-90`} />
+                            <div className={`absolute inset-0 bg-gradient-to-t from-vanta via-vanta/70 to-transparent transition-opacity duration-700 z-10 ${
+                                openMember === 'leonid' 
+                                ? 'opacity-95' 
+                                : 'opacity-40 lg:opacity-40 lg:group-hover:opacity-95'
+                            }`} />
 
                             {/* Content Block */}
                             <div className={`absolute left-6 right-6 md:left-8 md:right-8 bottom-6 md:bottom-10 z-20 flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${openMember === 'leonid' ? 'translate-y-0' : 'translate-y-[calc(100%-70px)]'} lg:translate-y-[calc(100%-70px)] lg:group-hover:translate-y-0 pointer-events-auto lg:pointer-events-none lg:group-hover:pointer-events-auto`}>
@@ -910,12 +918,20 @@ export default function Page() {
                         >
                             {/* Background Image */}
                             <div 
-                                className="absolute inset-0 bg-cover bg-top bg-no-repeat opacity-40 grayscale contrast-125 saturate-0 group-hover:saturate-100 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0"
+                                className={`absolute inset-0 bg-cover bg-top bg-no-repeat transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] z-0 ${
+                                    openMember === 'admir' 
+                                    ? 'opacity-30 grayscale contrast-125 saturate-0 scale-105' 
+                                    : 'opacity-100 grayscale-0 saturate-100 scale-100 lg:group-hover:opacity-30 lg:group-hover:grayscale lg:group-hover:contrast-125 lg:group-hover:saturate-0 lg:group-hover:scale-105'
+                                }`}
                                 style={{ backgroundImage: `url('${basePath}/FOTOS/admir_v2.png')` }}
                             />
                             
                             {/* Overlay Gradient */}
-                            <div className={`absolute inset-0 bg-gradient-to-t from-vanta via-vanta/70 to-transparent transition-opacity duration-700 z-10 ${openMember === 'admir' ? 'opacity-90' : 'opacity-60'} lg:opacity-90`} />
+                            <div className={`absolute inset-0 bg-gradient-to-t from-vanta via-vanta/70 to-transparent transition-opacity duration-700 z-10 ${
+                                openMember === 'admir' 
+                                ? 'opacity-95' 
+                                : 'opacity-40 lg:opacity-40 lg:group-hover:opacity-95'
+                            }`} />
 
                             {/* Content Block */}
                             <div className={`absolute left-6 right-6 md:left-8 md:right-8 bottom-6 md:bottom-10 z-20 flex flex-col transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${openMember === 'admir' ? 'translate-y-0' : 'translate-y-[calc(100%-70px)]'} lg:translate-y-[calc(100%-70px)] lg:group-hover:translate-y-0 pointer-events-auto lg:pointer-events-none lg:group-hover:pointer-events-auto`}>
