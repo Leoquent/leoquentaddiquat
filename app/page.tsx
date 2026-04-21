@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, FormEvent } from "react";
-import Head from "next/head";
+import { useRouter } from "next/navigation";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -109,12 +109,14 @@ const industriesData = [
 
 export default function Page() {
 
+    const router = useRouter();
     const [navScrolled, setNavScrolled] = useState(false);
     const [scrolledPastHero, setScrolledPastHero] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const [openIndustry, setOpenIndustry] = useState<string | null>(null);
     const [openSolution, setOpenSolution] = useState<string | null>(null);
     const [openMember, setOpenMember] = useState<string | null>(null);
+    const [ctaEmail, setCtaEmail] = useState("");
 
     const typewriterRef = useRef<HTMLSpanElement>(null);
     const sqGeoCoreRef = useRef<HTMLDivElement>(null);
@@ -404,7 +406,7 @@ export default function Page() {
 
     const handleFormSubmit = (e: FormEvent) => {
         e.preventDefault();
-        alert("Terminal Command Sent: Analyse Requested");
+        router.push(`/analyse?email=${encodeURIComponent(ctaEmail)}`);
     };
 
     return (
@@ -436,7 +438,7 @@ export default function Page() {
 
                     <div className="flex items-center gap-4 lg:gap-6 shrink-0">
                         <div className="hidden lg:block">
-                            <a href="#cta" className={`font-mono text-[10px] sm:text-sm border px-3 py-1.5 sm:px-4 sm:py-2 uppercase transition-colors duration-500 ease-in-out ${scrolledPastHero ? 'bg-lime text-vanta border-lime btn-glitch' : 'border-gridline hover:border-lime hover:text-lime bg-vanta text-white'}`}>
+                            <a href="/analyse" className={`font-mono text-[10px] sm:text-sm border px-3 py-1.5 sm:px-4 sm:py-2 uppercase transition-colors duration-500 ease-in-out ${scrolledPastHero ? 'bg-lime text-vanta border-lime btn-glitch' : 'border-gridline hover:border-lime hover:text-lime bg-vanta text-white'}`}>
                                 <span className="sm:hidden">ANALYSIEREN</span>
                                 <span className="hidden sm:inline">Potenzial analysieren</span>
                             </a>
@@ -475,8 +477,8 @@ export default function Page() {
                                 {link.name}
                             </a>
                         ))}
-                        <a 
-                            href="#cta" 
+                        <a
+                            href="/analyse"
                             onClick={closeMobileMenu}
                             className="mobile-menu-link mt-4 inline-block bg-lime text-vanta font-mono font-bold uppercase py-4 px-8 border border-lime mobile-menu-link"
                             style={{ transitionDelay: '500ms' }}
@@ -511,7 +513,7 @@ export default function Page() {
                     </p>
 
                     <div className="flex items-center gap-6 hero-element">
-                        <a href="#cta" className="btn-glitch inline-block bg-lime text-vanta font-mono font-bold uppercase py-4 px-8 border border-lime transition-all duration-75">
+                        <a href="/analyse" className="btn-glitch inline-block bg-lime text-vanta font-mono font-bold uppercase py-4 px-8 border border-lime transition-all duration-75">
                             Potenzial Analysieren
                         </a>
                         <span className="font-mono text-xs text-mute uppercase hidden sm:block">Status: <br /><span className="text-lime animate-pulse">unverbindlich</span></span>
@@ -980,7 +982,7 @@ export default function Page() {
                         <p className="text-mute mb-12">Der erste Schritt ist menschlich: Eine unverbindliche Potenzialanalyse. Wir zeigen Ihnen, wo Sie Zeit bluten. Der zweite Schritt: Automatisierung.</p>
 
                         <form className="flex flex-col sm:flex-row w-full group relative" onSubmit={handleFormSubmit}>
-                            <input type="email" placeholder="ihre@email.com" required className="w-full bg-transparent border-b-2 border-gridline py-4 px-2 font-mono text-white focus:outline-none focus:border-lime transition-colors peer rounded-none" />
+                            <input type="email" placeholder="ihre@email.com" required value={ctaEmail} onChange={e => setCtaEmail(e.target.value)} className="w-full bg-transparent border-b-2 border-gridline py-4 px-2 font-mono text-white focus:outline-none focus:border-lime transition-colors peer rounded-none" />
                             <button type="submit" className="mt-4 sm:mt-0 sm:ml-4 bg-lime text-vanta font-mono font-bold uppercase px-8 py-4 whitespace-nowrap hover:bg-white hover:text-vanta transition-colors duration-0">
                                 Jetzt befreien
                             </button>
