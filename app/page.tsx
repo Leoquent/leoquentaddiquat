@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, FormEvent } from "react";
-import { useRouter } from "next/navigation";
 import gsap from "gsap";
+import AnalyseFunnel from "@/components/AnalyseFunnel";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -109,7 +109,7 @@ const industriesData = [
 
 export default function Page() {
 
-    const router = useRouter();
+    const [isFunnelOpen, setIsFunnelOpen] = useState(false);
     const [navScrolled, setNavScrolled] = useState(false);
     const [scrolledPastHero, setScrolledPastHero] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -406,11 +406,12 @@ export default function Page() {
 
     const handleFormSubmit = (e: FormEvent) => {
         e.preventDefault();
-        router.push(`/analyse?email=${encodeURIComponent(ctaEmail)}`);
+        setIsFunnelOpen(true);
     };
 
     return (
         <div className="bg-vanta text-bone font-sans antialiased relative w-full" style={{ overflowX: 'clip' }}>
+            <AnalyseFunnel isOpen={isFunnelOpen} onClose={() => setIsFunnelOpen(false)} initialEmail={ctaEmail} />
             <div className="noise-bg"></div>
 
             <nav id="main-nav" className={`fixed top-0 w-full z-50 border-b transition-all duration-300 flex justify-center ${navScrolled ? 'shadow-2xl' : ''} ${scrolledPastHero ? 'bg-vanta text-white border-gridline' : 'bg-white text-vanta border-black/5'} ${isMobileMenuOpen ? 'bg-vanta text-white border-gridline' : ''}`}>
@@ -438,10 +439,10 @@ export default function Page() {
 
                     <div className="flex items-center gap-4 lg:gap-6 shrink-0">
                         <div className="hidden lg:block">
-                            <a href="/analyse" className={`font-mono text-[10px] sm:text-sm border px-3 py-1.5 sm:px-4 sm:py-2 uppercase transition-colors duration-500 ease-in-out ${scrolledPastHero ? 'bg-lime text-vanta border-lime btn-glitch' : 'border-gridline hover:border-lime hover:text-lime bg-vanta text-white'}`}>
+                            <button onClick={() => setIsFunnelOpen(true)} className={`font-mono text-[10px] sm:text-sm border px-3 py-1.5 sm:px-4 sm:py-2 uppercase transition-colors duration-500 ease-in-out ${scrolledPastHero ? 'bg-lime text-vanta border-lime btn-glitch' : 'border-gridline hover:border-lime hover:text-lime bg-vanta text-white'}`}>
                                 <span className="sm:hidden">ANALYSIEREN</span>
                                 <span className="hidden sm:inline">Potenzial analysieren</span>
-                            </a>
+                            </button>
                         </div>
 
                         {/* Hamburger Button */}
@@ -477,14 +478,13 @@ export default function Page() {
                                 {link.name}
                             </a>
                         ))}
-                        <a
-                            href="/analyse"
-                            onClick={closeMobileMenu}
-                            className="mobile-menu-link mt-4 inline-block bg-lime text-vanta font-mono font-bold uppercase py-4 px-8 border border-lime mobile-menu-link"
+                        <button
+                            onClick={() => { closeMobileMenu(); setIsFunnelOpen(true); }}
+                            className="mobile-menu-link mt-4 inline-block bg-lime text-vanta font-mono font-bold uppercase py-4 px-8 border border-lime"
                             style={{ transitionDelay: '500ms' }}
                         >
                             Potenzial Analysieren
-                        </a>
+                        </button>
                     </div>
                 </div>
             </nav>
@@ -513,9 +513,9 @@ export default function Page() {
                     </p>
 
                     <div className="flex items-center gap-6 hero-element">
-                        <a href="/analyse" className="btn-glitch inline-block bg-lime text-vanta font-mono font-bold uppercase py-4 px-8 border border-lime transition-all duration-75">
+                        <button onClick={() => setIsFunnelOpen(true)} className="btn-glitch inline-block bg-lime text-vanta font-mono font-bold uppercase py-4 px-8 border border-lime transition-all duration-75">
                             Potenzial Analysieren
-                        </a>
+                        </button>
                         <span className="font-mono text-xs text-mute uppercase hidden sm:block">Status: <br /><span className="text-lime animate-pulse">unverbindlich</span></span>
                     </div>
                 </div>
